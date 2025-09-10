@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "/",
+        destination: "https://ArtDesignGevorgyans.mooo.com",
       },
     ];
   },
