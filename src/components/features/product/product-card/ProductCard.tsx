@@ -58,7 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={`ArtDesignGevorgyans.mooo.com${product.image}`}
+            src={`https://ArtDesignGevorgyans.mooo.com${product.image}`}
             alt={product.type}
             className="w-full h-48 object-cover"
           />
