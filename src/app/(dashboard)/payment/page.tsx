@@ -68,7 +68,7 @@ function PaymentContent() {
               <div className={styles.qrContainer}>
                 {/* eslint-disable-next-line @next/next/no-img-element*/}
                 <img
-                  src={`ArtDesignGevorgyans.mooo.com/qr/qr.webp`}
+                  src={`https://ArtDesignGevorgyans.mooo.com/qr/qr.webp`}
                   alt="QR-код для оплаты"
                   className={styles.qrCode}
                 />
