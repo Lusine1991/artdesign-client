@@ -57,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <img
             width={400}
             height={600}
-            src={`http://localhost:3001${product.image}`}
+            src={`http://ArtDesignGevorgyans.mooo.com${product.image}`}
             alt={product.type}
             className="w-full h-full object-cover"
           />

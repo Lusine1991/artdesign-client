@@ -77,7 +77,7 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
           <img
             width={400}
             height={400}
-            src={`http://localhost:3001${order.Good.image}`}
+            src={`http://ArtDesignGevorgyans.mooo.com${order.Good.image}`}
             alt="Изображение товара"
           />
           <div className="status">Пользователь: {order.User.username}</div>

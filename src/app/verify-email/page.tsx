@@ -20,7 +20,7 @@ export default function VerifyEmail() {
 
   const verifyEmail = async (verificationToken: string) => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/auth/verify-email?token=${verificationToken}`);
+      const response = await axios.get(`http://ArtDesignGevorgyans.mooo.com/api/auth/verify-email?token=${verificationToken}`);
       setStatus('success');
       setMessage(response.data.message);
       

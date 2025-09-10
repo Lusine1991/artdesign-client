@@ -123,8 +123,8 @@ export default function AddOrderPage() {
           imageFile: null,
         });
 
-        const productImageUrl = `http://localhost:3001${findProduct.image}`;
-        const productPrintUrl = `http://localhost:3001${findProduct.print}`;
+        const productImageUrl = `http://ArtDesignGevorgyans.mooo.com${findProduct.image}`;
+        const productPrintUrl = `http://ArtDesignGevorgyans.mooo.com${findProduct.print}`;
 
         setCustomPrint(productPrintUrl);
         setPreviewImage(productImageUrl);
@@ -374,7 +374,7 @@ export default function AddOrderPage() {
   // Обновляем базовое изображение товара при изменении типа или цвета
   useEffect(() => {
     if (constructorData.type && constructorData.color) {
-      const imageUrl = `http://localhost:3001/items/${constructorData.type}_${constructorData.color}.webp`;
+      const imageUrl = `http://ArtDesignGevorgyans.mooo.com/items/${constructorData.type}_${constructorData.color}.webp`;
 
       // Сбрасываем флаг загрузки
       setBaseProductImageLoaded(false);
@@ -760,7 +760,7 @@ export default function AddOrderPage() {
                         <div className="object-cover w-[256px] h-[256px] overflow-hidden">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={`http://localhost:3001${constructorData.customImage}`}
+                            src={`http://ArtDesignGevorgyans.mooo.com${constructorData.customImage}`}
                             alt={constructorData.type}
                             className="w-full h-48 object-cover"
                           />

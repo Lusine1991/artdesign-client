@@ -14,7 +14,7 @@ const QrSection: React.FC = () => {
       <div className="flex justify-center">
         <div className="bg-card/50 p-8 rounded-2xl border border-border/50 shadow-luxury">
           <img
-            src="http://localhost:3001/qr/qr.webp"
+            src="http://ArtDesignGevorgyans.mooo.com/qr/qr.webp"
             alt="QR-код для оплаты"
             width={400}
             height={400}

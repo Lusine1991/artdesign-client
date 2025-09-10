@@ -29,7 +29,7 @@ export default function OrderCard({ order }: Props): React.JSX.Element {
         <img
           width={400}
           height={400}
-          src={`http://localhost:3001${order.Good.image}`}
+          src={`http://ArtDesignGevorgyans.mooo.com${order.Good.image}`}
           alt="Изображение товара"
         />
         <div className="status">Статус: {order.status}</div>
