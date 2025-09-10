@@ -44,14 +44,17 @@ export function ChangePasswordForm() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow">
-      <h3 className="text-lg font-semibold mb-4">🔒 Изменение пароля</h3>
+    <div className="mt-6">
+      {/* <div className="flex items-center mb-4">
+        <span className="text-lg mr-2">🔒</span>
+        <h3 className="text-lg font-semibold">Изменение пароля</h3>
+      </div> */}
 
       {!isEditing ? (
         <div className="space-y-4">
-          <p className="text-sm text-gray-600">
+          {/* <p className="text-sm text-gray-600">
             Нажмите кнопку ниже, чтобы изменить пароль
-          </p>
+          </p> */}
           <Button
             onClick={() => setIsEditing(true)}
             style={{

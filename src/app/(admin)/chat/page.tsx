@@ -1,24 +1,23 @@
-"use client";
+'use client';
+
+import ChatList from '@/components/features/chat/ChatList/ChatList';
+import MessageList from '@/components/features/message/MessageList/MessageList';
+import UserList from '@/components/features/user/UserList/UserList';
+import { allUsers } from '@/entities/user/model/thunks';
+import { useAppDispatch } from '@/store/hooks';
+import { useEffect } from 'react';
 
 
-import ChatList from '@/components/features/chat/ChatList/ChatList'
-import MessageList from '@/components/features/message/MessageList/MessageList'
-import UserList from '@/components/features/user/UserList/UserList'
-import { allUsers } from '@/entities/user/model/thunks'
-import { useAppDispatch } from '@/store/hooks'
-import { useEffect } from 'react'
-// import styles from './ChatPage.module.css' // Добавляем импорт
-
-import { ProtectedRoute } from "@/components/layout/protected-route";
-import { useAppSelector } from "@/store/hooks";
-import React from "react";
+import { ProtectedRoute } from '@/components/layout/protected-route';
+import { useAppSelector } from '@/store/hooks';
+import React from 'react';
 
 export default function ChatPage(): React.JSX.Element {
   const { status } = useAppSelector((state) => state.user);
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    void dispatch(allUsers())
+    void dispatch(allUsers());
   }, [dispatch]);
 
   if (status === 'loading' || status === 'logged') {

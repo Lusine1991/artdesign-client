@@ -13,7 +13,7 @@ export default function RegisterPage() {
           <div className="max-w-md w-full space-y-8">
             <div className="text-center">
               <h2 className="page-title text-3xl">
-                Gevorgyan&apos;s Art & Design Studio
+                Gevoryan&apos;s Art & Design Studio
               </h2>
               <p className="page-subtitle">Создайте новый аккаунт</p>
             </div>

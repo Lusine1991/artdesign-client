@@ -2,15 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/store/hooks';
-import { Button } from '@/components/ui/button';
 import { LogoutButton } from '@/components/features/auth/logout-button';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { user } = useAppSelector((state) => state.user);
-  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,15 +21,18 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ${
+      className={`sticky mb-[10px] px-[30px] top-0 z-50 w-full text-[20px] backdrop-blur supports-[backdrop-filter]:bg-background/60 ${
         scrolled ? 'shadow-luxury' : ''
       }`}
     >
       <div className="container flex h-[60px] items-center">
         <div className="mr-4 flex">
-          <Link href="/main" className="mr-6 flex items-center space-x-3">
+          <Link
+            href="/main"
+            className="mr-6 flex items-center space-x-3 hover:underline decoration-white"
+          >
             <span
-              className="font-bold text-xl"
+              className="font-bold text-xl underline"
               style={{ color: 'hsl(43 96% 90%)' }}
             >
               Gevorgyan&apos;s <br /> Art & Design Studio
@@ -44,82 +44,75 @@ export function Navbar() {
           {user ? (
             <>
               <div></div>
-              <div className="flex items-center space-x-3">
-                <Button
-                  variant="outline"
-                  onClick={() => router.push('/main')}
+              <div className="flex gap-[30px] items-center">
+                <Link
+                  href="/main"
+                  className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
                   style={{
                     backgroundColor: 'black',
                     color: 'hsl(43 96% 90%)',
-                    border: '1px solid hsl(43 96% 90%)',
                   }}
                 >
                   Главная
-                </Button> 
-                <Button
-                  variant="outline"
-                  onClick={() => router.push('/about')}
+                </Link>
+                <Link
+                  href="/about"
+                  className="px-4 py-2 text-[20px]  rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
                   style={{
                     backgroundColor: 'black',
                     color: 'hsl(43 96% 90%)',
-                    border: '1px solid hsl(43 96% 90%)',
                   }}
                 >
                   О нас
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => router.push('/add-order')}
+                </Link>
+                <Link
+                  href="/add-order"
+                  className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
                   style={{
                     backgroundColor: 'black',
                     color: 'hsl(43 96% 90%)',
-                    border: '1px solid hsl(43 96% 90%)',
                   }}
                 >
                   Оформить заказ
-                </Button>
+                </Link>
 
-                <Button
-                  variant="outline"
-                  onClick={() => router.push('/user-profile')}
+                <Link
+                  href="/user-profile"
+                  className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
                   style={{
                     backgroundColor: 'black',
                     color: 'hsl(43 96% 90%)',
-                    border: '1px solid hsl(43 96% 90%)',
                   }}
                 >
-              
                   Личный кабинет
-                </Button>
+                </Link>
               </div>
-                <LogoutButton />
+              <LogoutButton />
             </>
           ) : (
             <>
               <div></div>
               <div className="flex items-center space-x-3">
-                <Button
-                  variant="outline"
-                  onClick={() => router.push('/login')}
+                <Link
+                  href="/login"
+                  className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
                   style={{
                     backgroundColor: 'black',
                     color: 'hsl(43 96% 90%)',
-                    border: '1px solid hsl(43 96% 90%)',
                   }}
                 >
                   Вход
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => router.push('/register')}
+                </Link>
+                <Link
+                  href="/register"
+                  className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
                   style={{
                     backgroundColor: 'black',
                     color: 'hsl(43 96% 90%)',
-                    border: '1px solid hsl(43 96% 90%)',
                   }}
                 >
                   Регистрация
-                </Button>
+                </Link>
               </div>
             </>
           )}

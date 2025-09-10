@@ -2,8 +2,11 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getAbout } from '@/entities/about/model/thunks';
-import styles from './page.module.css';
 import { refresh } from '@/entities/user/model/thunks';
+import AboutHeroBoard from '@/components/features/about/hero/AboutHeroBoard';
+import StatisticsSection from '@/components/features/about/statistics/StatisticsSection';
+import MissionSection from '@/components/features/about/mission/MissionSection';
+import FeaturesSection from '@/components/features/about/features/FeaturesSection';
 
 export default function AboutPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -53,93 +56,35 @@ export default function AboutPage(): React.JSX.Element {
   }
 
   return (
-    <div className={styles.aboutPage}>
+    <div>
       {/* Hero Section */}
-      <section className={styles.heroSection}>
-        <div className={styles.heroContent}>
-          <div className={styles.heroText}>
-            <h1 className={styles.pageTitle}>{about.hero.companyName}</h1>
-            <h2 className={styles.heroTitle}>{about.hero.title}</h2>
-            <p className={styles.heroDescription}>{about.hero.description}</p>
-          </div>
-          <div className={styles.contactInfo}>
-            <h3 className={styles.contactTitle}>Контакты</h3>
-            <div className={styles.contactItem}>
-              <span className={styles.contactIcon}>📍</span>
-              <div className={styles.contactText}>
-                <span className={styles.contactLabel}>Адрес:</span>
-                <span>{about.hero.address}</span>
-              </div>
-            </div>
-            <div className={styles.contactItem}>
-              <span className={styles.contactIcon}>📞</span>
-              <div className={styles.contactText}>
-                <span className={styles.contactLabel}>Телефон:</span>
-                <span>{about.hero.phone}</span>
-              </div>
-            </div>
-            <div className={styles.contactItem}>
-              <span className={styles.contactIcon}>✉️</span>
-              <div className={styles.contactText}>
-                <span className={styles.contactLabel}>Email:</span>
-                <span>{about.hero.email}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AboutHeroBoard
+        companyName={about.hero.companyName}
+        title={about.hero.title}
+        description={about.hero.description}
+      />
 
       {/* Statistics Section */}
-      <section className={styles.statsSection}>
-        <div className={styles.statsContainer}>
-          <h2 className={styles.statsTitle}>Наша статистика</h2>
-          <div className={styles.statsGrid}>
-            {about.statistics.map((stat) => (
-              <div key={stat.id} className={styles.statCard}>
-                <div className={styles.statValue}>{stat.value}</div>
-                <div className={styles.statLabel}>{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* <div className="page-content py-12"> */}
+        <StatisticsSection statistics={about.statistics} />
+      {/* </div> */}
 
       {/* Mission Section */}
-      <section className={styles.missionSection}>
-        <div className={styles.missionContainer}>
-          <div className={styles.missionIcon}>��</div>
-          <h2 className={styles.missionTitle}>{about.mission.title}</h2>
-          <p className={styles.missionDescription}>
-            {about.mission.description}
-          </p>
-        </div>
-      </section>
+      {/* <div className="page-content py-12"> */}
+        <MissionSection
+          title={about.mission.title}
+          description={about.mission.description}
+        />
+      {/* </div> */}
 
       {/* Features Section */}
-      <section className={styles.featuresSection}>
-        <div className={styles.featuresContainer}>
-          <h2 className={styles.featuresTitle}>{about.features.title}</h2>
-          <p className={styles.featuresSubtitle}>{about.features.subtitle}</p>
-          <div className={styles.featuresGrid}>
-            {about.features.items.map((feature) => (
-              <div key={feature.id} className={styles.featureCard}>
-                <div className={styles.featureIcon}>
-                  {feature.icon === 'quality' && '⭐'}
-                  {feature.icon === 'speed' && '⚡'}
-                  {feature.icon === 'team' && '👥'}
-                  {feature.icon === 'guarantee' && '🛡️'}
-                  {feature.icon === 'personal' && '🎨'}
-                  {feature.icon === 'tech' && '💻'}
-                </div>
-                <h3 className={styles.featureTitle}>{feature.title}</h3>
-                <p className={styles.featureDescription}>
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* <div className="page-content py-12"> */}
+        <FeaturesSection
+          title={about.features.title}
+          subtitle={about.features.subtitle}
+          items={about.features.items}
+        />
+      {/* </div> */}
     </div>
   );
 }

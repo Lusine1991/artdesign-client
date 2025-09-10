@@ -18,7 +18,7 @@ export default function MainPage(): React.JSX.Element {
 
   const [selectedType, setSelectedType] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 10; // Максимум 6 карточек на странице (2 ряда по 3)
+  const itemsPerPage = 9; // Максимум 6 карточек на странице (2 ряда по 3)
 
   useEffect(() => {
     dispatch(getProducts());
@@ -46,55 +46,44 @@ export default function MainPage(): React.JSX.Element {
   }, [selectedType]);
 
   return (
-    <div className="page-container">
-      <div>
-        <HeroBoard />
+    <div>
+      <HeroBoard />
 
-        <div className="page-content">
-          <div className="page-header">
-            <h2 className="page-title">Наши услуги</h2>
-            <p className="page-subtitle">
-              Широкий спектр услуг печати для любых потребностей
-            </p>
-          </div>
+      <div className="page-header">
+        <h2 className="text-luxury text-3xl pb-[20px] text-white mb-4">Наши услуги</h2>
+        <p className="page-subtitle">
+          Широкий спектр услуг печати для любых потребностей
+        </p>
+      </div>
 
-          <div className="section-card">
-            <ProductCarousel products={filteredProducts} />
-          </div>
+      <div className="section-card mb-[200px]">
+        <ProductCarousel products={filteredProducts} />
+      </div>
 
-          <div className="section-card mt-8">
-            <AdvantagesSection />
-          </div>
-        </div>
+      <div className="section-card mt-8">
+        <AdvantagesSection />
+      </div>
 
-        {/* Секция с размапом всех товаров */}
-        <div className="page-content py-12">
-          <div className="page-header">
-            <h2 className="page-title">Все товары</h2>
-            <p className="page-subtitle">Выберите товар из нашего каталога</p>
-          </div>
+      <div className="page-header">
+        <h2 className="text-luxury text-3xl pb-[20px] text-white mb-4">Все товары</h2>
+        <p className="page-subtitle">Выберите товар из нашего каталога</p>
+      </div>
 
-          <div className="section-card">
-            {/* Фильтр товаров */}
-            <ProductFilter
-              products={filteredProducts}
-              selectedType={selectedType}
-              onTypeChange={setSelectedType}
-            />
+      <div className="section-card">
+        <ProductFilter
+          products={filteredProducts}
+          selectedType={selectedType}
+          onTypeChange={setSelectedType}
+        />
+        <ProductGrid products={paginatedProducts} />
 
-            {/* Сетка товаров - максимум 6 карточек (2 ряда по 3) */}
-            <ProductGrid products={paginatedProducts} />
-
-            {/* Пагинация */}
-            {totalPages > 1 && (
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
-            )}
-          </div>
-        </div>
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </div>
     </div>
   );

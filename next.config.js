@@ -4,10 +4,11 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://ArtDesignGevorgyans.mooo.com/api/:path*",
+        destination: "http://localhost:3001/api/:path*",
       },
     ];
   },
+  distDir: 'dist',
   
 };
 

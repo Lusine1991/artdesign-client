@@ -65,54 +65,43 @@ export function ProfileForm() {
   if (!user) return null;
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow">
-      <div className="flex items-center space-x-4 mb-6">
-        {user.photo && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={`https://ArtDesignGevorgyans.mooo.com${user.photo}`}
-            alt="Profile"
-            className="w-16 h-16 rounded-full object-cover"
-          />
-        )}
-        <div>
-          <h2 className="text-xl font-semibold">{user.name}</h2>
-          <p className="text-gray-600">@{user.username}</p>
+    <div className="flex flex-col justify-center bg-white p-6 rounded-lg shadow">
+      <div className="flex items-center justify-center space-x-6 mb-6">
+        <div className="flex-shrink-0">
+          {user.photo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              width={96}
+              height={96}
+              src={`http://localhost:3001${user.photo}`}
+              alt="Profile"
+              className="rounded-full object-cover"
+            />
+          ) : (
+            <div className="w-24 h-24 rounded-full bg-gray-300 flex items-center justify-center">
+              <span className="text-2xl text-gray-600">👤</span>
+            </div>
+          )}
+        </div>
+        <div className="flex-grow">
+          <h2 className="text-2xl font-bold text-gray-900 mb-1">{user.name}</h2>
         </div>
       </div>
 
       {!isEditing ? (
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Логин
-            </label>
-            <p className="mt-1 text-sm text-gray-900">{user.username}</p>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Имя
-            </label>
-            <p className="mt-1 text-sm text-gray-900">{user.name}</p>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <p className="mt-1 text-sm text-gray-900">{user.email}</p>
-          </div>
-
-          <div className="flex space-x-2">
-            <Button
-              onClick={() => setIsEditing(true)}
-              style={{
-                backgroundColor: 'black',
-                color: 'hsl(43 96% 90%)',
-                border: '1px solid hsl(43 96% 90%)',
-              }}
-            >
-              Редактировать профиль
-            </Button>
+        <div className="flex space-x-2">
+          <Button
+            onClick={() => setIsEditing(true)}
+            style={{
+              backgroundColor: 'black',
+              color: 'hsl(43 96% 90%)',
+              border: '1px solid hsl(43 96% 90%)',
+            }}
+          >
+            Редактировать профиль
+          </Button>
+          <div className="mt-8">
+            <ChangePasswordForm />
           </div>
         </div>
       ) : (
@@ -156,7 +145,7 @@ export function ProfileForm() {
 
           {error && <div className="text-sm text-red-500">❌ {error}</div>}
 
-          <div className="flex space-x-2">
+          <div className="flex  space-x-2">
             <Button
               type="submit"
               disabled={isLoading}
@@ -185,9 +174,6 @@ export function ProfileForm() {
       )}
 
       {/* Форма изменения пароля */}
-      <div className="mt-8">
-        <ChangePasswordForm />
-      </div>
     </div>
   );
 }

@@ -35,28 +35,17 @@ export default function AccountPage(): React.JSX.Element {
 
   return (
     <ProtectedRoute>
-      <div className="page-container">
-        <div className="page-content">
-          <div className="page-header">
-            <h1 className="page-title">Профиль</h1>
-            <p className="page-subtitle">
-              Управление вашим аккаунтом и заказами
-            </p>
+      <div className="page-content">
+        <div className="section-card">
+          <ProfileForm />
+        </div>
+
+        <div className="flex flex-row space-y-8 mt-8">
+          <div className="section-card w-3/5">
+            <h2 className="section-title">Ваши заказы</h2>
+            <OrderList />
           </div>
-
-          <div className="grid-2">
-            <div className="section-card">
-              <h2 className="section-title">Личная информация</h2>
-              <ProfileForm />
-            </div>
-
-            <div className="section-card">
-              <h2 className="section-title">Ваши заказы</h2>
-              <OrderList />
-            </div>
-          </div>
-
-          <div className="section-card mt-8">
+          <div className="section-card w-2/5">
             <h2 className="section-title">Сообщения</h2>
             <MessageList />
           </div>

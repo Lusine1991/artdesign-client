@@ -10,7 +10,7 @@ import { z } from 'zod';
 const RegisterFormSchema = RegisterSchema.extend({
   testPass: z.string(),
 });
-import { register } from '@/entities/user/model/thunks';
+import { logout, register } from '@/entities/user/model/thunks';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -49,6 +49,7 @@ export function RegisterForm() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { testPass, ...registerData } = data;
       await dispatch(register(registerData)).unwrap();
+      await dispatch(logout()).unwrap();
       router.push('/main');
     } catch (err) {
       if (err instanceof ZodError) {

@@ -26,8 +26,8 @@ const AdvantagesSection: React.FC = () => {
     },
   ];
   return (
-    <div className="py-12 bg-gray-900">
-      <div className="text-center mb-8">
+    <div className="bg-gray-900 py-12">
+      <div className="text-center mb-8 px-4">
         <h2 className="text-luxury text-3xl font-bold text-white mb-4">
           Почему выбирают нас?
         </h2>
@@ -37,7 +37,7 @@ const AdvantagesSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
+      <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
         {advantages.map((advantage, index) => (
           <AdvantageCard
             key={index}

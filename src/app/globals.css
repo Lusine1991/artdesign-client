@@ -158,6 +158,10 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 @layer base {
   * {
     border-color: hsl(var(--border));
@@ -389,6 +393,7 @@
 
 .modal-content {
   background: white;
+  color: black;
   border-radius: 0.5rem;
   padding: 1.5rem;
   max-width: 32rem;

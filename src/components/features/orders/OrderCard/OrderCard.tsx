@@ -18,7 +18,6 @@ export default function OrderCard({ order }: Props): React.JSX.Element {
   };
 
   const payOrderHandler = () => {
-    
     router.push(
       `/payment?orderId=${order.id}&amount=${order.Good.price}&type=${order.Good.type}&quantity=${order.quantity}`
     );
@@ -28,12 +27,15 @@ export default function OrderCard({ order }: Props): React.JSX.Element {
     <div className="container-card">
       <div className="box-orders">
         <img
-          src={`https://ArtDesignGevorgyans.mooo.com${order.Good.image}`}
+          width={400}
+          height={400}
+          src={`http://localhost:3001${order.Good.image}`}
           alt="Изображение товара"
         />
         <div className="status">Статус: {order.status}</div>
         <div className="status">Адрес: {order.adress}</div>
         <div className="status">Количество: {order.quantity}</div>
+        <div className="status">Размер: {order.Good.size}</div>
         <div className="status">
           Стоимость: {order.Good.price * order.quantity}
         </div>

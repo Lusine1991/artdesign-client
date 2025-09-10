@@ -1,11 +1,11 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { ProductT } from "../../../../entities/product/model/types";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import Portal from "@/components/ui/Portal";
-import { updateProduct } from "@/entities/product/model/thunks";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { ProductT } from '../../../../entities/product/model/types';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import Portal from '@/components/ui/Portal';
+import { updateProduct } from '@/entities/product/model/thunks';
 
 type ProductCardProps = {
   product: ProductT;
@@ -29,19 +29,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   // Блокировка скролла при открытии модалки
   useEffect(() => {
     if (isOpen) {
-      document.body.style.width = "100%";
+      document.body.style.width = '100%';
     } else {
-      document.body.style.position = "static";
+      document.body.style.position = 'static';
     }
 
     return () => {
-      document.body.style.position = "static";
+      document.body.style.position = 'static';
     };
   }, [isOpen]);
 
   const router = useRouter();
   const handleOrder = () => {
-    router.push(`/add-order?productId=${product.id}`);
+    router.push(`/add-order?productId=${product.id}&redact=true`);
   };
 
   const changeHandler = () => {
@@ -51,64 +51,51 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <>
-      <div className="bg-white  border border-gray-200  rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
-        <div
-          className="object-cover w-full h-[256px] overflow-hidden
-"
-        >
+      <div className="flex flex-col justify-between bg-white h-[880px] border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden max-w-xs md:max-w-md">
+        <div className="w-full aspect-[2/3] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={`https://ArtDesignGevorgyans.mooo.com${product.image}`}
+            width={400}
+            height={600}
+            src={`http://localhost:3001${product.image}`}
             alt={product.type}
-            className="w-full h-48 object-cover"
+            className="w-full h-full object-cover"
           />
         </div>
-        <div className="p-4">
+        <div className="px-[20px] py-[10px]">
           <h3 className="text-lg font-semibold text-luxury text-gray-900 mb-[5px]">
             {product.type}
           </h3>
 
           <p className="text-gray-600 text-[18px] mb-[5px]">
-            {product.description}
+            {product.description.slice(0, 100)}...
           </p>
 
           <div className="space-y-1 mb-[10px] text-sm">
             <div>
-              <span className="text-gray-500">Цвет:</span> {"  "}
+              <span className="text-gray-500">Цвет:</span>{' '}
               <span className="text-gray-900 ml-1">{product.color}</span>
-            </div>
-            <div>
-              <span className="text-gray-500">Размер:</span> {"  "}
-              <span className="text-gray-900 ml-1">{product.size}</span>
             </div>
           </div>
           <div className="text-[20px] font-bold text-luxury text-orange-600 mb-4">
             {product.price} ֏
           </div>
-          <div className="flex justify-center">
+        </div>
+        <div className="flex mb-[10px] h-[33px]  text-[18px] gap-[10px] justify-center">
+          <Button
+            onClick={handleOrder}
+            className="gradient-primary text-primary-foreground border-0 text-[18px] rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxur p-[10px]"
+          >
+            Заказать
+          </Button>
+          {user?.isAdmin && (
             <Button
-              onClick={handleOrder}
-              style={{
-                backgroundColor: "black",
-                color: "hsl(43 96% 90%)",
-                border: "1px solid hsl(43 96% 90%)",
-              }}
+              onClick={() => setIsOpen(true)}
+              className="gradient-primary text-primary-foreground border-0 text-[18px] rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxur p-[10px]"
             >
-              Заказать
+              Редактировать
             </Button>
-            {user?.isAdmin && (
-              <Button
-                onClick={() => setIsOpen(true)}
-                style={{
-                  backgroundColor: "black",
-                  color: "hsl(43 96% 90%)",
-                  border: "1px solid hsl(43 96% 90%)",
-                }}
-              >
-                Редактировать
-              </Button>
-            )}
-          </div>
+          )}
         </div>
       </div>
 

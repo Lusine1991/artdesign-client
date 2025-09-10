@@ -18,10 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className={inter.className}>
+      <body className={inter.className + ' flex flex-col min-h-screen'}>
         <Provider store={store}>
           <Navbar />
-          <main>{children}</main>
+          <main className="flex-1">{children}</main>
           <Footer />
           <AIChatWidget />
         </Provider>

@@ -1,6 +1,6 @@
 import React, { useState, FormEvent, useEffect } from 'react';
 import axiosInstance from '../../../shared/api/axiosInstance';
-import { MessageCircle, Send, X, Phone, Bot, User } from 'lucide-react';
+import { MessageCircle, Send, X, Bot, User } from 'lucide-react';
 
 // TypeScript interfaces
 interface Message {
@@ -55,12 +55,12 @@ const AIChatWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9999] ai-widget-container">
+    <div className="fixed  ai-widget-container">
       {/* Кнопка открытия чата */}
       <div className="relative">
         <button
           onClick={() => setOpen(!open)}
-          className="w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center ai-widget-button transform hover:scale-105"
+          className="w-12 h-12 gradient-hero rounded-full shadow-luxury hover:shadow-luxury transition-all duration-300 flex items-center justify-center ai-widget-button transform hover:scale-105"
           title="Виртуальный помощник"
         >
           <MessageCircle color="white" size={24} />
@@ -77,23 +77,23 @@ const AIChatWidget: React.FC = () => {
 
       {/* Окно чата */}
       {open && (
-        <div className="fixed bottom-24 right-6 w-80 h-96 bg-white rounded-xl shadow-lg border border-gray-200 flex flex-col z-[9999] ai-widget-chat animate-slide-up">
+        <div className="fixed bottom-24 right-6 w-80 h-96 bg-white rounded-xl shadow-luxury border border-border flex flex-col z-[9999] ai-widget-chat animate-slide-up">
           {/* Шапка чата */}
-          <div className="bg-white border-b border-gray-200 px-4 py-3 rounded-t-xl flex items-center justify-between">
+          <div className="gradient-hero border-b border-white/20 px-4 py-3 rounded-t-xl flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                <Bot size={16} color="#6b7280" />
+              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                <Bot size={16} color="white" />
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-gray-900">
+                <h3 className="text-[20px] font-semibold text-white">
                   Виртуальный помощник
                 </h3>
-                <p className="text-xs text-gray-500">Онлайн</p>
+                {/* <p className="text-xs text-white/80">Онлайн</p> */}
               </div>
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-gray-100 transition-colors"
+              className="text-white/80 hover:text-white p-1 rounded-full hover:bg-white/20 transition-colors"
             >
               <X size={16} />
             </button>
@@ -117,7 +117,7 @@ const AIChatWidget: React.FC = () => {
                 <div
                   className={`max-w-[75%] rounded-2xl px-4 py-3 message-bubble ${
                     message.role === 'user'
-                      ? 'bg-pink-500 text-white shadow-md'
+                      ? 'gradient-hero text-white shadow-luxury'
                       : 'bg-gray-100 text-gray-800 shadow-sm'
                   }`}
                 >
@@ -159,7 +159,7 @@ const AIChatWidget: React.FC = () => {
           </div>
 
           {/* Форма ввода */}
-          <div className="p-4 bg-white border-t border-gray-200 rounded-b-xl">
+          <div className="p-4 bg-white border-t border-border rounded-b-xl">
             <form onSubmit={submitHandler} className="flex space-x-3">
               <div className="flex-1 relative">
                 <input
@@ -168,18 +168,18 @@ const AIChatWidget: React.FC = () => {
                   placeholder="Напишите ваше сообщение..."
                   required
                   disabled={isLoading}
-                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white text-gray-900 placeholder-gray-500 shadow-sm hover:shadow-md transition-all"
+                  className="w-full px-4 py-3 pr-12 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-white text-foreground placeholder-muted-foreground shadow-sm hover:shadow-md transition-all"
                 />
                 {isLoading && (
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                    <div className="w-5 h-5 border-2 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
                   </div>
                 )}
               </div>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-12 h-12 bg-pink-500 hover:bg-pink-600 disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-all shadow-md hover:shadow-lg hover:scale-105 disabled:hover:scale-100"
+                className="w-12 h-12 gradient-hero disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-all shadow-luxury hover:shadow-luxury hover:scale-105 disabled:hover:scale-100"
                 title="Отправить сообщение"
               >
                 <Send size={18} />
