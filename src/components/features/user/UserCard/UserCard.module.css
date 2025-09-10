@@ -1,0 +1,11 @@
+.containerUsercard > div:first-child {
+  font-weight: 600;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.containerUsercard > div:last-child {
+  font-size: 14px;
+  color: #666;
+}

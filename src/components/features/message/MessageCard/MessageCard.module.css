@@ -1,0 +1,42 @@
+.containerUserMessage {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 20px; /* Добавляем отступ сверху */
+}
+
+.boxChat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.messageUserAdmin {
+    background-color: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    max-width: 70%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.messageUserAdmin p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.messageTime {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+    display: block;
+}
+
+.noMessages {
+    text-align: center;
+    color: #999;
+    padding: 40px;
+    font-size: 16px;
+}
