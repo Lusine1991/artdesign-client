@@ -70,7 +70,7 @@ export function ProfileForm() {
         {user.photo && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={`http://localhost:3001${user.photo}`}
+            src={`ArtDesignGevorgyans.mooo.com${user.photo}`}
             alt="Profile"
             className="w-16 h-16 rounded-full object-cover"
           />

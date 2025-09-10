@@ -75,7 +75,7 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
         <div className="box-orders">
           {/* eslint-disable-next-line @next/next/no-img-element*/}
           <img
-            src={`http://localhost:3001${order.Good.image}`}
+            src={`ArtDesignGevorgyans.mooo.com${order.Good.image}`}
             alt="Изображение товара"
           />
           <div className="status">Пользователь: {order.User.username}</div>

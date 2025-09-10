@@ -28,7 +28,7 @@ export default function OrderCard({ order }: Props): React.JSX.Element {
     <div className="container-card">
       <div className="box-orders">
         <img
-          src={`http://localhost:3001${order.Good.image}`}
+          src={`ArtDesignGevorgyans.mooo.com${order.Good.image}`}
           alt="Изображение товара"
         />
         <div className="status">Статус: {order.status}</div>

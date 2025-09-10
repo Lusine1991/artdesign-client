@@ -262,7 +262,7 @@ function AddOrderContent() {
   // Обновляем базовое изображение товара при изменении типа или цвета
   useEffect(() => {
     if (constructorData.type && constructorData.color) {
-      const imageUrl = `http://localhost:3001/items/${constructorData.type}_${constructorData.color}.webp`;
+      const imageUrl = `ArtDesignGevorgyans.mooo.com/items/${constructorData.type}_${constructorData.color}.webp`;
 
       // Сбрасываем флаг загрузки
       setBaseProductImageLoaded(false);
