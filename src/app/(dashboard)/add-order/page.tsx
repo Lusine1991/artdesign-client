@@ -753,11 +753,8 @@ function AddOrderContent() {
       );
       return;
     }
-    console.log(data[0], "data");
-    console.log(data[0].type, "data[0].type");
 
-
-    if (data[0].type !== "apartments") {
+    if (data[0].addresstype !== "building") {
       setZodError("Дом с таким адресом не найден");
       return;
     }
