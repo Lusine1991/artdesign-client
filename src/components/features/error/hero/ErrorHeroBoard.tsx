@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Home, ArrowRight, Search } from 'lucide-react';
+import { Home, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const ErrorHeroBoard: React.FC = () => {

@@ -1,11 +1,11 @@
-
 import { ChatT, NewChatT } from "../model/types";
-import axiosInstance from "@/shared/api/axiosInstance";
 
-export class ChatService { 
+import axiosInstanceWebSocket from "@/shared/api/axiosInstanceWebSocket/axiosInstanceWebSocket";
 
-    static async addMessage(data: NewChatT):Promise<ChatT> {
-        const response = await axiosInstance.post('/message', data)
-        return response.data
-    }
+export class ChatService {
+  static async addMessage(data: NewChatT): Promise<ChatT> {
+    // console.log(data)
+    const response = await axiosInstanceWebSocket.post("/message", data);
+    return response.data;
+  }
 }

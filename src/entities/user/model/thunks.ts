@@ -126,6 +126,17 @@ export const allUsers = createAsyncThunk('user/allusers', () => UserService.allU
 // console.log(allUsers)
 
 export const userByPk = createAsyncThunk('user/oneuser', (userId: UserT['id']) => {
+  // console.log('=== REDUX THUNK userByPk ===', userId);
   const data = UserService.oneUser(userId)
+  // console.log('=== REDUX THUNK RESULT ===', data);
   return data
 } )
+
+export const getMessagesUser = createAsyncThunk('message/getMessageUser', async () => {
+    return await UserService.getMessagesUser()
+})
+
+export const getAdminChat = createAsyncThunk('user/getAdminChat', async (userId: number) => {
+  const response = await UserService.getAdminChat(userId)
+  return response
+})

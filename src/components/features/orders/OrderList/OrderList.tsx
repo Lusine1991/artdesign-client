@@ -12,7 +12,7 @@ export default function OrderList(): React.JSX.Element {
   });
 
   useEffect(() => {
-    // Сначала фильтруем заказы
+    
     let filteredOrders = orders;
     switch (parameters.status) {
       case "pending":
@@ -38,7 +38,7 @@ export default function OrderList(): React.JSX.Element {
         filteredOrders = orders;
     }
 
-    // Затем сортируем, создавая новый массив с помощью spread оператора
+    
     const sortedOrders = [...filteredOrders];
     switch (parameters.sortedBy) {
       case "asc":

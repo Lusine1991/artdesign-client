@@ -1,9 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { UserStateT, UserT } from "./types";
+import type { MessageT } from "@/entities/message/model/types";
 import {
   allUsers,
   changePassword,
   changeProfile,
+  getAdminChat,
+  getMessagesUser,
   login,
   logout,
   refresh,
@@ -11,19 +14,31 @@ import {
   userByPk,
 } from "./thunks";
 
-
 const initialState: UserStateT = {
   user: null,
   status: "loading",
   error: null,
   users: [],
-  currentUser: null
+  currentUser: null,
+  selectedUserId: null,
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedUser: (state, action: PayloadAction<number | null>) => {
+      state.selectedUserId = action.payload;
+    },
+    clearSelectedUser: (state) => {
+      state.selectedUserId = null;
+    },
+    addWebSocketMessage: (state, action: PayloadAction<MessageT>) => {
+      if (state.currentUser) {
+        state.currentUser.messages?.push(action.payload);
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, action) => {
@@ -100,10 +115,10 @@ export const userSlice = createSlice({
       .addCase(changeProfile.rejected, (state, action) => {
         state.error = action.payload ?? "Error";
       });
-      
-      builder
+
+    builder
       .addCase(allUsers.fulfilled, (state, action) => {
-        state.users = action.payload as unknown as UserT[]
+        state.users = action.payload as unknown as UserT[];
         // console.log(state.users)
       })
       .addCase(allUsers.rejected, (state, action) => {
@@ -113,17 +128,58 @@ export const userSlice = createSlice({
         state.error = null;
       });
 
-      builder
+    builder
       .addCase(userByPk.fulfilled, (state, action) => {
         state.currentUser = action.payload;
-        state.error = null
+        state.error = null;
       })
       .addCase(userByPk.pending, (state) => {
         state.error = null
       })
       .addCase(userByPk.rejected, (state, action) => {
-        state.error = action.error.message ?? 'Ошибка загрузки пользователя';
-        state.currentUser = null
+        state.error = action.error.message ?? "Ошибка загрузки пользователя";
+        state.currentUser = null;
+      });
+
+    builder
+      .addCase(getMessagesUser.fulfilled, (state, action) => {
+        if (state.currentUser) {
+          state.currentUser.messages = action.payload;
+        } else {
+          // Если currentUser не существует, создаем его с сообщениями
+          state.currentUser = {
+            id: state.user?.id || 0,
+            email: state.user?.email || "",
+            username: state.user?.username || "",
+            photo: state.user?.photo || "",
+            name: state.user?.name || "",
+            isAdmin: state.user?.isAdmin || false,
+            messages: action.payload,
+            chats: [],
+          };
+        }
       })
+      .addCase(getMessagesUser.rejected, (state, action) => {
+        state.error = action.error.message ?? "Ошибка загрузки сообщений";
+      })
+      .addCase(getMessagesUser.pending, (state) => {
+        state.error = null;
+      });
+
+    builder
+      .addCase(getAdminChat.fulfilled, (state, action) => {
+        if (state.currentUser) {
+          state.currentUser.messages = action.payload;
+        }
+      })
+      .addCase(getAdminChat.rejected, (state, action) => {
+        state.error = action.error.message ?? "Ошибка загрузки чата";
+      })
+      .addCase(getAdminChat.pending, (state) => {
+        state.error = null;
+      });
+
   },
 });
+
+export const { setSelectedUser, clearSelectedUser, addWebSocketMessage } = userSlice.actions;

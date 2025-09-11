@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import axios, { AxiosError } from 'axios';
 
-export default function VerifyEmail() {
+// Выносим основной компонент в отдельную функцию
+function VerifyEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
@@ -20,7 +21,7 @@ export default function VerifyEmail() {
 
   const verifyEmail = async (verificationToken: string) => {
     try {
-      const response = await axios.get(`http://ArtDesignGevorgyans.mooo.com/api/auth/verify-email?token=${verificationToken}`);
+      const response = await axios.get(`http://localhost:3001/api/auth/verify-email?token=${verificationToken}`);
       setStatus('success');
       setMessage(response.data.message);
       
@@ -37,7 +38,6 @@ export default function VerifyEmail() {
       }
     }
   };
-  console.log(status, message);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -75,5 +75,18 @@ export default function VerifyEmail() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Основной компонент с Suspense
+export default function VerifyEmail() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    }>
+      <VerifyEmailContent />
+    </Suspense>
   );
 }

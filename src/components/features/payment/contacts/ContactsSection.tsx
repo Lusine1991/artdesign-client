@@ -1,7 +1,7 @@
-'use client';
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { MessageCircle, Phone } from 'lucide-react';
+"use client";
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { MessageCircle, Phone } from "lucide-react";
 
 interface ContactsSectionProps {
   orderId: string | null;
@@ -12,8 +12,6 @@ interface ContactsSectionProps {
 }
 
 const ContactsSection: React.FC<ContactsSectionProps> = ({
-  orderId,
-  totalAmount,
   phoneNumber,
   onTelegramClick,
   onWhatsAppClick,
@@ -61,7 +59,7 @@ const ContactsSection: React.FC<ContactsSectionProps> = ({
             <div className="flex items-center gap-3 mb-4 justify-center items-center">
               <Phone className="h-6 w-6 text-primary" />
               <span className="text-muted-foreground">
-                Телефон:{' '}
+                Телефон:{" "}
                 <a
                   href={`tel:${phoneNumber}`}
                   className="text-2xl font-bold text-luxury hover:text-primary transition-luxury"

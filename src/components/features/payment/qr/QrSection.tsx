@@ -13,13 +13,14 @@ const QrSection: React.FC = () => {
 
       <div className="flex justify-center">
         <div className="bg-card/50 p-8 rounded-2xl border border-border/50 shadow-luxury">
-          <img
-            src="http://ArtDesignGevorgyans.mooo.com/qr/qr.webp"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img    
+            src={`${process.env.CLIENT_URL || 'http://localhost:3001'}/qr/qr.webp`}
             alt="QR-код для оплаты"
             width={400}
             height={400}
             className="rounded-xl shadow-luxury"
-            priority
+           
           />
         </div>
       </div>

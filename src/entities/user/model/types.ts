@@ -8,6 +8,7 @@ import type {
   RegisterSchema,
   UserSchema,
 } from "./schemas";
+import type { ChatT } from "@/entities/chat/model/types";
 
 export type UserT = z.infer<typeof UserSchema>;
 export type RegisterT = z.infer<typeof RegisterSchema>;
@@ -22,20 +23,28 @@ export type MessageT = {
   content: string;
   userId: number;
   chatId: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
-export type UserWithRelationsT = UserT & {
+export type UserWithRelationsT = {
+  id: number;
+  email: string;
+  username: string;
+  photo: string;
+  name: string;
+  isAdmin: boolean;
   messages?: MessageT[];
-  chats?: MessageT[];
+  chats?: ChatT[];
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type UserStateT = {
   user: UserT | null;
   status: "guest" | "logged" | "loading" | "admin";
   error: string | null;
-  users: UserWithRelationsT[]
-  currentUser: UserWithRelationsT | null
+  users: UserWithRelationsT[];
+  currentUser: UserWithRelationsT | null;
+  selectedUserId: number | null;
 };
-

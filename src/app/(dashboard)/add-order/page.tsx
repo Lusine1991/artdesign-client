@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { ProtectedRoute } from "@/components/layout/protected-route";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getProducts } from "@/entities/product/model/thunks";
@@ -8,7 +8,25 @@ import styles from "./page.module.css";
 import { createOrder } from "@/entities/order/model/thunks";
 import { useSearchParams } from "next/navigation";
 
-export default function AddOrderPage() {
+export default function AddOrderPage(): React.JSX.Element {
+  return (
+    <ProtectedRoute>
+      <Suspense
+        fallback={
+          <div className="page-container">
+            <div className="loading-container">
+              <div className="loading-spinner"></div>
+            </div>
+          </div>
+        }
+      >
+        <AddOrderContent />
+      </Suspense>
+    </ProtectedRoute>
+  );
+}
+
+function AddOrderContent() {
   const searchParams = useSearchParams();
   const productId = searchParams.get("productId");
   const redact = searchParams.get("redact");
@@ -123,8 +141,8 @@ export default function AddOrderPage() {
           imageFile: null,
         });
 
-        const productImageUrl = `http://ArtDesignGevorgyans.mooo.com${findProduct.image}`;
-        const productPrintUrl = `http://ArtDesignGevorgyans.mooo.com${findProduct.print}`;
+        const productImageUrl = `${process.env.CLIENT_URL || 'http://localhost:3001'}${findProduct.image}`;
+        const productPrintUrl = `${process.env.CLIENT_URL || 'http://localhost:3001'}${findProduct.print}`;
 
         setCustomPrint(productPrintUrl);
         setPreviewImage(productImageUrl);
@@ -374,7 +392,7 @@ export default function AddOrderPage() {
   // Обновляем базовое изображение товара при изменении типа или цвета
   useEffect(() => {
     if (constructorData.type && constructorData.color) {
-      const imageUrl = `http://ArtDesignGevorgyans.mooo.com/items/${constructorData.type}_${constructorData.color}.webp`;
+      const imageUrl = `${process.env.CLIENT_URL || 'http://localhost:3001'}/items/${constructorData.type}_${constructorData.color}.webp`;
 
       // Сбрасываем флаг загрузки
       setBaseProductImageLoaded(false);
@@ -542,11 +560,9 @@ export default function AddOrderPage() {
 
   if (status === "loading" || status === "admin") {
     return (
-      <ProtectedRoute>
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-        </div>
-      </ProtectedRoute>
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+      </div>
     );
   }
 
@@ -738,482 +754,480 @@ export default function AddOrderPage() {
   };
 
   return (
-    <ProtectedRoute>
-      <div className="page-container">
-        <div className="page-content">
-          <div className="page-header">
-            <h1 className="page-title">Создать заказ с конструктором</h1>
-            <p className="page-subtitle">
-              Создайте уникальный товар с помощью нашего конструктора
-            </p>
-          </div>
+    <div className="page-container">
+      <div className="page-content">
+        <div className="page-header">
+          <h1 className="page-title">Создать заказ с конструктором</h1>
+          <p className="page-subtitle">
+            Создайте уникальный товар с помощью нашего конструктора
+          </p>
+        </div>
 
-          <div className="grid-2">
-            {/* Конструктор */}
-            <div className="section-card">
-              {isRedact ? (
-                <>
-                  <h2 className="section-title">Превью заказа</h2>
-                  <div className={styles.constructorContent}>
-                    <div className={styles.goodsFields}>
-                      <div className={styles.field}>
-                        <div className="object-cover w-[256px] h-[256px] overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={`http://ArtDesignGevorgyans.mooo.com${constructorData.customImage}`}
-                            alt={constructorData.type}
-                            className="w-full h-48 object-cover"
-                          />
-                        </div>
-                        <div className={styles.labelWithHelp}>
-                          <label className={styles.label}>Размер:</label>
-                          <button
-                            type="button"
-                            onClick={() => setShowSizeGuide(true)}
-                            className={styles.helpButton}
-                            title="Таблица размеров"
-                          >
-                            <span className={styles.helpIcon}>?</span>
-                          </button>
-                        </div>
-                        <div className={styles.radioGroup}>
-                          {getSizeOptions(constructorData.type).map(
-                            (option) => (
-                              <label key={option} className={styles.radioLabel}>
-                                <input
-                                  type="radio"
-                                  name="size"
-                                  value={option}
-                                  checked={constructorData.size === option}
-                                  onChange={(e) =>
-                                    handleConstructorChange(
-                                      "size",
-                                      e.target.value
-                                    )
-                                  }
-                                  className={styles.radioInput}
-                                />
-                                <span className={styles.radioText}>
-                                  {option}
-                                </span>
-                              </label>
-                            )
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <Button
-                      type="button"
-                      onClick={() => setIsRedact(false)}
-                      className={styles.uploadButton}
-                    >
-                      Редактировать товар
-                    </Button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <h2 className="section-title">Конструктор</h2>
-
-                  <div className={styles.constructorContent}>
-                    {/* Основные поля товара */}
-                    <div className={styles.goodsFields}>
-                      <h3 className={styles.subsectionTitle}>
-                        Параметры товара
-                      </h3>
-
-                      {/* Тип товара - радио кнопки */}
-                      <div className={styles.field}>
-                        <label className={styles.label}>Тип товара:</label>
-                        <div className={styles.radioGroup}>
-                          {typeOptions.map((option) => (
-                            <label key={option} className={styles.radioLabel}>
-                              <input
-                                type="radio"
-                                name="type"
-                                value={option}
-                                checked={constructorData.type === option}
-                                onChange={(e) =>
-                                  handleConstructorChange(
-                                    "type",
-                                    e.target.value
-                                  )
-                                }
-                                className={styles.radioInput}
-                              />
-                              <span className={styles.radioText}>{option}</span>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Цвет - радио кнопки */}
-                      <div className={styles.field}>
-                        <label className={styles.label}>Цвет:</label>
-                        <div className={styles.radioGroup}>
-                          {colorOptions.map((option) => (
-                            <label key={option} className={styles.radioLabel}>
-                              <input
-                                type="radio"
-                                name="color"
-                                value={option}
-                                checked={constructorData.color === option}
-                                onChange={(e) =>
-                                  handleConstructorChange(
-                                    "color",
-                                    e.target.value
-                                  )
-                                }
-                                className={styles.radioInput}
-                              />
-                              <span className={styles.radioText}>{option}</span>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Размер - радио кнопки с кнопкой справки */}
-                      <div className={styles.field}>
-                        <div className={styles.labelWithHelp}>
-                          <label className={styles.label}>Размер:</label>
-                          <button
-                            type="button"
-                            onClick={() => setShowSizeGuide(true)}
-                            className={styles.helpButton}
-                            title="Таблица размеров"
-                          >
-                            <span className={styles.helpIcon}>?</span>
-                          </button>
-                        </div>
-                        <div className={styles.radioGroup}>
-                          {getSizeOptions(constructorData.type).map(
-                            (option) => (
-                              <label key={option} className={styles.radioLabel}>
-                                <input
-                                  type="radio"
-                                  name="size"
-                                  value={option}
-                                  checked={constructorData.size === option}
-                                  onChange={(e) =>
-                                    handleConstructorChange(
-                                      "size",
-                                      e.target.value
-                                    )
-                                  }
-                                  className={styles.radioInput}
-                                />
-                                <span className={styles.radioText}>
-                                  {option}
-                                </span>
-                              </label>
-                            )
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Описание */}
-                      <div className={styles.field}>
-                        <label className={styles.label}>Описание:</label>
-                        <textarea
-                          value={constructorData.description}
-                          onChange={(e) =>
-                            handleConstructorChange(
-                              "description",
-                              e.target.value
-                            )
-                          }
-                          className={styles.textarea}
-                          placeholder="Описание товара..."
-                          rows={3}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Превью базового товара */}
-                    {/* baseProductImage && (
-                      <div className={styles.field}>
-                        <label className={styles.label}>Базовый товар:</label>
-                        <div className={styles.imagePreview}>
-                          <img
-                            src={baseProductImage}
-                            alt="Базовый товар"
-                            className={styles.previewImg}
-                            onError={(e) => {
-                              console.error(
-                                "Ошибка загрузки изображения товара"
-                              );
-                              e.currentTarget.style.display = "none";
-                            }}
-                          />
-                          {!baseProductImageLoaded && (
-                            <div className={styles.loadingText}>
-                              Загрузка изображения...
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )*/}
-
-                    {/* Загрузка принта */}
-                    {redact ? (
-                      <></>
-                    ) : (
-                      <div className={styles.field}>
-                        <label className={styles.label}>Загрузите принт:</label>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleFileUpload}
-                          ref={fileInputRef}
-                          className={styles.fileInput}
-                        />
-                        <Button
-                          type="button"
-                          onClick={() => fileInputRef.current?.click()}
-                          className={styles.uploadButton}
-                        >
-                          Выбрать принт
-                        </Button>
-                      </div>
-                    )}
-
-                    {/* Настройки принта - слайдеры */}
-                    {customPrint &&
-                      baseProductImage &&
-                      baseProductImageLoaded && (
-                        <div className={styles.printSettings}>
-                          <h3 className={styles.subsectionTitle}>
-                            Настройки принта
-                          </h3>
-
-                          <div className={styles.field}>
-                            <label className={styles.label}>
-                              Позиция по вертикали:{" "}
-                              {printPosition < 50
-                                ? "Сверху"
-                                : printPosition > 50
-                                ? "Снизу"
-                                : "По центру"}{" "}
-                              ({printPosition}%)
-                            </label>
-                            <input
-                              type="range"
-                              min="0"
-                              max="100"
-                              value={printPosition}
-                              onChange={(e) =>
-                                setPrintPosition(Number(e.target.value))
-                              }
-                              className={styles.range}
-                            />
-                          </div>
-
-                          <div className={styles.field}>
-                            <label className={styles.label}>
-                              Позиция по горизонтали:{" "}
-                              {printHorizontal < 50
-                                ? "Слева"
-                                : printHorizontal > 50
-                                ? "Справа"
-                                : "По центру"}{" "}
-                              ({printHorizontal}%)
-                            </label>
-                            <input
-                              type="range"
-                              min="0"
-                              max="100"
-                              value={printHorizontal}
-                              onChange={(e) =>
-                                setPrintHorizontal(Number(e.target.value))
-                              }
-                              className={styles.range}
-                            />
-                          </div>
-
-                          <div className={styles.field}>
-                            <label className={styles.label}>
-                              Размер:{" "}
-                              {printSize < 33
-                                ? "Маленький"
-                                : printSize < 66
-                                ? "Средний"
-                                : "Большой"}{" "}
-                              ({printSize}%)
-                            </label>
-                            <input
-                              type="range"
-                              min="0"
-                              max="100"
-                              value={printSize}
-                              onChange={(e) =>
-                                setPrintSize(Number(e.target.value))
-                              }
-                              className={styles.range}
-                            />
-                          </div>
-
-                          <div className={styles.field}>
-                            <label className={styles.label}>
-                              Поворот: {printRotation}°
-                            </label>
-                            <input
-                              type="range"
-                              min="0"
-                              max="360"
-                              value={printRotation}
-                              onChange={(e) =>
-                                setPrintRotation(Number(e.target.value))
-                              }
-                              className={styles.range}
-                            />
-                          </div>
-                        </div>
-                      )}
-
-                    {/* Превью с принтом */}
-                    {baseProductImage &&
-                      customPrint &&
-                      baseProductImageLoaded && (
-                        <div className={styles.preview}>
-                          <h3 className={styles.previewTitle}>
-                            Превью с принтом:
-                          </h3>
-                          <canvas
-                            ref={canvasRef}
-                            width={300}
-                            height={300}
-                            className={styles.canvas}
-                            style={{ border: "1px solid #ccc" }}
-                          />
-                          {!previewImage && (
-                            <div className={styles.loadingText}>
-                              Создание превью...
-                            </div>
-                          )}
-                        </div>
-                      )}
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* Форма заказа */}
-            <div className="section-card">
-              <h2 className="section-title">Данные заказа</h2>
-
-              <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.field}>
-                  <label className={styles.label}>Количество:</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={formData.quantity === 0 ? "" : formData.quantity}
-                    onChange={handleChange}
-                    min="1"
-                    className={styles.input}
-                    required
-                  />
-                </div>
-
-                <div className={styles.field}>
-                  <label className={styles.label}>Адрес доставки:</label>
-                  <input
-                    type="text"
-                    name="adress"
-                    value={formData.adress}
-                    onChange={handleChange}
-                    placeholder="Введите адрес доставки"
-                    className={styles.input}
-                    required
-                  />
-                </div>
-
-                <div className={styles.field}>
-                  <label className={styles.label}>Номер телефона:</label>
-                  <input
-                    type="tel"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    placeholder="+7 (999) 123-45-67"
-                    className={styles.input}
-                    required
-                  />
-                </div>
-                {constructorData.customPrint &&
-                  constructorData.customImage &&
-                  constructorData.size && (
+        <div className="grid-2">
+          {/* Конструктор */}
+          <div className="section-card">
+            {isRedact ? (
+              <>
+                <h2 className="section-title">Превью заказа</h2>
+                <div className={styles.constructorContent}>
+                  <div className={styles.goodsFields}>
                     <div className={styles.field}>
-                      <label className={styles.label}>
-                        Примерная стоимость без доставки:{" "}
-                        {constructorData.price * formData.quantity} руб.
-                      </label>
+                      <div className="object-cover w-[256px] h-[256px] overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`${process.env.CLIENT_URL || 'http://localhost:3001'}${constructorData.customImage}`}
+                          alt={constructorData.type}
+                          className="w-full h-48 object-cover"
+                        />
+                      </div>
+                      <div className={styles.labelWithHelp}>
+                        <label className={styles.label}>Размер:</label>
+                        <button
+                          type="button"
+                          onClick={() => setShowSizeGuide(true)}
+                          className={styles.helpButton}
+                          title="Таблица размеров"
+                        >
+                          <span className={styles.helpIcon}>?</span>
+                        </button>
+                      </div>
+                      <div className={styles.radioGroup}>
+                        {getSizeOptions(constructorData.type).map(
+                          (option) => (
+                            <label key={option} className={styles.radioLabel}>
+                              <input
+                                type="radio"
+                                name="size"
+                                value={option}
+                                checked={constructorData.size === option}
+                                onChange={(e) =>
+                                  handleConstructorChange(
+                                    "size",
+                                    e.target.value
+                                  )
+                                }
+                                className={styles.radioInput}
+                              />
+                              <span className={styles.radioText}>
+                                {option}
+                              </span>
+                            </label>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <Button
+                    type="button"
+                    onClick={() => setIsRedact(false)}
+                    className={styles.uploadButton}
+                  >
+                    Редактировать товар
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h2 className="section-title">Конструктор</h2>
+
+                <div className={styles.constructorContent}>
+                  {/* Основные поля товара */}
+                  <div className={styles.goodsFields}>
+                    <h3 className={styles.subsectionTitle}>
+                      Параметры товара
+                    </h3>
+
+                    {/* Тип товара - радио кнопки */}
+                    <div className={styles.field}>
+                      <label className={styles.label}>Тип товара:</label>
+                      <div className={styles.radioGroup}>
+                        {typeOptions.map((option) => (
+                          <label key={option} className={styles.radioLabel}>
+                            <input
+                              type="radio"
+                              name="type"
+                              value={option}
+                              checked={constructorData.type === option}
+                              onChange={(e) =>
+                                handleConstructorChange(
+                                  "type",
+                                  e.target.value
+                                )
+                              }
+                              className={styles.radioInput}
+                            />
+                            <span className={styles.radioText}>{option}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Цвет - радио кнопки */}
+                    <div className={styles.field}>
+                      <label className={styles.label}>Цвет:</label>
+                      <div className={styles.radioGroup}>
+                        {colorOptions.map((option) => (
+                          <label key={option} className={styles.radioLabel}>
+                            <input
+                              type="radio"
+                              name="color"
+                              value={option}
+                              checked={constructorData.color === option}
+                              onChange={(e) =>
+                                handleConstructorChange(
+                                  "color",
+                                  e.target.value
+                                )
+                              }
+                              className={styles.radioInput}
+                            />
+                            <span className={styles.radioText}>{option}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Размер - радио кнопки с кнопкой справки */}
+                    <div className={styles.field}>
+                      <div className={styles.labelWithHelp}>
+                        <label className={styles.label}>Размер:</label>
+                        <button
+                          type="button"
+                          onClick={() => setShowSizeGuide(true)}
+                          className={styles.helpButton}
+                          title="Таблица размеров"
+                        >
+                          <span className={styles.helpIcon}>?</span>
+                        </button>
+                      </div>
+                      <div className={styles.radioGroup}>
+                        {getSizeOptions(constructorData.type).map(
+                          (option) => (
+                            <label key={option} className={styles.radioLabel}>
+                              <input
+                                type="radio"
+                                name="size"
+                                value={option}
+                                checked={constructorData.size === option}
+                                onChange={(e) =>
+                                  handleConstructorChange(
+                                    "size",
+                                    e.target.value
+                                  )
+                                }
+                                className={styles.radioInput}
+                              />
+                              <span className={styles.radioText}>
+                                {option}
+                              </span>
+                            </label>
+                          )
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Описание */}
+                    <div className={styles.field}>
+                      <label className={styles.label}>Описание:</label>
+                      <textarea
+                        value={constructorData.description}
+                        onChange={(e) =>
+                          handleConstructorChange(
+                            "description",
+                            e.target.value
+                          )
+                        }
+                        className={styles.textarea}
+                        placeholder="Описание товара..."
+                        rows={3}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Превью базового товара */}
+                  {/* baseProductImage && (
+                    <div className={styles.field}>
+                      <label className={styles.label}>Базовый товар:</label>
+                      <div className={styles.imagePreview}>
+                        <img
+                          src={baseProductImage}
+                          alt="Базовый товар"
+                          className={styles.previewImg}
+                          onError={(e) => {
+                            console.error(
+                              "Ошибка загрузки изображения товара"
+                            );
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
+                        {!baseProductImageLoaded && (
+                          <div className={styles.loadingText}>
+                            Загрузка изображения...
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )*/}
+
+                  {/* Загрузка принта */}
+                  {redact ? (
+                    <></>
+                  ) : (
+                    <div className={styles.field}>
+                      <label className={styles.label}>Загрузите принт:</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileUpload}
+                        ref={fileInputRef}
+                        className={styles.fileInput}
+                      />
+                      <Button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className={styles.uploadButton}
+                      >
+                        Выбрать принт
+                      </Button>
                     </div>
                   )}
 
-                {error && <div className={styles.error}>{error}</div>}
+                  {/* Настройки принта - слайдеры */}
+                  {customPrint &&
+                    baseProductImage &&
+                    baseProductImageLoaded && (
+                      <div className={styles.printSettings}>
+                        <h3 className={styles.subsectionTitle}>
+                          Настройки принта
+                        </h3>
 
-                <Button
-                  type="submit"
-                  disabled={orderLoading || !previewImage}
-                  className={styles.submitButton}
-                >
-                  {orderLoading ? "Создание заказа..." : "Создать заказ"}
-                </Button>
-              </form>
+                        <div className={styles.field}>
+                          <label className={styles.label}>
+                            Позиция по вертикали:{" "}
+                            {printPosition < 50
+                              ? "Сверху"
+                              : printPosition > 50
+                              ? "Снизу"
+                              : "По центру"}{" "}
+                            ({printPosition}%)
+                          </label>
+                          <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={printPosition}
+                            onChange={(e) =>
+                              setPrintPosition(Number(e.target.value))
+                            }
+                            className={styles.range}
+                          />
+                        </div>
+
+                        <div className={styles.field}>
+                          <label className={styles.label}>
+                            Позиция по горизонтали:{" "}
+                            {printHorizontal < 50
+                              ? "Слева"
+                              : printHorizontal > 50
+                              ? "Справа"
+                              : "По центру"}{" "}
+                            ({printHorizontal}%)
+                          </label>
+                          <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={printHorizontal}
+                            onChange={(e) =>
+                              setPrintHorizontal(Number(e.target.value))
+                            }
+                            className={styles.range}
+                          />
+                        </div>
+
+                        <div className={styles.field}>
+                          <label className={styles.label}>
+                            Размер:{" "}
+                            {printSize < 33
+                              ? "Маленький"
+                              : printSize < 66
+                              ? "Средний"
+                              : "Большой"}{" "}
+                            ({printSize}%)
+                          </label>
+                          <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={printSize}
+                            onChange={(e) =>
+                              setPrintSize(Number(e.target.value))
+                            }
+                            className={styles.range}
+                          />
+                        </div>
+
+                        <div className={styles.field}>
+                          <label className={styles.label}>
+                            Поворот: {printRotation}°
+                          </label>
+                          <input
+                            type="range"
+                            min="0"
+                            max="360"
+                            value={printRotation}
+                            onChange={(e) =>
+                              setPrintRotation(Number(e.target.value))
+                            }
+                            className={styles.range}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                  {/* Превью с принтом */}
+                  {baseProductImage &&
+                    customPrint &&
+                    baseProductImageLoaded && (
+                      <div className={styles.preview}>
+                        <h3 className={styles.previewTitle}>
+                          Превью с принтом:
+                        </h3>
+                        <canvas
+                          ref={canvasRef}
+                          width={300}
+                          height={300}
+                          className={styles.canvas}
+                          style={{ border: "1px solid #ccc" }}
+                        />
+                        {!previewImage && (
+                          <div className={styles.loadingText}>
+                            Создание превью...
+                          </div>
+                        )}
+                      </div>
+                    )}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Форма заказа */}
+          <div className="section-card">
+            <h2 className="section-title">Данные заказа</h2>
+
+            <form onSubmit={handleSubmit} className={styles.form}>
+              <div className={styles.field}>
+                <label className={styles.label}>Количество:</label>
+                <input
+                  type="number"
+                  name="quantity"
+                  value={formData.quantity === 0 ? "" : formData.quantity}
+                  onChange={handleChange}
+                  min="1"
+                  className={styles.input}
+                  required
+                />
+              </div>
+
+              <div className={styles.field}>
+                <label className={styles.label}>Адрес доставки:</label>
+                <input
+                  type="text"
+                  name="adress"
+                  value={formData.adress}
+                  onChange={handleChange}
+                  placeholder="Введите адрес доставки"
+                  className={styles.input}
+                  required
+                />
+              </div>
+
+              <div className={styles.field}>
+                <label className={styles.label}>Номер телефона:</label>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  placeholder="+7 (999) 123-45-67"
+                  className={styles.input}
+                  required
+                />
+              </div>
+              {constructorData.customPrint &&
+                constructorData.customImage &&
+                constructorData.size && (
+                  <div className={styles.field}>
+                    <label className={styles.label}>
+                      Примерная стоимость без доставки:{" "}
+                      {constructorData.price * formData.quantity} руб.
+                    </label>
+                  </div>
+                )}
+
+              {error && <div className={styles.error}>{error}</div>}
+
+              <Button
+                type="submit"
+                disabled={orderLoading || !previewImage}
+                className={styles.submitButton}
+              >
+                {orderLoading ? "Создание заказа..." : "Создать заказ"}
+              </Button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* Модальное окно с таблицей размеров */}
+      {showSizeGuide && (
+        <div
+          className={styles.modalOverlay}
+          onClick={() => setShowSizeGuide(false)}
+        >
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.modalHeader}>
+              <h3 className={styles.modalTitle}>
+                Таблица размеров - {constructorData.type || "Товар"}
+              </h3>
+              <button
+                className={styles.closeButton}
+                onClick={() => setShowSizeGuide(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className={styles.sizeTable}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    {getSizeTable(constructorData.type).headers.map(
+                      (header, index) => (
+                        <th key={index}>{header}</th>
+                      )
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {getSizeTable(constructorData.type).rows.map(
+                    (row, index) => (
+                      <tr key={index}>
+                        {row.map((cell, cellIndex) => (
+                          <td key={cellIndex}>{cell}</td>
+                        ))}
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-
-        {/* Модальное окно с таблицей размеров */}
-        {showSizeGuide && (
-          <div
-            className={styles.modalOverlay}
-            onClick={() => setShowSizeGuide(false)}
-          >
-            <div
-              className={styles.modalContent}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className={styles.modalHeader}>
-                <h3 className={styles.modalTitle}>
-                  Таблица размеров - {constructorData.type || "Товар"}
-                </h3>
-                <button
-                  className={styles.closeButton}
-                  onClick={() => setShowSizeGuide(false)}
-                >
-                  ×
-                </button>
-              </div>
-              <div className={styles.sizeTable}>
-                <table className={styles.table}>
-                  <thead>
-                    <tr>
-                      {getSizeTable(constructorData.type).headers.map(
-                        (header, index) => (
-                          <th key={index}>{header}</th>
-                        )
-                      )}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {getSizeTable(constructorData.type).rows.map(
-                      (row, index) => (
-                        <tr key={index}>
-                          {row.map((cell, cellIndex) => (
-                            <td key={cellIndex}>{cell}</td>
-                          ))}
-                        </tr>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </ProtectedRoute>
+      )}
+    </div>
   );
 }

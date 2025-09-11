@@ -2,34 +2,59 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-top: 20px; /* Добавляем отступ сверху */
+    padding-top: 20px;
 }
 
 .boxChat {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 0 10px;
 }
 
-.messageUserAdmin {
-    background-color: white;
+/* Сообщения слева (от собеседника) */
+.messageLeft {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.messageLeft .messageContent {
+    background-color: #f1f1f1;
     padding: 12px 16px;
-    border-radius: 12px;
-    border: 1px solid #e0e0e0;
+    border-radius: 18px 18px 18px 4px;
     max-width: 70%;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-.messageUserAdmin p {
+/* Сообщения справа (от текущего пользователя) */
+.messageRight {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.messageRight .messageContent {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 18px 18px 4px 18px;
+    max-width: 70%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.messageContent p {
     margin: 0;
     font-size: 14px;
-    color: #333;
     line-height: 1.4;
+    word-wrap: break-word;
 }
 
 .messageTime {
-    font-size: 12px;
-    color: #999;
+    font-size: 11px;
+    opacity: 0.7;
     margin-top: 5px;
     display: block;
 }
@@ -39,4 +64,19 @@
     color: #999;
     padding: 40px;
     font-size: 16px;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .messageLeft .messageContent,
+    .messageRight .messageContent {
+        max-width: 85%;
+    }
+}
+
+.loading {
+  text-align: center;
+  color: #999;
+  padding: 40px;
+  font-size: 16px;
 }

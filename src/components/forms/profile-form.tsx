@@ -73,7 +73,7 @@ export function ProfileForm() {
             <img
               width={96}
               height={96}
-              src={`http://ArtDesignGevorgyans.mooo.com${user.photo}`}
+              src={`${process.env.CLIENT_URL || 'http://localhost:3001'}${user.photo}`}
               alt="Profile"
               className="rounded-full object-cover"
             />

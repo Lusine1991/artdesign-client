@@ -1,47 +1,40 @@
-'use client';
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import {
-  ShoppingBag,
-  Info,
-  User,
-  CreditCard,
-  MessageSquare,
-  Palette,
-} from 'lucide-react';
+"use client";
+import React from "react";
+
+import { useRouter } from "next/navigation";
+import { ShoppingBag, Info, User, Palette } from "lucide-react";
 
 const HelpfulLinksSection: React.FC = () => {
   const router = useRouter();
 
   const links = [
     {
-      title: 'Главная страница',
-      description: 'Каталог товаров и услуги',
+      title: "Главная страница",
+      description: "Каталог товаров и услуги",
       icon: ShoppingBag,
-      path: '/main',
-      color: 'bg-blue-500',
+      path: "/main",
+      color: "bg-blue-500",
     },
     {
-      title: 'О компании',
-      description: 'Информация о нас',
+      title: "О компании",
+      description: "Информация о нас",
       icon: Info,
-      path: '/about',
-      color: 'bg-green-500',
+      path: "/about",
+      color: "bg-green-500",
     },
     {
-      title: 'Профиль',
-      description: 'Личный кабинет',
+      title: "Профиль",
+      description: "Личный кабинет",
       icon: User,
-      path: '/user-profile',
-      color: 'bg-purple-500',
+      path: "/user-profile",
+      color: "bg-purple-500",
     },
     {
-      title: 'Оформить заказ',
-      description: 'Создать новый заказ',
+      title: "Оформить заказ",
+      description: "Создать новый заказ",
       icon: Palette,
-      path: '/add-order',
-      color: 'bg-orange-500',
+      path: "/add-order",
+      color: "bg-orange-500",
     },
   ];
 
@@ -87,4 +80,3 @@ const HelpfulLinksSection: React.FC = () => {
 };
 
 export default HelpfulLinksSection;
-

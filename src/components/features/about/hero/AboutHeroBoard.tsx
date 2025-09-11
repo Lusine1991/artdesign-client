@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Sparkles, ArrowRight, MapPin, Phone, Mail } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+
 
 interface AboutHeroBoardProps {
   companyName: string;

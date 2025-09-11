@@ -3,6 +3,7 @@ import { userSlice } from "@/entities/user/model/slice";
 import { configureStore } from "@reduxjs/toolkit";
 import aboutSlice  from "@/entities/about/model/slice";
 import orderReducer  from "@/entities/order/model/slice";
+import { chatSlice } from "@/entities/chat/model/slices";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     product: productSlice.reducer,
     about: aboutSlice,
     order: orderReducer, 
+    chat: chatSlice.reducer
   },
 });
 

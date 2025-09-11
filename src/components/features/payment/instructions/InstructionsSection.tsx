@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { CheckCircle } from 'lucide-react';
+// import { CheckCircle } from 'lucide-react';
 
 const InstructionsSection: React.FC = () => {
   const instructions = [

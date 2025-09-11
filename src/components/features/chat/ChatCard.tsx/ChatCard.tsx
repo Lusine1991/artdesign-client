@@ -1,8 +1,9 @@
-import { userByPk } from "@/entities/user/model/thunks";
+
 import { UserWithRelationsT } from "@/entities/user/model/types";
 import { useAppDispatch } from "@/store/hooks";
 import React from "react";
 import styles from './ChatCard.module.css' 
+import { setSelectedUser } from "@/entities/user/model/slice";
 
 type Props = {
   user: UserWithRelationsT;
@@ -13,7 +14,8 @@ export default function ChatCard({ user }: Props): React.JSX.Element {
   const lastMessage = user.messages?.[user.messages.length - 1];
 
   const clickHandler = (id: number):void => {
-    void dispatch(userByPk(id))
+    dispatch(setSelectedUser(id))
+    // void dispatch(userByPk(id))
   }
   
   return (
