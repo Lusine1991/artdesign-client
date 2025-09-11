@@ -141,8 +141,12 @@ function AddOrderContent() {
           imageFile: null,
         });
 
-        const productImageUrl = `${process.env.CLIENT_URL || 'http://localhost:3001'}${findProduct.image}`;
-        const productPrintUrl = `${process.env.CLIENT_URL || 'http://localhost:3001'}${findProduct.print}`;
+        const productImageUrl = `${
+          process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+        }${findProduct.image}`;
+        const productPrintUrl = `${
+          process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+        }${findProduct.print}`;
 
         setCustomPrint(productPrintUrl);
         setPreviewImage(productImageUrl);
@@ -372,7 +376,7 @@ function AddOrderContent() {
         });
         return;
       }
-      
+
       const productImageFile = await urlToFile(baseProductImage, "product.jpg");
       const printFile = await urlToFile(customPrint, "print.jpg");
 
@@ -392,7 +396,9 @@ function AddOrderContent() {
   // Обновляем базовое изображение товара при изменении типа или цвета
   useEffect(() => {
     if (constructorData.type && constructorData.color) {
-      const imageUrl = `${process.env.CLIENT_URL || 'http://localhost:3001'}/items/${constructorData.type}_${constructorData.color}.webp`;
+      const imageUrl = `${
+        process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+      }/items/${constructorData.type}_${constructorData.color}.webp`;
 
       // Сбрасываем флаг загрузки
       setBaseProductImageLoaded(false);
@@ -775,7 +781,10 @@ function AddOrderContent() {
                       <div className="object-cover w-[256px] h-[256px] overflow-hidden">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={`${process.env.CLIENT_URL || 'http://localhost:3001'}${constructorData.customImage}`}
+                          src={`${
+                            process.env.CLIENT_URL ||
+                            "https://ArtDesignGevorgyans.mooo.com"
+                          }${constructorData.customImage}`}
                           alt={constructorData.type}
                           className="w-full h-48 object-cover"
                         />
@@ -792,28 +801,21 @@ function AddOrderContent() {
                         </button>
                       </div>
                       <div className={styles.radioGroup}>
-                        {getSizeOptions(constructorData.type).map(
-                          (option) => (
-                            <label key={option} className={styles.radioLabel}>
-                              <input
-                                type="radio"
-                                name="size"
-                                value={option}
-                                checked={constructorData.size === option}
-                                onChange={(e) =>
-                                  handleConstructorChange(
-                                    "size",
-                                    e.target.value
-                                  )
-                                }
-                                className={styles.radioInput}
-                              />
-                              <span className={styles.radioText}>
-                                {option}
-                              </span>
-                            </label>
-                          )
-                        )}
+                        {getSizeOptions(constructorData.type).map((option) => (
+                          <label key={option} className={styles.radioLabel}>
+                            <input
+                              type="radio"
+                              name="size"
+                              value={option}
+                              checked={constructorData.size === option}
+                              onChange={(e) =>
+                                handleConstructorChange("size", e.target.value)
+                              }
+                              className={styles.radioInput}
+                            />
+                            <span className={styles.radioText}>{option}</span>
+                          </label>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -833,9 +835,7 @@ function AddOrderContent() {
                 <div className={styles.constructorContent}>
                   {/* Основные поля товара */}
                   <div className={styles.goodsFields}>
-                    <h3 className={styles.subsectionTitle}>
-                      Параметры товара
-                    </h3>
+                    <h3 className={styles.subsectionTitle}>Параметры товара</h3>
 
                     {/* Тип товара - радио кнопки */}
                     <div className={styles.field}>
@@ -849,10 +849,7 @@ function AddOrderContent() {
                               value={option}
                               checked={constructorData.type === option}
                               onChange={(e) =>
-                                handleConstructorChange(
-                                  "type",
-                                  e.target.value
-                                )
+                                handleConstructorChange("type", e.target.value)
                               }
                               className={styles.radioInput}
                             />
@@ -874,10 +871,7 @@ function AddOrderContent() {
                               value={option}
                               checked={constructorData.color === option}
                               onChange={(e) =>
-                                handleConstructorChange(
-                                  "color",
-                                  e.target.value
-                                )
+                                handleConstructorChange("color", e.target.value)
                               }
                               className={styles.radioInput}
                             />
@@ -901,28 +895,21 @@ function AddOrderContent() {
                         </button>
                       </div>
                       <div className={styles.radioGroup}>
-                        {getSizeOptions(constructorData.type).map(
-                          (option) => (
-                            <label key={option} className={styles.radioLabel}>
-                              <input
-                                type="radio"
-                                name="size"
-                                value={option}
-                                checked={constructorData.size === option}
-                                onChange={(e) =>
-                                  handleConstructorChange(
-                                    "size",
-                                    e.target.value
-                                  )
-                                }
-                                className={styles.radioInput}
-                              />
-                              <span className={styles.radioText}>
-                                {option}
-                              </span>
-                            </label>
-                          )
-                        )}
+                        {getSizeOptions(constructorData.type).map((option) => (
+                          <label key={option} className={styles.radioLabel}>
+                            <input
+                              type="radio"
+                              name="size"
+                              value={option}
+                              checked={constructorData.size === option}
+                              onChange={(e) =>
+                                handleConstructorChange("size", e.target.value)
+                              }
+                              className={styles.radioInput}
+                            />
+                            <span className={styles.radioText}>{option}</span>
+                          </label>
+                        ))}
                       </div>
                     </div>
 
@@ -932,10 +919,7 @@ function AddOrderContent() {
                       <textarea
                         value={constructorData.description}
                         onChange={(e) =>
-                          handleConstructorChange(
-                            "description",
-                            e.target.value
-                          )
+                          handleConstructorChange("description", e.target.value)
                         }
                         className={styles.textarea}
                         placeholder="Описание товара..."
@@ -1213,15 +1197,13 @@ function AddOrderContent() {
                   </tr>
                 </thead>
                 <tbody>
-                  {getSizeTable(constructorData.type).rows.map(
-                    (row, index) => (
-                      <tr key={index}>
-                        {row.map((cell, cellIndex) => (
-                          <td key={cellIndex}>{cell}</td>
-                        ))}
-                      </tr>
-                    )
-                  )}
+                  {getSizeTable(constructorData.type).rows.map((row, index) => (
+                    <tr key={index}>
+                      {row.map((cell, cellIndex) => (
+                        <td key={cellIndex}>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

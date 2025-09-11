@@ -1,40 +1,44 @@
-'use client';
+"use client";
 
-import { useEffect, useState, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import axios, { AxiosError } from 'axios';
+import { useEffect, useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import axios, { AxiosError } from "axios";
 
 // Выносим основной компонент в отдельную функцию
 function VerifyEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const token = searchParams.get('token');
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
-  const [message, setMessage] = useState('');
+  const token = searchParams.get("token");
+  const [status, setStatus] = useState<"loading" | "success" | "error">(
+    "loading"
+  );
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (token) {
       verifyEmail(token);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const verifyEmail = async (verificationToken: string) => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/auth/verify-email?token=${verificationToken}`);
-      setStatus('success');
+      const response = await axios.get(
+        `https://ArtDesignGevorgyans.mooo.com/api/auth/verify-email?token=${verificationToken}`
+      );
+      setStatus("success");
       setMessage(response.data.message);
-      
+
       setTimeout(() => {
-        router.push('/');
+        router.push("/");
       }, 3000);
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
-      setStatus('error');
-      setMessage(error.response?.data?.message || 'Ошибка верификации');
+        setStatus("error");
+        setMessage(error.response?.data?.message || "Ошибка верификации");
       } else {
-        setStatus('error');
-        setMessage('Ошибка верификации');
+        setStatus("error");
+        setMessage("Ошибка верификации");
       }
     }
   };
@@ -43,33 +47,54 @@ function VerifyEmailContent() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          {status === 'loading' && (
+          {status === "loading" && (
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           )}
-          
-          {status === 'success' && (
+
+          {status === "success" && (
             <div className="text-green-600">
-              <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <svg
+                className="mx-auto h-12 w-12"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
               <h2 className="mt-4 text-2xl font-bold">Успешно!</h2>
             </div>
           )}
-          
-          {status === 'error' && (
+
+          {status === "error" && (
             <div className="text-red-600">
-              <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="mx-auto h-12 w-12"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
               <h2 className="mt-4 text-2xl font-bold">Ошибка</h2>
             </div>
           )}
-          
+
           <p className="mt-2 text-gray-600">{message}</p>
-          
-          {status === 'success' && (
+
+          {status === "success" && (
             <p className="mt-4 text-sm text-gray-500">
-              Вы будете перенаправлены на главную страницу через несколько секунд...
+              Вы будете перенаправлены на главную страницу через несколько
+              секунд...
             </p>
           )}
         </div>
@@ -81,11 +106,13 @@ function VerifyEmailContent() {
 // Основной компонент с Suspense
 export default function VerifyEmail() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+      }
+    >
       <VerifyEmailContent />
     </Suspense>
   );

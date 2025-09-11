@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
 const QrSection: React.FC = () => {
   return (
@@ -14,13 +14,14 @@ const QrSection: React.FC = () => {
       <div className="flex justify-center">
         <div className="bg-card/50 p-8 rounded-2xl border border-border/50 shadow-luxury">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img    
-            src={`${process.env.CLIENT_URL || 'http://localhost:3001'}/qr/qr.webp`}
+          <img
+            src={`${
+              process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+            }/qr/qr.webp`}
             alt="QR-код для оплаты"
             width={400}
             height={400}
             className="rounded-xl shadow-luxury"
-           
           />
         </div>
       </div>

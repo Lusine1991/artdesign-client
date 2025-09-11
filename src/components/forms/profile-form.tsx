@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ChangeProfileFormSchema } from '@/entities/user/model/schemas';
-import { changeProfile } from '@/entities/user/model/thunks';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ChangePasswordForm } from './change-password-form';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ChangeProfileFormSchema } from "@/entities/user/model/schemas";
+import { changeProfile } from "@/entities/user/model/thunks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ChangePasswordForm } from "./change-password-form";
 
 export function ProfileForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,8 +25,8 @@ export function ProfileForm() {
   } = useForm<{ username: string; name: string }>({
     resolver: zodResolver(ChangeProfileFormSchema),
     defaultValues: {
-      username: user?.username || '',
-      name: user?.name || '',
+      username: user?.username || "",
+      name: user?.name || "",
     },
   });
 
@@ -35,17 +35,17 @@ export function ProfileForm() {
       setIsLoading(true);
       // Создаем FormData для отправки файла
       const formData = new FormData();
-      formData.append('username', data.username);
-      formData.append('name', data.name);
+      formData.append("username", data.username);
+      formData.append("name", data.name);
       if (selectedFile) {
-        formData.append('photo', selectedFile);
+        formData.append("photo", selectedFile);
       }
 
       await dispatch(changeProfile(formData as FormData)).unwrap();
       setIsEditing(false);
       setSelectedFile(null);
     } catch (error) {
-      console.error('Profile update error:', error);
+      console.error("Profile update error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +73,9 @@ export function ProfileForm() {
             <img
               width={96}
               height={96}
-              src={`${process.env.CLIENT_URL || 'http://localhost:3001'}${user.photo}`}
+              src={`${
+                process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+              }${user.photo}`}
               alt="Profile"
               className="rounded-full object-cover"
             />
@@ -93,9 +95,9 @@ export function ProfileForm() {
           <Button
             onClick={() => setIsEditing(true)}
             style={{
-              backgroundColor: 'black',
-              color: 'hsl(43 96% 90%)',
-              border: '1px solid hsl(43 96% 90%)',
+              backgroundColor: "black",
+              color: "hsl(43 96% 90%)",
+              border: "1px solid hsl(43 96% 90%)",
             }}
           >
             Редактировать профиль
@@ -110,7 +112,7 @@ export function ProfileForm() {
             <label className="block text-sm font-medium text-gray-700">
               Логин
             </label>
-            <Input {...register('username')} disabled={isLoading} />
+            <Input {...register("username")} disabled={isLoading} />
             {errors.username && (
               <p className="text-sm text-red-500">{errors.username.message}</p>
             )}
@@ -120,7 +122,7 @@ export function ProfileForm() {
             <label className="block text-sm font-medium text-gray-700">
               Имя
             </label>
-            <Input {...register('name')} disabled={isLoading} />
+            <Input {...register("name")} disabled={isLoading} />
             {errors.name && (
               <p className="text-sm text-red-500">{errors.name.message}</p>
             )}
@@ -150,21 +152,21 @@ export function ProfileForm() {
               type="submit"
               disabled={isLoading}
               style={{
-                backgroundColor: 'black',
-                color: 'hsl(43 96% 90%)',
-                border: '1px solid hsl(43 96% 90%)',
+                backgroundColor: "black",
+                color: "hsl(43 96% 90%)",
+                border: "1px solid hsl(43 96% 90%)",
               }}
             >
-              {isLoading ? 'Сохранение...' : 'Сохранить'}
+              {isLoading ? "Сохранение..." : "Сохранить"}
             </Button>
             <Button
               type="button"
               variant="outline"
               onClick={handleCancel}
               style={{
-                backgroundColor: 'black',
-                color: 'hsl(43 96% 90%)',
-                border: '1px solid hsl(43 96% 90%)',
+                backgroundColor: "black",
+                color: "hsl(43 96% 90%)",
+                border: "1px solid hsl(43 96% 90%)",
               }}
             >
               Отмена

@@ -45,29 +45,28 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
   };
 
   const downHandler = async () => {
-  try {
-    const fileName = order.Good.print.slice(7);
-    const response = await axiosInstance.get(`/good/prints/${fileName}`, {
-      responseType: 'blob', // ← Это ключевой параметр!
-    });
+    try {
+      const fileName = order.Good.print.slice(7);
+      const response = await axiosInstance.get(`/good/prints/${fileName}`, {
+        responseType: "blob", // ← Это ключевой параметр!
+      });
 
-    // Создаем URL для blob
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement('a');
-    
-    link.href = url;
-    link.setAttribute('download', fileName);
-    document.body.appendChild(link);
-    link.click();
-    
-    // Очистка
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(link);
-    
-  } catch (error) {
-    console.error('Ошибка скачивания:', error);
-  }
-};
+      // Создаем URL для blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+
+      // Очистка
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Ошибка скачивания:", error);
+    }
+  };
 
   return (
     <>
@@ -77,7 +76,9 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
           <img
             width={400}
             height={400}
-            src={`${process.env.CLIENT_URL || 'http://localhost:3001'}${order.Good.image}`}
+            src={`${
+              process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+            }${order.Good.image}`}
             alt="Изображение товара"
           />
           <div className="status">Пользователь: {order.User.username}</div>
