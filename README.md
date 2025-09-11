@@ -62,7 +62,7 @@ npm install
 npm run dev
 ```
 
-3. Откройте [http://localhost:3001](http://localhost:3001) в браузере.
+3. Откройте [https://ArtDesignGevorgyans.mooo.com](https://ArtDesignGevorgyans.mooo.com) в браузере.
 
 ## Сборка для продакшена
 
