@@ -419,7 +419,7 @@ function AddOrderContent() {
   useEffect(() => {
     if (constructorData.type && constructorData.color) {
       const imageUrl = `${
-        process.env.CLIENT_URL || "https:// ArtDesignGevorgyans.mooo.com"
+        process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
       }/items/${constructorData.type}_${constructorData.color}.webp`;
 
       // Сбрасываем флаг загрузки
@@ -754,8 +754,8 @@ function AddOrderContent() {
       return;
     }
 
-    if (data[0].type !== 'apartments') {
-      setZodError('Дом с таким адресом не найден');
+    if (data[0].type !== "apartments") {
+      setZodError("Дом с таким адресом не найден");
       return;
     }
 
@@ -865,7 +865,7 @@ function AddOrderContent() {
                         <img
                           src={`${
                             process.env.CLIENT_URL ||
-                            "https:// ArtDesignGevorgyans.mooo.com"
+                            "https://ArtDesignGevorgyans.mooo.com"
                           }${constructorData.customImage}`}
                           alt={constructorData.type}
                           className="w-full h-48 object-cover"
