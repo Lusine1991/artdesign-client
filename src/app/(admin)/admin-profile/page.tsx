@@ -29,19 +29,14 @@ export default function AdminProfilePage(): React.JSX.Element {
     <ProtectedRoute requireAdmin={true}>
       <div className="page-container">
         <div className="page-content">
-          <div className="page-header">
-            <h1 className="page-title">Админ панель</h1>
-            <p className="page-subtitle">Управление системой и заказами</p>
-          </div>
-
-          <div className="grid-2">
+          <div className="grid-1">
             <div className="section-card">
-              <h2 className="section-title">Профиль администратора</h2>
+              <h2 className="page-title">Профиль администратора</h2>
               <ProfileForm />
             </div>
 
             <div className="section-card">
-              <h2 className="section-title">Все заказы</h2>
+              <h2 className="page-title">Все заказы</h2>
               <OrderAdminList />
             </div>
           </div>

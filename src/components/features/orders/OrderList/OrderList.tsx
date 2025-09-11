@@ -1,38 +1,38 @@
-import { useAppSelector } from "@/store/hooks";
-import React, { useEffect, useState } from "react";
-import OrderCard from "../OrderCard/OrderCard";
+import { useAppSelector } from '@/store/hooks';
+import React, { useEffect, useState } from 'react';
+import OrderCard from '../OrderCard/OrderCard';
 
 export default function OrderList(): React.JSX.Element {
   const orders = useAppSelector((store) => store.order.orders);
   const [showOrders, setShowOrders] = useState(orders);
   const [parameters, setParameters] = useState({
-    status: "all",
-    sorted: "date",
-    sortedBy: "desc",
+    status: 'all',
+    sorted: 'date',
+    sortedBy: 'desc',
   });
 
   useEffect(() => {
     
     let filteredOrders = orders;
     switch (parameters.status) {
-      case "pending":
+      case 'pending':
         filteredOrders = orders.filter(
-          (order) => order.status === "Ожидает подтверждения"
+          (order) => order.status === 'Ожидает подтверждения'
         );
         break;
-      case "waiting_payment":
+      case 'waiting_payment':
         filteredOrders = orders.filter(
-          (order) => order.status === "Ожидает оплату"
+          (order) => order.status === 'Ожидает оплату'
         );
         break;
-      case "processing":
-        filteredOrders = orders.filter((order) => order.status === "В работе");
+      case 'processing':
+        filteredOrders = orders.filter((order) => order.status === 'В работе');
         break;
-      case "completed":
-        filteredOrders = orders.filter((order) => order.status === "Завершён");
+      case 'completed':
+        filteredOrders = orders.filter((order) => order.status === 'Завершён');
         break;
-      case "cancelled":
-        filteredOrders = orders.filter((order) => order.status === "Отменён");
+      case 'cancelled':
+        filteredOrders = orders.filter((order) => order.status === 'Отменён');
         break;
       default:
         filteredOrders = orders;
@@ -41,34 +41,34 @@ export default function OrderList(): React.JSX.Element {
     
     const sortedOrders = [...filteredOrders];
     switch (parameters.sortedBy) {
-      case "asc":
+      case 'asc':
         switch (parameters.sorted) {
-          case "date":
+          case 'date':
             sortedOrders.sort((a, b) => a.id - b.id);
             break;
-          case "price":
+          case 'price':
             sortedOrders.sort(
               (a, b) => a.Good.price * a.quantity - b.Good.price * b.quantity
             );
             break;
-          case "quantity":
+          case 'quantity':
             sortedOrders.sort((a, b) => a.quantity - b.quantity);
             break;
           default:
             break;
         }
         break;
-      case "desc":
+      case 'desc':
         switch (parameters.sorted) {
-          case "date":
+          case 'date':
             sortedOrders.sort((a, b) => b.id - a.id);
             break;
-          case "price":
+          case 'price':
             sortedOrders.sort(
               (a, b) => b.Good.price * b.quantity - a.Good.price * a.quantity
             );
             break;
-          case "quantity":
+          case 'quantity':
             sortedOrders.sort((a, b) => b.quantity - a.quantity);
             break;
           default:

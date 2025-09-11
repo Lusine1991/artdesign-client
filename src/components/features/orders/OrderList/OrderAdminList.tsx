@@ -1,53 +1,53 @@
-"use client";
-import { useAppSelector } from "@/store/hooks";
-import React, { useEffect, useState } from "react";
-import AdminOrderCard from "../OrderCard/AdminOrderCard";
+'use client';
+import { useAppSelector } from '@/store/hooks';
+import React, { useEffect, useState } from 'react';
+import AdminOrderCard from '../OrderCard/AdminOrderCard';
 
 export default function OrderAdminList(): React.JSX.Element {
   const orders = useAppSelector((store) => store.order.adminOrders);
   const [showOrders, setShowOrders] = useState(orders);
   const [parameters, setParameters] = useState({
-    status: "all",
-    sorted: "date",
-    sortedBy: "desc",
-    username: "",
+    status: 'all',
+    sorted: 'date',
+    sortedBy: 'desc',
+    username: '',
   });
 
   useEffect(() => {
     setShowOrders(() => {
       switch (parameters.status) {
-        case "all":
+        case 'all':
           return orders.filter((order) =>
             order.User.username.includes(parameters.username)
           );
-        case "pending":
+        case 'pending':
           return orders.filter(
             (order) =>
-              order.status === "Ожидает подтверждения" &&
+              order.status === 'Ожидает подтверждения' &&
               order.User.username.includes(parameters.username)
           );
-        case "waiting_payment":
+        case 'waiting_payment':
           return orders.filter(
             (order) =>
-              order.status === "Ожидает оплату" &&
+              order.status === 'Ожидает оплату' &&
               order.User.username.includes(parameters.username)
           );
-        case "processing":
+        case 'processing':
           return orders.filter(
             (order) =>
-              order.status === "В работе" &&
+              order.status === 'В работе' &&
               order.User.username.includes(parameters.username)
           );
-        case "completed":
+        case 'completed':
           return orders.filter(
             (order) =>
-              order.status === "Завершён" &&
+              order.status === 'Завершён' &&
               order.User.username.includes(parameters.username)
           );
-        case "cancelled":
+        case 'cancelled':
           return orders.filter(
             (order) =>
-              order.status === "Отменён" &&
+              order.status === 'Отменён' &&
               order.User.username.includes(parameters.username)
           );
         default:
@@ -56,28 +56,28 @@ export default function OrderAdminList(): React.JSX.Element {
     });
     setShowOrders((prev) => {
       switch (parameters.sortedBy) {
-        case "asc":
+        case 'asc':
           switch (parameters.sorted) {
-            case "date":
+            case 'date':
               return [...prev].sort((a, b) => a.id - b.id);
-            case "price":
+            case 'price':
               return [...prev].sort(
                 (a, b) => a.Good.price * a.quantity - b.Good.price * b.quantity
               );
-            case "quantity":
+            case 'quantity':
               return [...prev].sort((a, b) => a.quantity - b.quantity);
             default:
               return prev;
           }
-        case "desc":
+        case 'desc':
           switch (parameters.sorted) {
-            case "date":
+            case 'date':
               return [...prev].sort((a, b) => b.id - a.id);
-            case "price":
+            case 'price':
               return [...prev].sort(
                 (a, b) => b.Good.price * b.quantity - a.Good.price * a.quantity
               );
-            case "quantity":
+            case 'quantity':
               return [...prev].sort((a, b) => b.quantity - a.quantity);
             default:
               return prev;
@@ -127,7 +127,8 @@ export default function OrderAdminList(): React.JSX.Element {
         <option value="desc">По убыванию</option>
         <option value="asc">По возрастанию</option>
       </select>
-      <div className="map">
+
+      <div className="grid grid-cols-2 gap-[20px]">
         {showOrders.map((order) => (
           <AdminOrderCard key={order.id} order={order} />
         ))}

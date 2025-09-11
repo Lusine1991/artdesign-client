@@ -5,7 +5,22 @@ import styles from "./MessageCard.module.css";
 import { NewChatT } from "@/entities/chat/model/types";
 import { addMessage } from "@/entities/chat/model/thanks";
 import { useChat } from "@/entities/chat/model/chatContext";
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 
+const showToast = (message: string, type: 'error' | 'success' | 'warning' = 'error') => {
+  const backgroundColor = type === 'error' ? '#ff4444' : 
+                         type === 'success' ? '#00c851' : '#ffbb33';
+  
+  Toastify({
+    text: message,
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    backgroundColor: backgroundColor,
+    stopOnFocus: true,
+  }).showToast();
+};
 
 export default function MessageCard(): React.JSX.Element {
   const { connect, sendMessage } = useChat();
@@ -29,7 +44,7 @@ export default function MessageCard(): React.JSX.Element {
   }, [user, connect]);
 
   const [formData, setFormData] = useState<NewChatT>({
-    content: "",
+    content: '',
     chatId: currentUser?.id || 1,
     recipientId: selectedUserId || undefined,
     isAdminMessage: false,
@@ -43,16 +58,20 @@ export default function MessageCard(): React.JSX.Element {
   }, [selectedUserId]);
 
   if (!currentUser) {
-    return <div>Пользователь не найден</div>;
+    return (
+      <div className="text-center text-muted-foreground p-8">
+        Пользователь не найден
+      </div>
+    );
   }
 
   const isAdmin = currentUser.isAdmin;
-  const isAdminView = isAdmin && status === "admin";
+  const isAdminView = isAdmin && status === 'admin';
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     if (!formData.content.trim()) {
-      alert("Сообщение не может быть пустым");
+      showToast("Сообщение не может быть пустым", "error");
       return;
     }
 
@@ -82,17 +101,11 @@ export default function MessageCard(): React.JSX.Element {
         // WebSocket уведомление после успешного сохранения
         sendMessage(
           JSON.stringify({
-            type: "newMessage",
+            type: 'newMessage',
             chatId: messageToSend.chatId,
             userId: currentUser.id,
           })
         );
-
-        // if (isAdminView && selectedUserId) {
-        //   dispatch(getAdminChat(selectedUserId));
-        // } else {
-        //   dispatch(getMessagesUser());
-        // }
       })
       .catch((error) => {
         console.log(error);
@@ -101,7 +114,7 @@ export default function MessageCard(): React.JSX.Element {
 
     setFormData((prev) => ({
       ...prev,
-      content: "",
+      content: '',
     }));
   };
 
@@ -143,10 +156,14 @@ export default function MessageCard(): React.JSX.Element {
   };
 
   return (
-    <div className={styles.containerUserMessage}>
-      <div className={styles.boxChat}>
+    <div className={`${styles.containerUserMessage} p-6`}>
+      <div
+        className={`${styles.boxChat} min-h-[400px] max-h-[500px] overflow-y-auto`}
+      >
         {isLoading ? (
-          <div className={styles.loading}>Загрузка сообщений...</div>
+          <div className="text-center text-muted-foreground p-8">
+            Загрузка сообщений...
+          </div>
         ) : displayMessages.length > 0 ? (
           displayMessages.map((message: MessageT) => (
             <div
@@ -158,8 +175,8 @@ export default function MessageCard(): React.JSX.Element {
               }
             >
               <div className={styles.messageContent}>
-                <p>{message.content}</p>
-                <span className={styles.messageTime}>
+                <p className="text-foreground">{message.content}</p>
+                <span className={`${styles.messageTime} text-muted-foreground`}>
                   {message.createdAt &&
                     new Date(message.createdAt).toLocaleTimeString()}
                 </span>
@@ -167,26 +184,33 @@ export default function MessageCard(): React.JSX.Element {
             </div>
           ))
         ) : (
-          <div className={styles.noMessages}>Нет сообщений</div>
+          <div className="text-center text-muted-foreground p-8">
+            Нет сообщений
+          </div>
         )}
       </div>
-      <div className="new-sms">
-        <form onSubmit={submitHandler}>
-          <div className="input">
+      <div className="border-t border-border p-4 bg-muted/20">
+        <form onSubmit={submitHandler} className="flex gap-3">
+          <div className="flex-1 ">
             <input
               type="text"
               name="content"
               placeholder={
                 isAdminView && selectedUserId
                   ? `Сообщение пользователю #${selectedUserId}`
-                  : "Сообщение поддержке"
+                  : 'Сообщение поддержке'
               }
               value={formData.content}
               onChange={handleInputChange}
               disabled={isAdminView && !selectedUserId}
+              className="w-full text-center px-4 py-[8px] bg-card border border-border rounded-l-full text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 transition-luxury disabled:opacity-50 disabled:cursor-not-allowed"
             />
           </div>
-          <button type="submit" disabled={isAdminView && !selectedUserId}>
+          <button
+            type="submit"
+            disabled={isAdminView && !selectedUserId}
+            className="gradient-primary text-primary-foreground border-0 rounded-r-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury px-6 py-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          >
             Отправить
           </button>
         </form>

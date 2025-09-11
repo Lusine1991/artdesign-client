@@ -252,6 +252,14 @@
     animation: luxury-shimmer 3s ease-in-out infinite;
   }
 
+  .text-luxury-name {
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: luxury-shimmer 3s ease-in-out infinite;
+  }
   @keyframes luxury-shimmer {
     0%,
     100% {
@@ -446,10 +454,15 @@ body.modal-open {
 }
 
 .ai-widget-button {
-  width: 4rem !important;
-  height: 4rem !important;
+  width: 5rem !important;
+  height: 5rem !important;
   border-radius: 50% !important;
-  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3) !important;
+  background: linear-gradient(
+    135deg,
+    hsl(25 95% 60%),
+    hsl(20 100% 55%)
+  ) !important;
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -458,7 +471,7 @@ body.modal-open {
 }
 
 .ai-widget-button:hover {
-  box-shadow: 0 15px 35px rgba(236, 72, 153, 0.4) !important;
+  box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4) !important;
   transform: scale(1.05) !important;
 }
 
@@ -469,25 +482,25 @@ body.modal-open {
 
 @keyframes ai-widget-pulse {
   0% {
-    box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3),
-      0 0 0 0 rgba(236, 72, 153, 0.7);
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3),
+      0 0 0 0 rgba(245, 158, 11, 0.7);
   }
   70% {
-    box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3),
-      0 0 0 10px rgba(236, 72, 153, 0);
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3),
+      0 0 0 10px rgba(245, 158, 11, 0);
   }
   100% {
-    box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3),
-      0 0 0 0 rgba(236, 72, 153, 0);
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3),
+      0 0 0 0 rgba(245, 158, 11, 0);
   }
 }
 
 .ai-widget-chat {
   position: fixed !important;
-  bottom: 6rem !important;
+  bottom: 7rem !important;
   right: 1.5rem !important;
-  width: 20rem !important;
-  height: 24rem !important;
+  width: 24rem !important;
+  height: 28rem !important;
   background-color: white !important;
   border-radius: 0.75rem !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
@@ -863,11 +876,11 @@ body.modal-open {
   }
 
   .ai-widget-chat {
-    bottom: 5rem !important;
+    bottom: 6rem !important;
     right: 1rem !important;
     left: 1rem !important;
     width: auto !important;
-    height: 20rem !important;
+    height: 24rem !important;
   }
 
   .modal-content {
@@ -903,5 +916,382 @@ body.modal-open {
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
+  }
+}
+
+/* ===== МОБИЛЬНАЯ АДАПТИВНОСТЬ (только для экранов до 640px) ===== */
+@media (max-width: 640px) {
+  /* Адаптивность для карточек продуктов */
+  .grid.grid-cols-3 {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Адаптивность для карточек товаров */
+  .flex.flex-col.justify-between.bg-white.h-\[880px\] {
+    height: auto !important;
+    max-width: 100% !important;
+  }
+
+  /* Адаптивность для кнопок в карточках */
+  .flex.mb-\[10px\].h-\[33px\] {
+    flex-direction: column !important;
+    height: auto !important;
+    gap: 0.5rem !important;
+  }
+
+  .flex.mb-\[10px\].h-\[33px\] button {
+    width: 100% !important;
+    font-size: 0.875rem !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Адаптивность для текста в карточках */
+  .text-\[18px\] {
+    font-size: 0.875rem !important;
+  }
+
+  .text-\[20px\] {
+    font-size: 1rem !important;
+  }
+
+  .text-lg {
+    font-size: 1rem !important;
+  }
+
+  /* Адаптивность для отступов в карточках */
+  .px-\[20px\] {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .py-\[10px\] {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  /* Адаптивность для футера */
+  .flex.flex-wrap.gap-8.justify-between {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+
+  .flex.flex-wrap.gap-8.justify-between > div {
+    min-width: auto !important;
+  }
+
+  /* Адаптивность для навбара */
+  .px-\[30px\] {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Скрытие десктопного меню на мобильных */
+  .hidden.lg\:flex {
+    display: none !important;
+  }
+
+  /* Показ мобильного меню */
+  .lg\:hidden {
+    display: block !important;
+  }
+
+  /* Адаптивность для мобильного меню */
+  .lg\:hidden + div {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(0, 0, 0, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    z-index: 50 !important;
+  }
+
+  /* Адаптивность для контейнера навбара */
+  .container {
+    position: relative !important;
+  }
+
+  /* Адаптивность для логотипа */
+  .text-xl {
+    font-size: 1rem !important;
+  }
+
+  /* Адаптивность для текста в навбаре */
+  .text-\[20px\] {
+    font-size: 1rem !important;
+  }
+
+  /* Адаптивность для заголовков */
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+
+  /* Адаптивность для отступов страницы */
+  .my-\[20px\] {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .mb-\[200px\] {
+    margin-bottom: 2rem !important;
+  }
+
+  /* Адаптивность для контейнеров */
+  .max-w-6xl {
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Адаптивность для фильтров */
+  .flex.flex-wrap.justify-center.pb-\[20px\].gap-\[10px\] {
+    gap: 0.5rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .flex.flex-wrap.justify-center.pb-\[20px\].gap-\[10px\] button {
+    font-size: 0.875rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+
+  /* Адаптивность для пагинации */
+  .flex.items-center.justify-center.space-x-2.mt-8 {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  .flex.items-center.justify-center.space-x-2.mt-8 button {
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+
+  /* Адаптивность для форм */
+  .form-container {
+    padding: 1rem !important;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 0.875rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    font-size: 0.875rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+
+  /* Адаптивность для модальных окон */
+  .modal-content {
+    margin: 0.5rem !important;
+    width: calc(100% - 1rem) !important;
+    max-width: none !important;
+    padding: 1rem !important;
+  }
+
+  /* Адаптивность для AI виджета */
+  .ai-widget-container {
+    bottom: 0.75rem !important;
+    right: 0.75rem !important;
+  }
+
+  .ai-widget-chat {
+    bottom: 5rem !important;
+    right: 0.75rem !important;
+    left: 0.75rem !important;
+    width: auto !important;
+    height: 20rem !important;
+  }
+
+  /* Адаптивность для секций */
+  .section-card {
+    padding: 1rem !important;
+    margin: 1rem 0 !important;
+  }
+
+  /* Адаптивность для заголовков страниц */
+  .page-header {
+    margin-bottom: 2rem !important;
+  }
+
+  .page-title {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .page-subtitle {
+    font-size: 0.875rem !important;
+  }
+
+  /* Адаптивность для HeroBoard */
+  .min-h-\[50vh\] {
+    min-height: 40vh !important;
+  }
+
+  .py-\[100px\] {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .gap-\[80px\] {
+    gap: 2rem !important;
+  }
+
+  .text-\[36px\] {
+    font-size: 1.25rem !important;
+  }
+
+  .text-\[80px\] {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .text-\[24px\] {
+    font-size: 1rem !important;
+  }
+
+  .text-\[18px\] {
+    font-size: 0.875rem !important;
+  }
+
+  .max-w-\[700px\] {
+    max-width: 100% !important;
+  }
+
+  .max-h-\[700px\] {
+    max-height: 300px !important;
+  }
+
+  /* Адаптивность для AboutHeroBoard */
+  .lg\:text-6xl {
+    font-size: 2rem !important;
+  }
+
+  .xl\:text-7xl {
+    font-size: 2.5rem !important;
+  }
+
+  .lg\:text-xl {
+    font-size: 1rem !important;
+  }
+
+  /* Адаптивность для навбара */
+  .h-\[60px\] {
+    height: 3rem !important;
+  }
+
+  .text-\[20px\] {
+    font-size: 0.875rem !important;
+  }
+
+  .gap-\[30px\] {
+    gap: 1rem !important;
+  }
+
+  .gap-\[10px\] {
+    gap: 0.5rem !important;
+  }
+
+  /* Адаптивность для сообщений в чате */
+  .min-h-\[400px\] {
+    min-height: 300px !important;
+  }
+
+  .max-h-\[500px\] {
+    max-height: 400px !important;
+  }
+
+  .p-6 {
+    padding: 1rem !important;
+  }
+
+  .p-4 {
+    padding: 0.75rem !important;
+  }
+
+  .px-4 {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .py-\[8px\] {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .px-6 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .py-2 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+}
+
+/* ===== ПЛАНШЕТНАЯ АДАПТИВНОСТЬ (641px - 1024px) ===== */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Адаптивность для карточек продуктов на планшетах */
+  .grid.grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Адаптивность для контейнеров на планшетах */
+  .max-w-6xl {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  /* Адаптивность для навбара на планшетах */
+  .px-\[30px\] {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  /* Адаптивность для футера на планшетах */
+  .px-\[30px\] {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  /* Адаптивность для HeroBoard на планшетах */
+  .py-\[100px\] {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .gap-\[80px\] {
+    gap: 3rem !important;
+  }
+
+  .text-\[80px\] {
+    font-size: 3rem !important;
+  }
+
+  .text-\[36px\] {
+    font-size: 1.5rem !important;
+  }
+
+  .text-\[24px\] {
+    font-size: 1.125rem !important;
+  }
+
+  .max-h-\[700px\] {
+    max-height: 500px !important;
+  }
+
+  /* Адаптивность для навбара на планшетах */
+  .gap-\[30px\] {
+    gap: 1.5rem !important;
+  }
+
+  .text-\[20px\] {
+    font-size: 1rem !important;
   }
 }

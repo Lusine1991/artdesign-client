@@ -1,0 +1,238 @@
+.portalModal {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .modalContent {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(16px);
+    background: linear-gradient(135deg, hsl(var(--card) / 0.95) 0%, hsl(var(--card) / 0.9) 100%);
+    animation: zoomIn 0.3s ease-out;
+    max-width: 32rem;
+    width: 100%;
+    margin: 1rem;
+  }
+  
+  .modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+  
+  .modalTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+  }
+  
+  .modalCloseButton {
+    color: hsl(var(--muted-foreground));
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+  
+  .modalCloseButton:hover {
+    color: hsl(var(--foreground));
+    background: hsl(var(--muted) / 0.5);
+    transform: scale(1.1);
+  }
+  
+  .modalBody {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .checkboxContainer {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 12px;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--card));
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .checkboxContainer:hover {
+    background: hsl(var(--muted) / 0.2);
+    border-color: hsl(var(--primary) / 0.5);
+  }
+  
+  .checkboxContainer input[type="checkbox"] {
+    margin-right: 0.75rem;
+    width: 1rem;
+    height: 1rem;
+    accent-color: hsl(var(--primary));
+  }
+  
+  .checkboxLabel {
+    color: hsl(var(--foreground));
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .formLabel {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+  
+  .formInput {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 12px;
+    color: hsl(var(--foreground));
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+  }
+  
+  .formInput::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .formInput:hover {
+    border-color: hsl(var(--primary) / 0.5);
+  }
+  
+  .formInput:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+  }
+  
+  .formTextarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 12px;
+    color: hsl(var(--foreground));
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    resize: none;
+    min-height: 6rem;
+  }
+  
+  .formTextarea::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .formTextarea:hover {
+    border-color: hsl(var(--primary) / 0.5);
+  }
+  
+  .formTextarea:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+  }
+  
+  .modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid hsl(var(--border));
+  }
+  
+  .modalButton {
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .modalButtonCancel {
+    color: hsl(var(--foreground));
+    background: transparent;
+    border: 1px solid hsl(var(--border));
+  }
+  
+  .modalButtonCancel:hover {
+    background: hsl(var(--muted) / 0.5);
+    border-color: hsl(var(--primary) / 0.5);
+    transform: scale(1.05);
+  }
+  
+  .modalButtonSave {
+    background: linear-gradient(135deg, hsl(25 95% 60%), hsl(20 100% 55%));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .modalButtonSave:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+  
+  /* Анимации */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 640px) {
+    .modalContent {
+      margin: 0.5rem;
+      padding: 1.5rem;
+    }
+    
+    .modalTitle {
+      font-size: 1.25rem;
+    }
+    
+    .modalFooter {
+      flex-direction: column;
+    }
+    
+    .modalButton {
+      width: 100%;
+    }
+  }

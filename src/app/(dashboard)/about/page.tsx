@@ -64,27 +64,21 @@ export default function AboutPage(): React.JSX.Element {
         description={about.hero.description}
       />
 
-      {/* Statistics Section */}
-      {/* <div className="page-content py-12"> */}
-        <StatisticsSection statistics={about.statistics} />
-      {/* </div> */}
+      <StatisticsSection statistics={about.statistics} />
 
-      {/* Mission Section */}
-      {/* <div className="page-content py-12"> */}
-        <MissionSection
-          title={about.mission.title}
-          description={about.mission.description}
-        />
-      {/* </div> */}
+      <MissionSection
+        title={about.mission.title}
+        description={about.mission.description}
+      />
 
-      {/* Features Section */}
-      {/* <div className="page-content py-12"> */}
+
+<div className="mb-[100px]">
         <FeaturesSection
           title={about.features.title}
           subtitle={about.features.subtitle}
           items={about.features.items}
         />
-      {/* </div> */}
+      </div>
     </div>
   );
 }

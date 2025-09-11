@@ -1,3 +1,4 @@
+
 // client/src/components/features/message/MessageList/MessageList.tsx
 "use client";
 
@@ -63,8 +64,8 @@ export default function MessageList(): React.JSX.Element {
   }
 
   return (
-    <div className="container-messagecard">
-      <div className="map">
+    <div className="section-card">
+      <div className="bg-card rounded-lg">
         <MessageCard />
       </div>
     </div>

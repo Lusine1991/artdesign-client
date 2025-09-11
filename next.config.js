@@ -4,13 +4,10 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination:  "https://ArtDesignGevorgyans.mooo.com/api/:path*",
+        destination: "https://ArtDesignGevorgyans.mooo.com/api/:path*",
       },
     ];
   },
-
-  
 };
 
 module.exports = nextConfig;
-

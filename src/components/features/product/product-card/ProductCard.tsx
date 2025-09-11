@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import Portal from "@/components/ui/Portal";
 import { updateProduct } from "@/entities/product/model/thunks";
+import styles from "./ProductCard.module.css";
 
 type ProductCardProps = {
   product: ProductT;
@@ -61,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
             }${product.image}`}
             alt={product.type}
-            className="w-full h-full object-cover"
+            className="w-full  object-contain"
           />
         </div>
         <div className="px-[20px] py-[10px]">
@@ -104,19 +105,27 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {isOpen && (
         <Portal>
           <div
-            className="portal-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            className={`${styles.portalModal} fixed inset-0 flex items-center justify-center z-50`}
             onClick={() => setIsOpen(false)}
           >
             <div
-              className="bg-white rounded-lg p-6 w-full max-w-md mx-4 modal-content"
+              className={`${styles.modalContent}`}
               onClick={handleModalClick}
             >
-              <h2 className="text-xl font-bold mb-4">
-                Редактирование товара #{product.id}
-              </h2>
-              <div className="flex flex-col space-y-3 mb-4">
-                <label className="flex items-center">
-                  <span className="text-gray-500">Публичный товар </span>
+              <div className={styles.modalHeader}>
+                <h2 className={styles.modalTitle}>
+                  Редактирование товара #{product.id}
+                </h2>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className={styles.modalCloseButton}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className={styles.modalBody}>
+                <div className={styles.checkboxContainer}>
                   <input
                     type="checkbox"
                     checked={editData.isPublic}
@@ -124,57 +133,56 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                       setEditData({ ...editData, isPublic: !editData.isPublic })
                     }
                   />
-                </label>
-                <label
-                  htmlFor="description"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Описание
-                </label>
-                <textarea
-                  id="description"
-                  rows={3}
-                  value={editData.description}
-                  onChange={(event) => {
-                    setEditData({
-                      ...editData,
-                      description: event.target.value,
-                    });
-                  }}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  placeholder="Описание"
-                />
-                <label
-                  htmlFor="price"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Цена
-                </label>
-                <input
-                  type="number"
-                  placeholder="Цена"
-                  value={editData.price}
-                  onChange={(event) => {
-                    setEditData({
-                      ...editData,
-                      price: Number(event.target.value),
-                    });
-                  }}
-                />
+                  <span className={styles.checkboxLabel}>Публичный товар</span>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>Описание товара:</label>
+                  <textarea
+                    id="description"
+                    rows={4}
+                    value={editData.description}
+                    onChange={(event) => {
+                      setEditData({
+                        ...editData,
+                        description: event.target.value,
+                      });
+                    }}
+                    className={styles.formTextarea}
+                    placeholder="Введите описание товара..."
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>Цена товара:</label>
+                  <input
+                    type="number"
+                    placeholder="Введите цену в рублях"
+                    value={editData.price}
+                    onChange={(event) => {
+                      setEditData({
+                        ...editData,
+                        price: Number(event.target.value),
+                      });
+                    }}
+                    className={styles.formInput}
+                  />
+                </div>
               </div>
-              <div className="flex justify-end">
-                <Button
+
+              <div className={styles.modalFooter}>
+                <button
                   onClick={() => setIsOpen(false)}
-                  className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+                  className={`${styles.modalButton} ${styles.modalButtonCancel}`}
                 >
                   Отмена
-                </Button>
-                <Button
+                </button>
+                <button
                   onClick={changeHandler}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                  className={`${styles.modalButton} ${styles.modalButtonSave}`}
                 >
-                  Сохранить
-                </Button>
+                  Сохранить изменения
+                </button>
               </div>
             </div>
           </div>

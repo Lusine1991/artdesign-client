@@ -55,44 +55,82 @@ export function Navbar() {
                 >
                   Главная
                 </Link>
-                <Link
-                  href="/about"
-                  className="px-4 py-2 text-[20px]  rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
-                  style={{
-                    backgroundColor: 'black',
-                    color: 'hsl(43 96% 90%)',
-                  }}
-                >
-                  О нас
-                </Link>
-                <Link
-                  href="/add-order"
-                  className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
-                  style={{
-                    backgroundColor: 'black',
-                    color: 'hsl(43 96% 90%)',
-                  }}
-                >
-                  Оформить заказ
-                </Link>
+                {user.isAdmin ? (
+                  <>
+                    <Link
+                      href="/chat"
+                      className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
+                      style={{
+                        backgroundColor: 'black',
+                        color: 'hsl(43 96% 90%)',
+                      }}
+                    >
+                      Чаты
+                    </Link>
+                    <Link
+                      href="/add-good"
+                      className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
+                      style={{
+                        backgroundColor: 'black',
+                        color: 'hsl(43 96% 90%)',
+                      }}
+                    >
+                      Добавить товар
+                    </Link>
 
-                <Link
-                  href="/user-profile"
-                  className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
-                  style={{
-                    backgroundColor: 'black',
-                    color: 'hsl(43 96% 90%)',
-                  }}
-                >
-                  Личный кабинет
-                </Link>
+                    <Link
+                      href="/admin-profile"
+                      className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
+                      style={{
+                        backgroundColor: 'black',
+                        color: 'hsl(43 96% 90%)',
+                      }}
+                    >
+                      Личный кабинет
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/about"
+                      className="px-4 py-2 text-[20px]  rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
+                      style={{
+                        backgroundColor: 'black',
+                        color: 'hsl(43 96% 90%)',
+                      }}
+                    >
+                      О нас
+                    </Link>
+                    <Link
+                      href="/add-order"
+                      className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
+                      style={{
+                        backgroundColor: 'black',
+                        color: 'hsl(43 96% 90%)',
+                      }}
+                    >
+                      Оформить заказ
+                    </Link>
+
+                    <Link
+                      href="/user-profile"
+                      className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
+                      style={{
+                        backgroundColor: 'black',
+                        color: 'hsl(43 96% 90%)',
+                      }}
+                    >
+                      Личный кабинет
+                    </Link>
+                  </>
+                )}
               </div>
               <LogoutButton />
             </>
           ) : (
             <>
               <div></div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center gap-[10px] space-x-3">
                 <Link
                   href="/login"
                   className="px-4 py-2 text-[20px] rounded hover:bg-hsl(43 96% 90%) hover:text-black transition-colors"
@@ -101,7 +139,7 @@ export function Navbar() {
                     color: 'hsl(43 96% 90%)',
                   }}
                 >
-                  Вход
+                  Войти
                 </Link>
                 <Link
                   href="/register"
@@ -111,7 +149,7 @@ export function Navbar() {
                     color: 'hsl(43 96% 90%)',
                   }}
                 >
-                  Регистрация
+                  Зарегистрироваться
                 </Link>
               </div>
             </>

@@ -45,6 +45,7 @@ export type UserStateT = {
   status: "guest" | "logged" | "loading" | "admin";
   error: string | null;
   users: UserWithRelationsT[];
-  currentUser: UserWithRelationsT | null;
-  selectedUserId: number | null;
+  currentUser: UserWithRelationsT | null,
+  selectedUserId: number | null,
+  unreadMessages: { [userId: number]: number }
 };

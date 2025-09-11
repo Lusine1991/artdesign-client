@@ -80,19 +80,21 @@
 }
 
 .uploadButton {
-  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  background: linear-gradient(135deg, hsl(25 95% 60%), hsl(20 100% 55%));
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 9999px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
 }
 
 .uploadButton:hover {
-  transform: translateY(-2px);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
 }
 
 .printSettings {
@@ -146,19 +148,21 @@
 }
 
 .submitButton {
-  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  background: linear-gradient(135deg, hsl(25 95% 60%), hsl(20 100% 55%));
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 9999px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
 }
 
 .submitButton:hover:not(:disabled) {
-  transform: translateY(-2px);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
 }
 
 .submitButton:disabled {
@@ -278,6 +282,7 @@
   border: 1px solid #8b5cf6;
   margin-bottom: 1.5rem;
 }
+
 .imagePreview {
   margin-top: 1rem;
   text-align: center;
@@ -290,125 +295,134 @@
   border: 2px solid #e5e7eb;
   object-fit: cover;
 }
-/* ... existing styles ... */
 
 /* Стили для кнопки справки */
 .labelWithHelp {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .helpButton {
-    background: #8B5CF6;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background-color 0.2s;
-  }
-  
-  .helpButton:hover {
-    background: #7C3AED;
-  }
-  
-  .helpIcon {
-    line-height: 1;
-  }
-  
-  /* Стили для модального окна */
-  .modalOverlay {
-    color: black;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-  .modalContent {
-    background: white;
-    border-radius: 12px;
-    padding: 0;
-    max-width: 600px;
-    width: 90%;
-    max-height: 80vh;
-    overflow: hidden;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    border-bottom: 1px solid #e5e7eb;
-    background: #f9fafb;
-  }
-  
-  .modalTitle {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #111827;
-  }
-  
-  .closeButton {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #6b7280;
-    padding: 0.25rem;
-    line-height: 1;
-  }
-  
-  .closeButton:hover {
-    color: #374151;
-  }
-  
-  .sizeTable {
-    padding: 1.5rem;
-    overflow-y: auto;
-    max-height: 60vh;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-  }
-  
-  .table th,
-  .table td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  
-  .table th {
-    background: #f3f4f6;
-    font-weight: 600;
-    color: #374151;
-  }
-  
-  .table tr:hover {
-    background: #f9fafb;
-  }
-  
-  .table td:first-child {
-    font-weight: 600;
-    color: #8B5CF6;
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.helpButton {
+  background: linear-gradient(135deg, hsl(25 95% 60%), hsl(20 100% 55%));
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.helpButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.helpIcon {
+  line-height: 1;
+}
+
+/* Стили для модального окна */
+.modalOverlay {
+  color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 12px;
+  padding: 0;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.closeButton {
+  background: linear-gradient(135deg, hsl(25 95% 60%), hsl(20 100% 55%));
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.closeButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.sizeTable {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table th {
+  background: #f3f4f6;
+  font-weight: 600;
+  color: #374151;
+}
+
+.table tr:hover {
+  background: #f9fafb;
+}
+
+.table td:first-child {
+  font-weight: 600;
+  color: #8B5CF6;
+}

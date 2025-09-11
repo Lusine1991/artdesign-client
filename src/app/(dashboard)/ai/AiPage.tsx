@@ -60,10 +60,10 @@ const AIChatWidget: React.FC = () => {
       <div className="relative">
         <button
           onClick={() => setOpen(!open)}
-          className="w-12 h-12 gradient-hero rounded-full shadow-luxury hover:shadow-luxury transition-all duration-300 flex items-center justify-center ai-widget-button transform hover:scale-105"
+          className="w-12 h-12 gradient-primary rounded-full shadow-luxury hover:shadow-luxury transition-all duration-300 flex items-center justify-center ai-widget-button transform hover:scale-105"
           title="Виртуальный помощник"
         >
-          <MessageCircle color="white" size={24} />
+          <MessageCircle color="white" size={28} />
         </button>
         {/* Индикатор статуса */}
         <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-sm animate-pulse"></div>
@@ -77,11 +77,11 @@ const AIChatWidget: React.FC = () => {
 
       {/* Окно чата */}
       {open && (
-        <div className="fixed bottom-24 right-6 w-80 h-96 bg-white rounded-xl shadow-luxury border border-border flex flex-col z-[9999] ai-widget-chat animate-slide-up">
+        <div className="fixed bottom-24 right-6 w-96 h-[28rem] bg-white rounded-xl shadow-luxury border border-border flex flex-col z-[9999] ai-widget-chat animate-slide-up">
           {/* Шапка чата */}
-          <div className="gradient-hero border-b border-white/20 px-4 py-3 rounded-t-xl flex items-center justify-between">
+          <div className="gradient-primary border-b border-white/20 px-4 py-3 rounded-t-xl flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+              <div className="w-8 t h-8 bg-white/20 rounded-full flex items-center justify-center">
                 <Bot size={16} color="white" />
               </div>
               <div>
@@ -93,14 +93,14 @@ const AIChatWidget: React.FC = () => {
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="text-white/80 hover:text-white p-1 rounded-full hover:bg-white/20 transition-colors"
+              className="text-white/80 text-luxury hover:text-white p-1 rounded-full hover:bg-white/20 transition-colors"
             >
               <X size={16} />
             </button>
           </div>
 
           {/* Сообщения */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-white">
+          <div className="flex-1 p-[20px] overflow-y-auto p-4 space-y-3 bg-white">
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -117,7 +117,7 @@ const AIChatWidget: React.FC = () => {
                 <div
                   className={`max-w-[75%] rounded-2xl px-4 py-3 message-bubble ${
                     message.role === 'user'
-                      ? 'gradient-hero text-white shadow-luxury'
+                      ? 'gradient-primary text-white shadow-luxury'
                       : 'bg-gray-100 text-gray-800 shadow-sm'
                   }`}
                 >
@@ -179,7 +179,7 @@ const AIChatWidget: React.FC = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-12 h-12 gradient-hero disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-all shadow-luxury hover:shadow-luxury hover:scale-105 disabled:hover:scale-100"
+                className="w-12 h-12 gradient-primary disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-all shadow-luxury hover:shadow-luxury hover:scale-105 disabled:hover:scale-100"
                 title="Отправить сообщение"
               >
                 <Send size={18} />

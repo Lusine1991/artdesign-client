@@ -1,10 +1,17 @@
 import type React from "react";
-import { createContext, useContext, useRef, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
 import { ChatContextT } from "./types";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addUser, deleteUser } from "./slices";
 import { getMessagesUser, getAdminChat } from "@/entities/user/model/thunks";
 import { store } from "@/store/store"; // ← ДОБАВИТЬ ЭТОТ ИМПОРТ
+import { incrementUnreadMessage } from "@/entities/user/model/slice";
 
 const ChatContext = createContext<ChatContextT | null>(null);
 
@@ -23,11 +30,11 @@ export default function ChatProvider({
   // Правильное определение админ-режима
   const isAdminView = user?.isAdmin && status === "admin";
 
-  const connect = (): void => {
+  const connect = useCallback((): void => {
     console.log("=== CHAT CONTEXT CONNECT CALLED ===");
     if (ws.current?.readyState === WebSocket.OPEN) return;
 
-    ws.current = new WebSocket("ws://localhost:3001");
+    ws.current = new WebSocket("ws://ArtDesignGevorgyans.mooo.com");
 
     ws.current.onopen = () => {
       console.log("WebSocket connected");
@@ -64,6 +71,14 @@ export default function ChatProvider({
               currentState.user.user?.isAdmin &&
               currentState.user.status === "admin";
             const currentSelectedUserId = currentState.user.selectedUserId;
+
+            if (
+              messageUserId !== 1 &&
+              currentIsAdminView &&
+              currentSelectedUserId !== messageChatId
+            ) {
+              dispatch(incrementUnreadMessage(messageChatId));
+            }
 
             // ДОБАВИТЬ ОТЛАДОЧНЫЕ ЛОГИ:
             console.log("=== DEBUG CHAT CONTEXT ===");
@@ -124,7 +139,8 @@ export default function ChatProvider({
         }
       }, 3000);
     };
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   const sendMessage = (data: string | object): void => {
     if (ws.current?.readyState === WebSocket.OPEN) {

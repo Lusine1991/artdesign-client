@@ -4,6 +4,7 @@ import { OrderAdminT } from "@/entities/order/model/types";
 import axiosInstance from "@/shared/api/axiosInstance";
 import { useAppDispatch } from "@/store/hooks";
 import React, { useState, useEffect } from "react";
+import styles from "./AdminOrderCard.module.css";
 
 type Props = {
   order: OrderAdminT;
@@ -70,40 +71,71 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
 
   return (
     <>
-      <div className="container-card">
-        <div className="box-orders">
-          {/* eslint-disable-next-line @next/next/no-img-element*/}
-          <img
-            width={400}
-            height={400}
-            src={`${
-              process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
-            }${order.Good.image}`}
-            alt="Изображение товара"
-          />
-          <div className="status">Пользователь: {order.User.username}</div>
-          <div className="status">Email: {order.User.email}</div>
-          <div className="status">Статус: {order.status}</div>
-          <div className="status">Адрес: {order.adress}</div>
-          <div className="status">Количество: {order.quantity}</div>
-          <div className="status">Размер: {order.Good.size}</div>
-          <div className="status">
-            Стоимость: {order.Good.price * order.quantity}
+      <div className="bg-card border border-border rounded-lg p-6 shadow-luxury hover:shadow-luxury-lg transition-luxury my-[20px]">
+        <div className="space-y-4">
+          <div className="aspect-square overflow-hidden rounded-lg">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              width={400}
+              height={400}
+              src={`${
+                process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+              }${order.Good.image}`}
+              alt="Изображение товара"
+              className="w-full h-full object-cover"
+            />
           </div>
-          <div className="status">Телефон: {order.phoneNumber}</div>
-          <div className="status">Описание: {order.Good.description}</div>
+
+          <div className="space-y-2 my-[20px]">
+            <div className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Пользователь:</span>{" "}
+              {order.User.username}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Email:</span>{" "}
+              {order.User.email}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Статус:</span>{" "}
+              {order.status}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Адрес:</span>{" "}
+              {order.adress}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Количество:</span>{" "}
+              {order.quantity}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Размер:</span>{" "}
+              {order.Good.size}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Стоимость:</span>{" "}
+              {order.Good.price * order.quantity} ₽
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Телефон:</span>{" "}
+              {order.phoneNumber}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Описание:</span>{" "}
+              {order.Good.description}
+            </div>
+          </div>
 
           {/* Кнопки для админа */}
-          <div className="admin-actions">
+          <div className="flex flex-row gap-[20px]">
             <button
               onClick={() => setIsOpen(true)}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
+              className="flex-1 h-[27px] text-[18px] gradient-primary text-primary-foreground border-0 rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury py-3"
             >
               Редактировать
             </button>
             <button
               onClick={downHandler}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
+              className="flex-1 h-[27px] text-[18px] gradient-primary text-primary-foreground border-0 rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury py-3"
             >
               Скачать
             </button>
@@ -115,127 +147,122 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
       {isOpen && (
         <Portal>
           <div
-            className="portal-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            className={`${styles.portalModal} fixed inset-0 flex items-center justify-center z-50`}
             onClick={() => setIsOpen(false)}
           >
             <div
-              className="bg-white rounded-lg p-6 w-full max-w-md mx-4 modal-content"
+              className={`${styles.modalContent}`}
               onClick={handleModalClick}
             >
-              <h2 className="text-xl font-bold mb-4">
-                Редактирование заказа #{order.id}
-              </h2>
-              <div className="flex flex-col space-y-3 mb-4">
-                <label className="flex items-center">Статус:</label>
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="status"
-                    className="mr-2"
-                    checked={editData.status === "Ожидает подтверждения"}
-                    onChange={() =>
-                      setEditData({
-                        ...editData,
-                        status: "Ожидает подтверждения",
-                      })
-                    }
-                  />
-                  Ожидает подтверждения
-                </label>
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="status"
-                    className="mr-2"
-                    checked={editData.status === "Ожидает оплату"}
-                    onChange={() =>
-                      setEditData({ ...editData, status: "Ожидает оплату" })
-                    }
-                  />
-                  Ожидает оплату
-                </label>
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="status"
-                    className="mr-2"
-                    checked={editData.status === "В работе"}
-                    onChange={() =>
-                      setEditData({ ...editData, status: "В работе" })
-                    }
-                  />
-                  В работе
-                </label>
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="status"
-                    className="mr-2"
-                    checked={editData.status === "Завершён"}
-                    onChange={() =>
-                      setEditData({ ...editData, status: "Завершён" })
-                    }
-                  />
-                  Завершен
-                </label>
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="status"
-                    className="mr-2"
-                    checked={editData.status === "Отменён"}
-                    onChange={() =>
-                      setEditData({ ...editData, status: "Отменён" })
-                    }
-                  />
-                  Отменен
-                </label>
-                <input
-                  type="text"
-                  placeholder="Адрес"
-                  value={editData.adress}
-                  onChange={(event) => {
-                    setEditData({
-                      ...editData,
-                      adress: event.target.value,
-                    });
-                  }}
-                />
-                <input
-                  type="number"
-                  placeholder="Количество"
-                  value={editData.quantity}
-                  onChange={(event) => {
-                    setEditData({
-                      ...editData,
-                      quantity: Number(event.target.value),
-                    });
-                  }}
-                />
-                <input
-                  type="text"
-                  placeholder="Телефон"
-                  value={editData.phoneNumber}
-                  onChange={(event) => {
-                    setEditData({
-                      ...editData,
-                      phoneNumber: event.target.value,
-                    });
-                  }}
-                />
-              </div>
-              <div className="flex justify-end space-x-2">
+              <div className={styles.modalHeader}>
+                <h2 className={styles.modalTitle}>
+                  Редактирование заказа #{order.id}
+                </h2>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+                  className={styles.modalCloseButton}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className={styles.modalBody}>
+                <div className={styles.statusSection}>
+                  <label className={styles.statusLabel}>Статус заказа:</label>
+                  <div className={styles.statusOptions}>
+                    {[
+                      {
+                        value: "Ожидает подтверждения",
+                        label: "Ожидает подтверждения",
+                      },
+                      { value: "Ожидает оплату", label: "Ожидает оплату" },
+                      { value: "В работе", label: "В работе" },
+                      { value: "Завершён", label: "Завершён" },
+                      { value: "Отменён", label: "Отменён" },
+                    ].map((status) => (
+                      <label
+                        key={status.value}
+                        className={`${styles.statusOption} ${
+                          editData.status === status.value
+                            ? styles.selected
+                            : ""
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="status"
+                          checked={editData.status === status.value}
+                          onChange={() =>
+                            setEditData({ ...editData, status: status.value })
+                          }
+                        />
+                        <span className={styles.statusOptionLabel}>
+                          {status.label}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={styles.detailsSection}>
+                  <label className={styles.detailsLabel}>Детали заказа:</label>
+                  <div className={styles.formGroup}>
+                    <input
+                      type="text"
+                      placeholder="Адрес доставки"
+                      value={editData.adress}
+                      onChange={(event) => {
+                        setEditData({
+                          ...editData,
+                          adress: event.target.value,
+                        });
+                      }}
+                      className={styles.formInput}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <input
+                      type="number"
+                      placeholder="Количество"
+                      value={editData.quantity}
+                      onChange={(event) => {
+                        setEditData({
+                          ...editData,
+                          quantity: Number(event.target.value),
+                        });
+                      }}
+                      className={styles.formInput}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <input
+                      type="text"
+                      placeholder="Номер телефона"
+                      value={editData.phoneNumber}
+                      onChange={(event) => {
+                        setEditData({
+                          ...editData,
+                          phoneNumber: event.target.value,
+                        });
+                      }}
+                      className={styles.formInput}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.modalFooter}>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className={`${styles.modalButton} ${styles.modalButtonCancel}`}
                 >
                   Отмена
                 </button>
                 <button
                   onClick={changeHandler}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                  className={`${styles.modalButton} ${styles.modalButtonSave}`}
                 >
-                  Сохранить
+                  Сохранить изменения
                 </button>
               </div>
             </div>

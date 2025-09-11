@@ -80,6 +80,7 @@ export class UserService {
 
   static async getAdminChat(userId: number): Promise<MessageT[]> {
   const response = await axiosInstanceWebSocket.get(`/message/admin/${userId}`)
+  console.log(response.data,'------------------------------')
   return response.data
 }
 

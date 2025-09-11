@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState } from 'react';
@@ -11,7 +12,7 @@ interface ProductCarouselProps {
 
 const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsToShow = 4;
+  const itemsToShow = 3;
 
   const goLeft = () => {
     setCurrentIndex(currentIndex <= 0 ? products.length - 4 : currentIndex - 1);
@@ -36,13 +37,13 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
       <div className="relative overflow-hidden px-6">
         <button
           onClick={goLeft}
-          className="absolute left-[16px] top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-800 p-3 rounded-2xl shadow-lg border-2 border-gray-300 z-50"
+          className="absolute top-1/2 transform -translate-y-1/2 gradient-primary text-primary-foreground p-3 rounded-full shadow-luxury border-0 z-50 transition-luxury transform hover:scale-105"
         >
           <ChevronLeft size={20} />
         </button>
 
         <div
-          className="flex transition-transform duration-500 ease-in-out"
+          className="flex left-[0px] transition-transform duration-500 ease-in-out"
           style={{
             transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)`,
             width: `${(products.length / itemsToShow) * 100}%`,
@@ -52,7 +53,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
             <div
               key={product.id}
               className="flex-shrink-0 px-[20px]"
-              style={{ width: `${100 / products.length}%` }}
+              // style={{ width: `${100 / products.length}%` }}
             >
               <ProductCard product={product} />
             </div>
@@ -61,7 +62,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
 
         <button
           onClick={goRight}
-          className="absolute right-[16px]  top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-800 p-3 rounded-2xl shadow-lg border-2 border-gray-300 z-50"
+          className="absolute right-[0px] top-1/2 transform -translate-y-1/2 gradient-primary text-primary-foreground p-3 rounded-full shadow-luxury border-0 z-50 transition-luxury transform hover:scale-105"
         >
           <ChevronRight size={20} />
         </button>

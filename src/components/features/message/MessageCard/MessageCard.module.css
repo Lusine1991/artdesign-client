@@ -1,77 +1,128 @@
 .containerUserMessage {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
 }
 
 .boxChat {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 10px;
 }
 
 /* Сообщения слева (от собеседника) */
 .messageLeft {
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
 }
 
 .messageLeft .messageContent {
-    background-color: #f1f1f1;
-    padding: 12px 16px;
-    border-radius: 18px 18px 18px 4px;
-    max-width: 70%;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    position: relative;
+  background-color: hsl(25 95% 60%);
+  color: black;
+  padding: 12px 16px;
+  border-radius: 18px 18px 18px 4px;
+  max-width: 70%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 /* Сообщения справа (от текущего пользователя) */
 .messageRight {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
 }
 
 .messageRight .messageContent {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 16px;
-    border-radius: 18px 18px 4px 18px;
-    max-width: 70%;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    position: relative;
+  background-color: hsl(20 100% 55%);
+  color: black;
+  padding: 12px 16px;
+  border-radius: 18px 18px 4px 18px;
+  max-width: 70%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .messageContent p {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.4;
-    word-wrap: break-word;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
 }
 
 .messageTime {
-    font-size: 11px;
-    opacity: 0.7;
-    margin-top: 5px;
-    display: block;
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 5px;
+  display: block;
 }
 
 .noMessages {
-    text-align: center;
-    color: #999;
-    padding: 40px;
-    font-size: 16px;
+  text-align: center;
+  color: #999;
+  padding: 40px;
+  font-size: 16px;
 }
 
 /* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-    .messageLeft .messageContent,
-    .messageRight .messageContent {
-        max-width: 85%;
-    }
+@media (max-width: 640px) {
+  .containerUserMessage {
+    padding-top: 10px;
+  }
+
+  .boxChat {
+    min-height: 250px !important;
+    max-height: 350px !important;
+    padding: 0 5px;
+  }
+
+  .messageLeft .messageContent,
+  .messageRight .messageContent {
+    max-width: 90%;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .messageContent p {
+    font-size: 13px;
+  }
+
+  .messageTime {
+    font-size: 10px;
+  }
+
+  .containerUserMessage .border-t {
+    padding: 0.5rem;
+  }
+
+  .containerUserMessage form {
+    gap: 0.5rem;
+  }
+
+  .containerUserMessage input {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .containerUserMessage button {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .messageLeft .messageContent,
+  .messageRight .messageContent {
+    max-width: 80%;
+  }
+
+  .boxChat {
+    min-height: 350px !important;
+    max-height: 450px !important;
+  }
 }
 
 .loading {

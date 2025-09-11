@@ -3,17 +3,25 @@
   border-bottom: 1px solid #f0f0f0;
   cursor: pointer;
   transition: background-color 0.2s;
+  position: relative; /* ← ДОБАВИТЬ */
 }
 
 .containerChatcard:hover {
-  background-color: #f8f9fa;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.userInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
 }
 
 .containerChatcard .boxChat .user {
   font-weight: 600;
   font-size: 16px;
   color: #333;
-  margin-bottom: 4px;
+  margin: 0; /* ← ИЗМЕНИТЬ */
 }
 
 .containerChatcard .boxChat .message {
@@ -22,4 +30,29 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* ← ДОБАВИТЬ: стили для уведомлений */
+.unreadBadge {
+  background-color: #ff4757;
+  color: white;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

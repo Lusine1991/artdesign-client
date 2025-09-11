@@ -138,5 +138,6 @@ export const getMessagesUser = createAsyncThunk('message/getMessageUser', async 
 
 export const getAdminChat = createAsyncThunk('user/getAdminChat', async (userId: number) => {
   const response = await UserService.getAdminChat(userId)
+  console.log(response,'санка')
   return response
 })

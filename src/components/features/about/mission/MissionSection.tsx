@@ -20,7 +20,7 @@ const MissionSection: React.FC<MissionSectionProps> = ({
 
         <h2 className="page-title mb-6">{title}</h2>
 
-        <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+        <p className="text-3xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
           {description}
         </p>
       </div>

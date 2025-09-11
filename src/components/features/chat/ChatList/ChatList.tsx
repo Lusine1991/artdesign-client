@@ -5,12 +5,19 @@ import ChatCard from "../ChatCard.tsx/ChatCard";
 
 export default function ChatList(): React.JSX.Element {
   const users = useAppSelector((store) => store.user.users);
+  const currentUser = useAppSelector((store) => store.user.user);
   const [searchQuery, setSearchQuery] = useState("");
 
 
-  const filteredUsers = users?.filter(user => 
-    user.username.toLowerCase().includes(searchQuery.toLowerCase())
-  ) || [];
+  const filteredUsers = users?.filter(user => {
+    // Исключаем текущего пользователя (админа) из списка чатов
+    if (user.id === currentUser?.id) {
+      return false;
+    }
+    
+    // Применяем поиск по имени пользователя
+    return user.username.toLowerCase().includes(searchQuery.toLowerCase());
+  }) || [];
 
   return (
     <div className={styles.constinerInputChatlist}>

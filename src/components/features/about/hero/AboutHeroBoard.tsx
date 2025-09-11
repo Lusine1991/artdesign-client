@@ -37,7 +37,7 @@ const AboutHeroBoard: React.FC<AboutHeroBoardProps> = ({
             <Button
               onClick={() => router.push('/add-order')}
               size="lg"
-              className="gradient-primary text-primary-foreground border-0 text-[24px] rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury p-[10px]"
+              className="gradient-primary text-primary-foreground border-0 text-[18px] rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury p-[10px]"
             >
               Оформить заказ
               <ArrowRight className="ml-2 h-5 w-5" />

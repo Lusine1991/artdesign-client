@@ -27,12 +27,12 @@ const StatisticsSection: React.FC<StatisticsSectionProps> = ({
         {statistics.map((stat) => (
           <div
             key={stat.id}
-            className="text-center p-6 bg-card/50 rounded-xl border border-border/50 hover:border-primary/50 transition-luxury hover:shadow-luxury hover:-translate-y-1"
+            className="text-center p-6 bg-card/50 rounded-xl  hover:border-primary/50 transition-luxury hover:shadow-luxury hover:-translate-y-1"
           >
             <div className="text-9xl font-bold text-luxury mb-2">
               {stat.value}
             </div>
-            <div className="text-muted-foreground text-xl font-medium">
+            <div className="text-muted-foreground text-3xl font-medium">
               {stat.label}
             </div>
           </div>

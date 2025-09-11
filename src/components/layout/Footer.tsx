@@ -17,9 +17,9 @@ const Footer: React.FC = () => {
     'https://www.instagram.com/christina.77777?igsh=MTNjemg0bWN1em1odA%3D%3D';
   return (
     <footer className="gradient-hero border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-[30px] py-12">
         {/* Основной контент футера - всегда горизонтально */}
-        <div className="flex flex-wrap gap-8 justify-between">
+        <div className="flex flex-wrap gap-8 justify-between gap-[40px]">
           {/* О компании */}
           <div className="flex-1 min-w-[250px]">
             <h3 className="text-xl font-bold mb-4 text-white">О компании</h3>
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
               Профессиональная печать на различных материалах. Качественные
               услуги печати для вашего бизнеса и личных нужд.
             </p>
-            
+
             <div className="flex space-x-4">
               <a
                 href="#"

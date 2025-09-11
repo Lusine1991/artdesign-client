@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { updateStatus } from "@/entities/order/model/thunks";
 import { OrderT } from "@/entities/order/model/types";
 import { useAppDispatch } from "@/store/hooks";
@@ -24,35 +23,67 @@ export default function OrderCard({ order }: Props): React.JSX.Element {
   };
 
   return (
-    <div className="container-card">
-      <div className="box-orders">
-        <img
-          width={400}
-          height={400}
-          src={`${
-            process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
-          }${order.Good.image}`}
-          alt="Изображение товара"
-        />
-        <div className="status">Статус: {order.status}</div>
-        <div className="status">Адрес: {order.adress}</div>
-        <div className="status">Количество: {order.quantity}</div>
-        <div className="status">Размер: {order.Good.size}</div>
-        <div className="status">
-          Стоимость: {order.Good.price * order.quantity}
+    <div className="bg-card rounded-lg p-6 hover:shadow-luxury-lg transition-luxury my-[20px]">
+      <div className="space-y-4">
+        <div className="aspect-square overflow-hidden rounded-lg">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            width={400}
+            height={400}
+            src={`${
+              process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+            }${order.Good.image}`}
+            alt="Изображение товара"
+            className="w-full h-full object-cover"
+          />
         </div>
-        <div className="status">Телефон: {order.phoneNumber}</div>
-        <div className="status">Описание: {order.Good.description}</div>
+
+        <div className="space-y-2 my-[20px]">
+          <div className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Статус:</span>{" "}
+            {order.status}
+          </div>
+          <div className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Адрес:</span>{" "}
+            {order.adress}
+          </div>
+          <div className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Количество:</span>{" "}
+            {order.quantity}
+          </div>
+          <div className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Размер:</span>{" "}
+            {order.Good.size}
+          </div>
+          <div className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Стоимость:</span>{" "}
+            {order.Good.price * order.quantity} ₽
+          </div>
+          <div className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Телефон:</span>{" "}
+            {order.phoneNumber}
+          </div>
+          <div className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Описание:</span>{" "}
+            {order.Good.description}
+          </div>
+        </div>
 
         {/* Кнопки действий в зависимости от статуса */}
         {order.status === "Ожидает подтверждения" && (
-          <button className="detail-btn cancel-btn" onClick={abortHandler}>
+          <button
+            className="w-full gradient-primary text-primary-foreground border-0 rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury py-3"
+            onClick={abortHandler}
+          >
             Отменить заказ
           </button>
         )}
 
         {order.status === "Ожидает оплату" && (
-          <button className="detail-btn pay-btn" onClick={payOrderHandler}>
+          <button
+            className="w-full gradient-primary text-primary-foreground border-0 rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury py-3"
+            onClick={payOrderHandler}
+          >
             Оплатить заказ
           </button>
         )}

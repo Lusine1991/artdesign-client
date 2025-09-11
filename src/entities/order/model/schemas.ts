@@ -63,13 +63,7 @@ export const CreateOrderSchema = z.object({
   goodId: z.number().min(1, 'Выберите товар'),
   quantity: z.number().min(1, 'Количество должно быть больше 0'),
   adress: z.string().min(5, 'Адрес должен содержать минимум 5 символов'),
-  phoneNumber: z.string().min(9, 'Некорректный номер телефона'),
-  customPrint: z.string().optional(),
-  customImage: z.string().optional(),
-  printPosition: z.enum(['top', 'center', 'bottom']).optional(),
-  printSize: z.enum(['small', 'medium', 'large']).optional(),
-  printRotation: z.number().optional(),
-  isCustom: z.boolean().optional(),
+  phoneNumber: z.string().regex(/^(\+[1-9])[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/, 'Некорректный номер телефона'),
 });
 
 export const UpdateOrderSchema = z.object({

@@ -27,10 +27,10 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
       <div className="flex flex-wrap justify-center pb-[20px] gap-[10px]">
         <button
           onClick={() => onTypeChange('')}
-          className={`px-[10px] py-[6px] rounded-full text-[18px] font-medium transition-colors ${
+          className={`px-[10px] py-[6px] rounded-full text-[18px] font-medium transition-luxury transform hover:scale-105 shadow-luxury ${
             selectedType === ''
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              ? 'gradient-primary text-primary-foreground brightness-75'
+              : 'gradient-primary text-primary-foreground'
           }`}
         >
           Все товары
@@ -39,10 +39,10 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
           <button
             key={type}
             onClick={() => onTypeChange(type)}
-            className={`px-[10px] py-[6px] rounded-full text-[18px] font-medium transition-colors ${
+            className={`px-[10px] py-[6px] rounded-full text-[18px] font-medium transition-luxury transform hover:scale-105 shadow-luxury ${
               selectedType === type
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                ? 'gradient-primary text-primary-foreground brightness-75'
+                : 'gradient-primary text-primary-foreground'
             }`}
           >
             {type}
@@ -50,7 +50,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         ))}
       </div>
     </div>
-    
   );
 };
 

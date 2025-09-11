@@ -6,6 +6,22 @@ import { createProduct, getProducts } from "@/entities/product/model/thunks";
 import { Button } from "@/components/ui/button";
 import styles from "./page.module.css";
 import { ConstructorDataT } from "@/entities/order/model/types";
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
+
+const showToast = (message: string, type: 'error' | 'success' | 'warning' = 'error') => {
+  const backgroundColor = type === 'error' ? '#ff4444' : 
+                         type === 'success' ? '#00c851' : '#ffbb33';
+  
+  Toastify({
+    text: message,
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    backgroundColor: backgroundColor,
+    stopOnFocus: true,
+  }).showToast();
+};
 
 export default function AddGoodPage() {
   const dispatch = useAppDispatch();
@@ -165,17 +181,17 @@ export default function AddGoodPage() {
       constructorData.color === "" ||
       constructorData.size === ""
     ) {
-      alert("Заполните все обязательные поля конструктора");
+      showToast("Заполните все обязательные поля конструктора", "error");
       return;
     }
 
     if (!constructorData.filePrint) {
-      alert("Загрузите принт");
+      showToast("Загрузите принт", "error");
       return;
     }
 
     if (!constructorData.fileImage) {
-      alert("Загрузите изображение товара");
+      showToast("Загрузите изображение товара", "error");
       return;
     }
 
@@ -191,7 +207,7 @@ export default function AddGoodPage() {
         isPublic: constructorData.isPublic,
       };
       await dispatch(createProduct(goodData)).unwrap();
-      alert("Заказ успешно создан!");
+      showToast("Товар успешно добавлен!", "success");
 
       setConstructorData({
         type: "",

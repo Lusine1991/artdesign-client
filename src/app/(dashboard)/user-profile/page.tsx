@@ -42,11 +42,11 @@ export default function AccountPage(): React.JSX.Element {
 
         <div className="flex flex-row space-y-8 mt-8">
           <div className="section-card w-3/5">
-            <h2 className="section-title">Ваши заказы</h2>
+            <h2 className="page-title">Ваши заказы</h2>
             <OrderList />
           </div>
           <div className="section-card w-2/5">
-            <h2 className="section-title">Сообщения</h2>
+            <h2 className="page-title">Сообщения</h2>
             <MessageList />
           </div>
         </div>

@@ -65,7 +65,7 @@ export function ProfileForm() {
   if (!user) return null;
 
   return (
-    <div className="flex flex-col justify-center bg-white p-6 rounded-lg shadow">
+    <div className="flex flex-col justify-center bg-white p-6 rounded-lg ">
       <div className="flex items-center justify-center space-x-6 mb-6">
         <div className="flex-shrink-0">
           {user.photo ? (
@@ -77,28 +77,24 @@ export function ProfileForm() {
                 process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
               }${user.photo}`}
               alt="Profile"
-              className="rounded-full object-cover"
+              className="rounded-full object-cover shadow-luxury"
             />
           ) : (
-            <div className="w-24 h-24 rounded-full bg-gray-300 flex items-center justify-center">
-              <span className="text-2xl text-gray-600">👤</span>
+            <div className="w-24 h-24 rounded-full bg-gradient-primary flex items-center justify-center shadow-luxury">
+              <span className="text-2xl text-primary-foreground">��</span>
             </div>
           )}
         </div>
-        <div className="flex-grow">
-          <h2 className="text-2xl font-bold text-gray-900 mb-1">{user.name}</h2>
+        <div className="flex-grow pl-[20px]">
+          <h2 className="text-2xl font-bold text-luxury mb-1">{user.name}</h2>
         </div>
       </div>
 
       {!isEditing ? (
-        <div className="flex space-x-2">
+        <div className="flex space-y-2 flex-row">
           <Button
             onClick={() => setIsEditing(true)}
-            style={{
-              backgroundColor: "black",
-              color: "hsl(43 96% 90%)",
-              border: "1px solid hsl(43 96% 90%)",
-            }}
+            className="w-44 h-[20px] gradient-primary text-primary-foreground border-0 rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury"
           >
             Редактировать профиль
           </Button>
@@ -109,27 +105,37 @@ export function ProfileForm() {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-foreground">
               Логин
             </label>
-            <Input {...register("username")} disabled={isLoading} />
+            <Input
+              {...register("username")}
+              disabled={isLoading}
+              className="border-border focus:border-primary focus:ring-primary/20"
+            />
             {errors.username && (
-              <p className="text-sm text-red-500">{errors.username.message}</p>
+              <p className="text-sm text-destructive">
+                {errors.username.message}
+              </p>
             )}
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-foreground">
               Имя
             </label>
-            <Input {...register("name")} disabled={isLoading} />
+            <Input
+              {...register("name")}
+              disabled={isLoading}
+              className="border-border focus:border-primary focus:ring-primary/20"
+            />
             {errors.name && (
-              <p className="text-sm text-red-500">{errors.name.message}</p>
+              <p className="text-sm text-destructive">{errors.name.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-foreground">
               Фото
             </label>
             <Input
@@ -137,25 +143,22 @@ export function ProfileForm() {
               accept="image/*"
               onChange={handleFileChange}
               disabled={isLoading}
+              className="border-border focus:border-primary focus:ring-primary/20"
             />
             {selectedFile && (
-              <p className="text-sm text-green-600">
+              <p className="text-sm text-success">
                 ✅ Выбран файл: {selectedFile.name}
               </p>
             )}
           </div>
 
-          {error && <div className="text-sm text-red-500">❌ {error}</div>}
+          {error && <div className="text-sm text-destructive">❌ {error}</div>}
 
-          <div className="flex  space-x-2">
+          <div className="flex space-x-2">
             <Button
               type="submit"
               disabled={isLoading}
-              style={{
-                backgroundColor: "black",
-                color: "hsl(43 96% 90%)",
-                border: "1px solid hsl(43 96% 90%)",
-              }}
+              className="gradient-primary text-primary-foreground border-0 rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               {isLoading ? "Сохранение..." : "Сохранить"}
             </Button>
@@ -163,11 +166,7 @@ export function ProfileForm() {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              style={{
-                backgroundColor: "black",
-                color: "hsl(43 96% 90%)",
-                border: "1px solid hsl(43 96% 90%)",
-              }}
+              className="gradient-primary text-primary-foreground border-0 rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury"
             >
               Отмена
             </Button>

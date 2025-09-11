@@ -21,6 +21,7 @@ const initialState: UserStateT = {
   users: [],
   currentUser: null,
   selectedUserId: null,
+  unreadMessages: {},
 };
 
 export const userSlice = createSlice({
@@ -29,6 +30,10 @@ export const userSlice = createSlice({
   reducers: {
     setSelectedUser: (state, action: PayloadAction<number | null>) => {
       state.selectedUserId = action.payload;
+      // Сбрасываем уведомления при выборе пользователя
+      if (action.payload) {
+        state.unreadMessages[action.payload] = 0;
+      }
     },
     clearSelectedUser: (state) => {
       state.selectedUserId = null;
@@ -37,6 +42,17 @@ export const userSlice = createSlice({
       if (state.currentUser) {
         state.currentUser.messages?.push(action.payload);
       }
+    },
+    incrementUnreadMessage: (state, action: PayloadAction<number>) => {
+      const userId = action.payload;
+      state.unreadMessages[userId] = (state.unreadMessages[userId] || 0) + 1;
+    },
+    resetUnreadMessages: (state, action: PayloadAction<number>) => {
+      const userId = action.payload;
+      state.unreadMessages[userId] = 0;
+    },
+    resetAllUnreadMessages: (state) => {
+      state.unreadMessages = {};
     },
   },
   extraReducers: (builder) => {
@@ -182,4 +198,8 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setSelectedUser, clearSelectedUser, addWebSocketMessage } = userSlice.actions;
+export const { setSelectedUser, clearSelectedUser, addWebSocketMessage,
+  incrementUnreadMessage, 
+  resetUnreadMessages,    
+  resetAllUnreadMessages
+ } = userSlice.actions;

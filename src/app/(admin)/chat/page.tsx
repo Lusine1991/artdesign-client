@@ -1,16 +1,15 @@
-'use client';
+"use client";
 
-import ChatList from '@/components/features/chat/ChatList/ChatList';
-import MessageList from '@/components/features/message/MessageList/MessageList';
-import UserList from '@/components/features/user/UserList/UserList';
-import { allUsers } from '@/entities/user/model/thunks';
-import { useAppDispatch } from '@/store/hooks';
-import { useEffect } from 'react';
+import ChatList from "@/components/features/chat/ChatList/ChatList";
+import MessageList from "@/components/features/message/MessageList/MessageList";
 
+import { allUsers } from "@/entities/user/model/thunks";
+import { useAppDispatch } from "@/store/hooks";
+import { useEffect } from "react";
 
-import { ProtectedRoute } from '@/components/layout/protected-route';
-import { useAppSelector } from '@/store/hooks';
-import React from 'react';
+import { ProtectedRoute } from "@/components/layout/protected-route";
+import { useAppSelector } from "@/store/hooks";
+import React from "react";
 
 export default function ChatPage(): React.JSX.Element {
   const { status } = useAppSelector((state) => state.user);
@@ -20,7 +19,7 @@ export default function ChatPage(): React.JSX.Element {
     void dispatch(allUsers());
   }, [dispatch]);
 
-  if (status === 'loading' || status === 'logged') {
+  if (status === "loading" || status === "logged") {
     return (
       <ProtectedRoute requireAdmin={true}>
         <div className="loading-container">
@@ -41,21 +40,21 @@ export default function ChatPage(): React.JSX.Element {
             </p>
           </div>
 
-          <div className="grid-3">
-            <div className="section-card">
-              <h2 className="section-title">Чаты</h2>
+          <div className="flex flex-row space-y-8 mt-8">
+            <div className="section-card w-2/5">
+              <h2 className="page-title">Чаты</h2>
               <ChatList />
             </div>
 
-            <div className="section-card">
-              <h2 className="section-title">Сообщения</h2>
+            <div className="section-card w-3/5">
+              <h2 className="page-title">Сообщения</h2>
               <MessageList />
             </div>
 
-            <div className="section-card">
-              <h2 className="section-title">Пользователи</h2>
+            {/* <div className="section-card">
+              <h2 className="page-title">Пользователи</h2>
               <UserList />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

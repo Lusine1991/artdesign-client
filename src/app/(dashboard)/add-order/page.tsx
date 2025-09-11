@@ -7,6 +7,25 @@ import { Button } from "@/components/ui/button";
 import styles from "./page.module.css";
 import { createOrder } from "@/entities/order/model/thunks";
 import { useSearchParams } from "next/navigation";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
+
+const showToast = (
+  message: string,
+  type: "error" | "success" | "warning" = "error"
+) => {
+  const backgroundColor =
+    type === "error" ? "#ff4444" : type === "success" ? "#00c851" : "#ffbb33";
+
+  Toastify({
+    text: message,
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    backgroundColor: backgroundColor,
+    stopOnFocus: true,
+  }).showToast();
+};
 
 export default function AddOrderPage(): React.JSX.Element {
   return (
@@ -31,11 +50,14 @@ function AddOrderContent() {
   const productId = searchParams.get("productId");
   const redact = searchParams.get("redact");
   const [isRedact, setIsRedact] = useState(redact === "true");
+  const [apartment, setApartment] = useState(0);
 
   const dispatch = useAppDispatch();
   const { loading: orderLoading, error } = useAppSelector(
     (state) => state.order
   );
+  const [zodError, setZodError] = useState<string | null>(null);
+
   const products = useAppSelector((state) => state.product.products);
 
   const { user, status } = useAppSelector((state) => state.user);
@@ -397,7 +419,7 @@ function AddOrderContent() {
   useEffect(() => {
     if (constructorData.type && constructorData.color) {
       const imageUrl = `${
-        process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+        process.env.CLIENT_URL || "https:// ArtDesignGevorgyans.mooo.com"
       }/items/${constructorData.type}_${constructorData.color}.webp`;
 
       // Сбрасываем флаг загрузки
@@ -663,7 +685,7 @@ function AddOrderContent() {
     e.preventDefault();
 
     if (!user) {
-      alert("Необходимо войти в систему");
+      showToast("Необходимо войти в систему", "error");
       return;
     }
 
@@ -672,26 +694,86 @@ function AddOrderContent() {
       !constructorData.color ||
       !constructorData.size
     ) {
-      alert("Заполните все обязательные поля конструктора");
+      showToast("Заполните все обязательные поля конструктора", "error");
       return;
     }
     console.log(constructorData, "constructorData");
 
     if (!constructorData.printFile) {
-      alert("Загрузите принт");
+      showToast("Загрузите принт", "error");
       return;
     }
 
     if (!constructorData.imageFile) {
-      alert("Загрузите изображение товара");
+      showToast("Загрузите изображение товара", "error");
       return;
     }
+
+    function isValidPhone(phone: string) {
+      // Удаляем все пробелы и дефисы для проверки
+      const cleanPhone = phone.replace(/[\s\-]/g, "");
+
+      // Проверяем разные форматы
+      const regex = /^((\+[1-9]\d{0,3})|0)?\d{6,12}$/;
+      return regex.test(cleanPhone);
+    }
+
+    function normalizePhone(phone: string) {
+      // Удаляем все не-цифры кроме плюса в начале
+      let normalized = phone.replace(/[^\d\+]/g, "");
+
+      // Обрабатываем армянские номера
+      if (normalized.startsWith("0")) {
+        // Заменяем начальный 0 на +374
+        normalized = "+374" + normalized.substring(1);
+      } else if (normalized.startsWith("374")) {
+        // Добавляем + если его нет
+        normalized = "+" + normalized;
+      } else if (normalized.startsWith("8") && normalized.length === 11) {
+        // Российские номера: 8 -> +7
+        normalized = "+7" + normalized.substring(1);
+      } else if (normalized.startsWith("7") && normalized.length === 11) {
+        // Российские номера без +7
+        normalized = "+" + normalized;
+      }
+
+      return normalized;
+    }
+
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+        formData.adress
+      )}&limit=1`
+    );
+    const data = await response.json();
+
+    if (data.length === 0) {
+      setZodError(
+        `Адрес не найден (попробуйте не использовать короткие формы адреса)`
+      );
+      return;
+    }
+
+    if (data[0].type !== 'apartments') {
+      setZodError('Дом с таким адресом не найден');
+      return;
+    }
+
+    setZodError(null);
+
+    if (!isValidPhone(formData.phoneNumber)) {
+      setZodError("Некорректный номер телефона");
+      return;
+    }
+
+    setZodError(null);
+    const normalizedPhone = normalizePhone(formData.phoneNumber);
 
     try {
       const orderData = {
         quantity: formData.quantity,
-        adress: formData.adress,
-        phoneNumber: formData.phoneNumber,
+        adress: `${formData.adress} ${apartment ? `кв. ${apartment}` : ""}`,
+        phoneNumber: normalizedPhone,
         type: constructorData.type,
         color: constructorData.color,
         size: constructorData.size,
@@ -703,7 +785,7 @@ function AddOrderContent() {
       };
       console.log(orderData);
       await dispatch(createOrder(orderData)).unwrap();
-      alert("Заказ успешно создан!");
+      showToast("Заказ успешно создан!", "success");
 
       // Сброс формы
       setFormData({
@@ -783,7 +865,7 @@ function AddOrderContent() {
                         <img
                           src={`${
                             process.env.CLIENT_URL ||
-                            "https://ArtDesignGevorgyans.mooo.com"
+                            "https:// ArtDesignGevorgyans.mooo.com"
                           }${constructorData.customImage}`}
                           alt={constructorData.type}
                           className="w-full h-48 object-cover"
@@ -839,7 +921,7 @@ function AddOrderContent() {
 
                     {/* Тип товара - радио кнопки */}
                     <div className={styles.field}>
-                      <label className={styles.label}>Тип товара:</label>
+                      <label className={styles.label}>Тип товара *:</label>
                       <div className={styles.radioGroup}>
                         {typeOptions.map((option) => (
                           <label key={option} className={styles.radioLabel}>
@@ -861,7 +943,7 @@ function AddOrderContent() {
 
                     {/* Цвет - радио кнопки */}
                     <div className={styles.field}>
-                      <label className={styles.label}>Цвет:</label>
+                      <label className={styles.label}>Цвет *:</label>
                       <div className={styles.radioGroup}>
                         {colorOptions.map((option) => (
                           <label key={option} className={styles.radioLabel}>
@@ -884,7 +966,7 @@ function AddOrderContent() {
                     {/* Размер - радио кнопки с кнопкой справки */}
                     <div className={styles.field}>
                       <div className={styles.labelWithHelp}>
-                        <label className={styles.label}>Размер:</label>
+                        <label className={styles.label}>Размер *:</label>
                         <button
                           type="button"
                           onClick={() => setShowSizeGuide(true)}
@@ -915,14 +997,16 @@ function AddOrderContent() {
 
                     {/* Описание */}
                     <div className={styles.field}>
-                      <label className={styles.label}>Описание:</label>
+                      <label className={styles.label}>
+                        Пожелания к заказу:
+                      </label>
                       <textarea
                         value={constructorData.description}
                         onChange={(e) =>
                           handleConstructorChange("description", e.target.value)
                         }
                         className={styles.textarea}
-                        placeholder="Описание товара..."
+                        placeholder="Вместо футболки хотелось бы поло"
                         rows={3}
                       />
                     </div>
@@ -1121,9 +1205,23 @@ function AddOrderContent() {
                   name="adress"
                   value={formData.adress}
                   onChange={handleChange}
-                  placeholder="Введите адрес доставки"
+                  placeholder="Город, улица, дом"
                   className={styles.input}
                   required
+                />
+              </div>
+
+              <div className={styles.field}>
+                <label className={styles.label}>
+                  Номер квартиры (опционально):
+                </label>
+                <input
+                  type="number"
+                  name="apartment"
+                  value={apartment === 0 ? "" : apartment}
+                  onChange={(e) => setApartment(Number(e.target.value))}
+                  placeholder="42"
+                  className={styles.input}
                 />
               </div>
 
@@ -1151,6 +1249,7 @@ function AddOrderContent() {
                 )}
 
               {error && <div className={styles.error}>{error}</div>}
+              {zodError && <div className={styles.error}>{zodError}</div>}
 
               <Button
                 type="submit"
