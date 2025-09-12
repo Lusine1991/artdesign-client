@@ -17,7 +17,7 @@ const QrSection: React.FC = () => {
           <img
             src={`${
               process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
-            }/qr/QRsber.jpg`}
+            }/qr/qr.webp`}
             alt="QR-код для оплаты"
             width={400}
             height={400}
