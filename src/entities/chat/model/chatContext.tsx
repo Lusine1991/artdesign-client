@@ -34,7 +34,7 @@ export default function ChatProvider({
     console.log("=== CHAT CONTEXT CONNECT CALLED ===");
     if (ws.current?.readyState === WebSocket.OPEN) return;
 
-    ws.current = new WebSocket("wss://ArtDesignGevorgyans.mooo.com");
+    ws.current = new WebSocket("api/ws");
 
     ws.current.onopen = () => {
       console.log("WebSocket connected");
