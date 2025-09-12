@@ -1232,6 +1232,220 @@ body.modal-open {
     padding-top: 0.5rem !important;
     padding-bottom: 0.5rem !important;
   }
+
+  /* Адаптивность для AdvantagesSection */
+  .grid.grid-cols-4 {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .py-12 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .mb-8 {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .mb-4 {
+    margin-bottom: 1rem !important;
+  }
+
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+
+  .text-\[24px\] {
+    font-size: 1rem !important;
+  }
+
+  .max-w-2xl {
+    max-width: 100% !important;
+  }
+
+  .max-w-7xl {
+    max-width: 100% !important;
+  }
+
+  .px-4 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Адаптивность для AdvantageCard */
+  .p-\[20px\] {
+    padding: 1rem !important;
+  }
+
+  .p-6 {
+    padding: 1rem !important;
+  }
+
+  .mb-4 {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .mb-2 {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .w-12 {
+    width: 2.5rem !important;
+  }
+
+  .h-12 {
+    height: 2.5rem !important;
+  }
+
+  .text-xs {
+    font-size: 0.75rem !important;
+  }
+
+  .text-\[18px\] {
+    font-size: 0.875rem !important;
+  }
+
+  /* Адаптивность для StatisticsSection */
+  .m-\[100px\] {
+    margin: 2rem !important;
+  }
+
+  .grid.grid-cols-4.md\:grid-cols-4 {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .text-9xl {
+    font-size: 3rem !important;
+  }
+
+  .text-3xl {
+    font-size: 1.25rem !important;
+  }
+
+  .p-6 {
+    padding: 1rem !important;
+  }
+
+  /* Автоматическая прокрутка сообщений вниз */
+  .overflow-y-auto {
+    scroll-behavior: smooth !important;
+  }
+
+  /* Принудительная прокрутка вниз для новых сообщений */
+  .boxChat {
+    scroll-behavior: smooth !important;
+  }
+
+  /* Стили для автоматической прокрутки */
+  .auto-scroll {
+    scroll-behavior: smooth !important;
+  }
+
+  /* Обеспечиваем, что новые сообщения всегда видны */
+  .messageRight:last-child,
+  .messageLeft:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* Адаптивность для селектов в OrderAdminList и OrderList */
+  .flex.flex-row.gap-\[30px\].justify-center {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: center !important;
+  }
+
+  .flex.flex-row.text-lg.gap-\[30px\].justify-center {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: center !important;
+  }
+
+  /* Адаптивность для селектов */
+  select {
+    width: 100% !important;
+    max-width: 300px !important;
+    font-size: 0.875rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  /* Адаптивность для input в OrderAdminList */
+  input[type='text'] {
+    width: 100% !important;
+    max-width: 300px !important;
+    font-size: 0.875rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  /* Адаптивность для контейнера заказов */
+  .container-goodlist {
+    padding: 1rem !important;
+  }
+
+  /* Адаптивность для сетки заказов */
+  .grid.grid-cols-2 {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Адаптивность для .map */
+  .map {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  /* Адаптивность для user-profile */
+  .flex.flex-row.space-y-8.mt-8.gap-\[20px\] {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    margin-top: 1rem !important;
+  }
+
+  .w-3\/5 {
+    width: 100% !important;
+  }
+
+  .w-2\/5 {
+    width: 100% !important;
+  }
+
+  /* Адаптивность для формы сообщений */
+  .section-card {
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+  }
+
+  /* Адаптивность для формы отправки сообщений */
+  .border-t.border-border.p-4.bg-muted\/20 {
+    padding: 0.75rem !important;
+  }
+
+  .flex.gap-3 {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+
+  .flex-1 {
+    width: 100% !important;
+  }
+
+  /* Адаптивность для input в форме сообщений */
+  .w-full.text-center.px-4.py-\[8px\] {
+    width: 100% !important;
+    text-align: left !important;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* Адаптивность для кнопки отправки */
+  .gradient-primary.text-primary-foreground.border-0.rounded-r-full {
+    width: 100% !important;
+    border-radius: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
 }
 
 /* ===== ПЛАНШЕТНАЯ АДАПТИВНОСТЬ (641px - 1024px) ===== */
@@ -1292,6 +1506,118 @@ body.modal-open {
   }
 
   .text-\[20px\] {
+    font-size: 1rem !important;
+  }
+
+  /* Адаптивность для AdvantagesSection на планшетах */
+  .grid.grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  .py-12 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .text-3xl {
+    font-size: 2rem !important;
+  }
+
+  .text-\[24px\] {
+    font-size: 1.125rem !important;
+  }
+
+  /* Адаптивность для StatisticsSection на планшетах */
+  .m-\[100px\] {
+    margin: 3rem !important;
+  }
+
+  .grid.grid-cols-4.md\:grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  .text-9xl {
+    font-size: 4rem !important;
+  }
+
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+
+  /* Адаптивность для селектов на планшетах */
+  .flex.flex-row.gap-\[30px\].justify-center {
+    flex-direction: row !important;
+    gap: 1.5rem !important;
+    flex-wrap: wrap !important;
+  }
+
+  .flex.flex-row.text-lg.gap-\[30px\].justify-center {
+    flex-direction: row !important;
+    gap: 1.5rem !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Адаптивность для селектов на планшетах */
+  select {
+    width: auto !important;
+    min-width: 150px !important;
+    font-size: 1rem !important;
+  }
+
+  /* Адаптивность для input на планшетах */
+  input[type='text'] {
+    width: auto !important;
+    min-width: 200px !important;
+    font-size: 1rem !important;
+  }
+
+  /* Адаптивность для сетки заказов на планшетах */
+  .grid.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Адаптивность для user-profile на планшетах */
+  .flex.flex-row.space-y-8.mt-8.gap-\[20px\] {
+    flex-direction: row !important;
+    gap: 1.5rem !important;
+    margin-top: 2rem !important;
+  }
+
+  .w-3\/5 {
+    width: 60% !important;
+  }
+
+  .w-2\/5 {
+    width: 40% !important;
+  }
+
+  /* Адаптивность для формы сообщений на планшетах */
+  .section-card {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+  }
+
+  /* Адаптивность для формы отправки сообщений на планшетах */
+  .flex.gap-3 {
+    flex-direction: row !important;
+    gap: 1rem !important;
+  }
+
+  /* Адаптивность для input в форме сообщений на планшетах */
+  .w-full.text-center.px-4.py-\[8px\] {
+    text-align: center !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
+  }
+
+  /* Адаптивность для кнопки отправки на планшетах */
+  .gradient-primary.text-primary-foreground.border-0.rounded-r-full {
+    width: auto !important;
+    border-radius: 9999px !important;
+    padding: 0.75rem 1.5rem !important;
     font-size: 1rem !important;
   }
 }

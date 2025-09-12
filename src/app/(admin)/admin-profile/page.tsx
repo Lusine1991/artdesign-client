@@ -29,13 +29,13 @@ export default function AdminProfilePage(): React.JSX.Element {
     <ProtectedRoute requireAdmin={true}>
       <div className="page-container">
         <div className="page-content">
-          <div className="grid-1">
+          <div className="grid-1 ">
             <div className="section-card">
               <h2 className="page-title">Профиль администратора</h2>
               <ProfileForm />
             </div>
 
-            <div className="section-card">
+            <div className="section-card my-[40px]">
               <h2 className="page-title">Все заказы</h2>
               <OrderAdminList />
             </div>

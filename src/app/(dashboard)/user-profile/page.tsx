@@ -36,11 +36,11 @@ export default function AccountPage(): React.JSX.Element {
   return (
     <ProtectedRoute>
       <div className="page-content">
-        <div className="section-card">
+        <div className="section-card my-[40px]">
           <ProfileForm />
         </div>
 
-        <div className="flex flex-row space-y-8 mt-8">
+        <div className="flex flex-row space-y-8 mt-8 gap-[20px]">
           <div className="section-card w-3/5">
             <h2 className="page-title">Ваши заказы</h2>
             <OrderList />

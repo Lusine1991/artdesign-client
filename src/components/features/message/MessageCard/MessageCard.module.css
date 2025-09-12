@@ -10,6 +10,8 @@
   flex-direction: column;
   gap: 10px;
   padding: 0 10px;
+  scroll-behavior: smooth;
+  overflow-anchor: auto;
 }
 
 /* Сообщения слева (от собеседника) */
@@ -130,4 +132,23 @@
   color: #999;
   padding: 40px;
   font-size: 16px;
+}
+
+/* Автоматическая прокрутка вниз для новых сообщений */
+.autoScrollDown {
+  scroll-behavior: smooth;
+  overflow-anchor: auto;
+}
+
+/* Обеспечиваем, что новые сообщения всегда видны */
+.messageRight:last-child,
+.messageLeft:last-child {
+  margin-bottom: 0;
+  scroll-margin-bottom: 10px;
+}
+
+/* Стили для автоматической прокрутки */
+.scrollToBottom {
+  scroll-behavior: smooth;
+  overflow-anchor: auto;
 }

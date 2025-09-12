@@ -34,7 +34,7 @@ export default function ChatProvider({
     console.log("=== CHAT CONTEXT CONNECT CALLED ===");
     if (ws.current?.readyState === WebSocket.OPEN) return;
 
-    ws.current = new WebSocket("/api/ws");
+    ws.current = new WebSocket("ws://localhost:3001");
 
     ws.current.onopen = () => {
       console.log("WebSocket connected");
@@ -139,7 +139,7 @@ export default function ChatProvider({
         }
       }, 3000);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const sendMessage = (data: string | object): void => {

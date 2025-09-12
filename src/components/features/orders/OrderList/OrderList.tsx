@@ -12,7 +12,6 @@ export default function OrderList(): React.JSX.Element {
   });
 
   useEffect(() => {
-    
     let filteredOrders = orders;
     switch (parameters.status) {
       case 'pending':
@@ -38,7 +37,6 @@ export default function OrderList(): React.JSX.Element {
         filteredOrders = orders;
     }
 
-    
     const sortedOrders = [...filteredOrders];
     switch (parameters.sortedBy) {
       case 'asc':
@@ -84,35 +82,44 @@ export default function OrderList(): React.JSX.Element {
 
   return (
     <div className="container-goodlist">
-      <select
-        onChange={(e) =>
-          setParameters({ ...parameters, status: e.target.value })
-        }
-      >
-        <option value="all">Все</option>
-        <option value="pending">Ожидает подтверждения</option>
-        <option value="waiting_payment">Ожидает оплату</option>
-        <option value="processing">В работе</option>
-        <option value="completed">Завершён</option>
-        <option value="cancelled">Отменён</option>
-      </select>
-      <select
-        onChange={(e) =>
-          setParameters({ ...parameters, sorted: e.target.value })
-        }
-      >
-        <option value="date">Дата</option>
-        <option value="price">Стоимость</option>
-        <option value="quantity">Количество</option>
-      </select>
-      <select
-        onChange={(e) =>
-          setParameters({ ...parameters, sortedBy: e.target.value })
-        }
-      >
-        <option value="desc">По убыванию</option>
-        <option value="asc">По возрастанию</option>
-      </select>
+      <div className="flex flex-row  text-lg gap-[30px]  justify-center">
+        <select
+          onChange={(e) =>
+            setParameters({ ...parameters, status: e.target.value })
+          }
+          className="rounded-full  text-[18px]  px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="all">Все заказы</option>
+          <option value="pending">Ожидает подтверждения</option>
+          <option value="waiting_payment">Ожидает оплату</option>
+          <option value="processing">В работе</option>
+          <option value="completed">Завершён</option>
+          <option value="cancelled">Отменён</option>
+        </select>
+
+        <select
+          onChange={(e) =>
+            setParameters({ ...parameters, sorted: e.target.value })
+          }
+          className="rounded-full  text-[18px] px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+
+        >
+          <option value="date">Дата</option>
+          <option value="price">Стоимость</option>
+          <option value="quantity">Количество</option>
+        </select>
+
+        <select
+          onChange={(e) =>
+            setParameters({ ...parameters, sortedBy: e.target.value })
+          }
+          className="rounded-full  text-[18px] px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+
+        >
+          <option value="desc">По убыванию</option>
+          <option value="asc">По возрастанию</option>
+        </select>
+      </div>
       <div className="map">
         {showOrders.map((order) => (
           <OrderCard key={order.id} order={order} />

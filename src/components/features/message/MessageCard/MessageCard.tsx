@@ -1,17 +1,20 @@
 import type { MessageT } from "@/entities/message/model/types";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState, useRef, useMemo } from "react";
 import styles from "./MessageCard.module.css";
 import { NewChatT } from "@/entities/chat/model/types";
 import { addMessage } from "@/entities/chat/model/thanks";
 import { useChat } from "@/entities/chat/model/chatContext";
-import Toastify from 'toastify-js';
+import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 
-const showToast = (message: string, type: 'error' | 'success' | 'warning' = 'error') => {
-  const backgroundColor = type === 'error' ? '#ff4444' : 
-                         type === 'success' ? '#00c851' : '#ffbb33';
-  
+const showToast = (
+  message: string,
+  type: "error" | "success" | "warning" = "error"
+) => {
+  const backgroundColor =
+    type === "error" ? "#ff4444" : type === "success" ? "#00c851" : "#ffbb33";
+
   Toastify({
     text: message,
     duration: 3000,
@@ -25,6 +28,7 @@ const showToast = (message: string, type: 'error' | 'success' | 'warning' = 'err
 export default function MessageCard(): React.JSX.Element {
   const { connect, sendMessage } = useChat();
   const dispatch = useAppDispatch();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const currentUser = useAppSelector((store) => store.user.currentUser);
   const user = useAppSelector((store) => store.user.user);
@@ -32,23 +36,26 @@ export default function MessageCard(): React.JSX.Element {
   // console.log(selectedUserId);
   const status = useAppSelector((store) => store.user.status);
 
-  const messages = currentUser?.messages || [];
+  const messages = useMemo(
+    () => currentUser?.messages || [],
+    [currentUser?.messages]
+  );
 
   const isLoading = !currentUser?.messages || currentUser.messages.length === 0;
   // const chats = currentUser?.chats || [];
+
+  const [formData, setFormData] = useState<NewChatT>({
+    content: "",
+    chatId: currentUser?.id || 1,
+    recipientId: selectedUserId || undefined,
+    isAdminMessage: false,
+  });
 
   useEffect(() => {
     if (user) {
       connect();
     }
   }, [user, connect]);
-
-  const [formData, setFormData] = useState<NewChatT>({
-    content: '',
-    chatId: currentUser?.id || 1,
-    recipientId: selectedUserId || undefined,
-    isAdminMessage: false,
-  });
 
   useEffect(() => {
     setFormData((prev) => ({
@@ -57,6 +64,26 @@ export default function MessageCard(): React.JSX.Element {
     }));
   }, [selectedUserId]);
 
+  // Автоматическая прокрутка вниз при появлении новых сообщений
+  useEffect(() => {
+    if (messagesEndRef.current && messages.length > 0) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
+  // Автоматическая прокрутка вниз при загрузке компонента
+  useEffect(() => {
+    if (messagesEndRef.current && messages.length > 0) {
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }, [messages.length]);
+
+  const isAdmin = currentUser?.isAdmin;
+  const isAdminView = isAdmin && status === "admin";
+
+  // Условный return после всех хуков
   if (!currentUser) {
     return (
       <div className="text-center text-muted-foreground p-8">
@@ -64,9 +91,6 @@ export default function MessageCard(): React.JSX.Element {
       </div>
     );
   }
-
-  const isAdmin = currentUser.isAdmin;
-  const isAdminView = isAdmin && status === 'admin';
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
@@ -101,7 +125,7 @@ export default function MessageCard(): React.JSX.Element {
         // WebSocket уведомление после успешного сохранения
         sendMessage(
           JSON.stringify({
-            type: 'newMessage',
+            type: "newMessage",
             chatId: messageToSend.chatId,
             userId: currentUser.id,
           })
@@ -109,13 +133,19 @@ export default function MessageCard(): React.JSX.Element {
       })
       .catch((error) => {
         console.log(error);
-        
       });
 
     setFormData((prev) => ({
       ...prev,
-      content: '',
+      content: "",
     }));
+
+    // Автоматическая прокрутка вниз после отправки сообщения
+    setTimeout(() => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,8 +165,9 @@ export default function MessageCard(): React.JSX.Element {
         )
       : messages.filter(
           (msg) =>
-            (msg.userId === currentUser.id && msg.chatId === currentUser.id) ||
-            (msg.userId === 1 && msg.chatId === currentUser.id)
+            (msg.userId === currentUser?.id &&
+              msg.chatId === currentUser?.id) ||
+            (msg.userId === 1 && msg.chatId === currentUser?.id)
         );
 
   // Функция для определения, кто отправил сообщение
@@ -151,7 +182,7 @@ export default function MessageCard(): React.JSX.Element {
       return message.userId === 1;
     } else {
       // В пользовательском режиме: сообщения от текущего пользователя идут справа
-      return message.userId === currentUser.id;
+      return message.userId === currentUser?.id;
     }
   };
 
@@ -165,24 +196,29 @@ export default function MessageCard(): React.JSX.Element {
             Загрузка сообщений...
           </div>
         ) : displayMessages.length > 0 ? (
-          displayMessages.map((message: MessageT) => (
-            <div
-              key={message.id}
-              className={
-                isMessageFromCurrentUser(message)
-                  ? styles.messageRight // Сообщения справа (от текущего пользователя)
-                  : styles.messageLeft // Сообщения слева (от собеседника)
-              }
-            >
-              <div className={styles.messageContent}>
-                <p className="text-foreground">{message.content}</p>
-                <span className={`${styles.messageTime} text-muted-foreground`}>
-                  {message.createdAt &&
-                    new Date(message.createdAt).toLocaleTimeString()}
-                </span>
+          <>
+            {displayMessages.map((message: MessageT) => (
+              <div
+                key={message.id}
+                className={
+                  isMessageFromCurrentUser(message)
+                    ? styles.messageRight // Сообщения справа (от текущего пользователя)
+                    : styles.messageLeft // Сообщения слева (от собеседника)
+                }
+              >
+                <div className={styles.messageContent}>
+                  <p className="text-foreground">{message.content}</p>
+                  <span
+                    className={`${styles.messageTime} text-muted-foreground`}
+                  >
+                    {message.createdAt &&
+                      new Date(message.createdAt).toLocaleTimeString()}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))
+            ))}
+            <div ref={messagesEndRef} />
+          </>
         ) : (
           <div className="text-center text-muted-foreground p-8">
             Нет сообщений
@@ -198,7 +234,7 @@ export default function MessageCard(): React.JSX.Element {
               placeholder={
                 isAdminView && selectedUserId
                   ? `Сообщение пользователю #${selectedUserId}`
-                  : 'Сообщение поддержке'
+                  : "Сообщение поддержке"
               }
               value={formData.content}
               onChange={handleInputChange}

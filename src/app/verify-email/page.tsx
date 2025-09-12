@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useEffect, useState, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import axios, { AxiosError } from "axios";
+import { useEffect, useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import axios, { AxiosError } from 'axios';
 
 // Выносим основной компонент в отдельную функцию
 function VerifyEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
-  const [status, setStatus] = useState<"loading" | "success" | "error">(
-    "loading"
+  const token = searchParams.get('token');
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
+    'loading'
   );
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     if (token) {
@@ -24,21 +24,21 @@ function VerifyEmailContent() {
   const verifyEmail = async (verificationToken: string) => {
     try {
       const response = await axios.get(
-        `https://ArtDesignGevorgyans.mooo.com/api/auth/verify-email?token=${verificationToken}`
+        `http://localhost:3001/api/auth/verify-email?token=${verificationToken}`
       );
-      setStatus("success");
+      setStatus('success');
       setMessage(response.data.message);
 
       setTimeout(() => {
-        router.push("/");
+        router.push('/');
       }, 3000);
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
-        setStatus("error");
-        setMessage(error.response?.data?.message || "Ошибка верификации");
+        setStatus('error');
+        setMessage(error.response?.data?.message || 'Ошибка верификации');
       } else {
-        setStatus("error");
-        setMessage("Ошибка верификации");
+        setStatus('error');
+        setMessage('Ошибка верификации');
       }
     }
   };
@@ -47,11 +47,11 @@ function VerifyEmailContent() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          {status === "loading" && (
+          {status === 'loading' && (
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           )}
 
-          {status === "success" && (
+          {status === 'success' && (
             <div className="text-green-600">
               <svg
                 className="mx-auto h-12 w-12"
@@ -70,7 +70,7 @@ function VerifyEmailContent() {
             </div>
           )}
 
-          {status === "error" && (
+          {status === 'error' && (
             <div className="text-red-600">
               <svg
                 className="mx-auto h-12 w-12"
@@ -91,7 +91,7 @@ function VerifyEmailContent() {
 
           <p className="mt-2 text-gray-600">{message}</p>
 
-          {status === "success" && (
+          {status === 'success' && (
             <p className="mt-4 text-sm text-gray-500">
               Вы будете перенаправлены на главную страницу через несколько
               секунд...

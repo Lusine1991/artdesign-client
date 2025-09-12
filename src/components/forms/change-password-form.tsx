@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -58,7 +57,7 @@ export function ChangePasswordForm() {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-foreground">
+            <label className="block my-[15px] text-sm font-medium text-foreground">
               Текущий пароль
             </label>
             <Input
@@ -76,7 +75,7 @@ export function ChangePasswordForm() {
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-foreground">
+            <label className="block my-[15px] text-sm font-medium text-foreground">
               Новый пароль
             </label>
             <Input
@@ -95,7 +94,7 @@ export function ChangePasswordForm() {
 
           {error && <div className="text-sm text-destructive">❌ {error}</div>}
 
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 mt-[20px] gap-[20px]">
             <Button
               type="submit"
               disabled={isLoading}

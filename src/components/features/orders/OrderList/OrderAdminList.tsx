@@ -90,6 +90,7 @@ export default function OrderAdminList(): React.JSX.Element {
 
   return (
     <div className="container-goodlist">
+      <div className="flex flex-row gap-[30px] justify-center">
       <input
         type="text"
         placeholder="Поиск по имени пользователя"
@@ -97,13 +98,18 @@ export default function OrderAdminList(): React.JSX.Element {
         onChange={(e) =>
           setParameters({ ...parameters, username: e.target.value })
         }
+        className="rounded-full  text-[18px]  px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+
       />
+      
       <select
         onChange={(e) =>
           setParameters({ ...parameters, status: e.target.value })
         }
+        className="rounded-full  text-[18px]  px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+
       >
-        <option value="all">Все</option>
+        <option value="all">Все заказы</option>
         <option value="pending">Ожидает подтверждения</option>
         <option value="waiting_payment">Ожидает оплату</option>
         <option value="processing">В работе</option>
@@ -114,6 +120,7 @@ export default function OrderAdminList(): React.JSX.Element {
         onChange={(e) =>
           setParameters({ ...parameters, sorted: e.target.value })
         }
+        className="rounded-full  text-[18px]  px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         <option value="date">Дата</option>
         <option value="price">Стоимость</option>
@@ -123,11 +130,13 @@ export default function OrderAdminList(): React.JSX.Element {
         onChange={(e) =>
           setParameters({ ...parameters, sortedBy: e.target.value })
         }
+        className="rounded-full  text-[18px]  px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+
       >
         <option value="desc">По убыванию</option>
         <option value="asc">По возрастанию</option>
       </select>
-
+      </div>
       <div className="grid grid-cols-2 gap-[20px]">
         {showOrders.map((order) => (
           <AdminOrderCard key={order.id} order={order} />

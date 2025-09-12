@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
     'https://www.instagram.com/christina.77777?igsh=MTNjemg0bWN1em1odA%3D%3D';
   return (
     <footer className="gradient-hero border-t border-border">
-      <div className="max-w-7xl mx-auto px-[30px] py-12">
+      <div className="max-w-7xl mx-auto ml-[150px] py-12">
         {/* Основной контент футера - всегда горизонтально */}
         <div className="flex flex-wrap gap-8 justify-between gap-[40px]">
           {/* О компании */}

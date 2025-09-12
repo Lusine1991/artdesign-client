@@ -2,7 +2,7 @@
 
 import React, { Suspense } from 'react';
 import { ProtectedRoute } from '@/components/layout/protected-route';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import PaymentHeroBoard from '@/components/features/payment/hero/PaymentHeroBoard';
 import QrSection from '@/components/features/payment/qr/QrSection';
 import ContactsSection from '@/components/features/payment/contacts/ContactsSection';
@@ -33,6 +33,12 @@ function PaymentContent() {
   const orderId = searchParams.get('orderId');
   const totalAmount = searchParams.get('amount');
   const quantity = searchParams.get('quantity') || '1';
+  const router = useRouter();
+  
+  if (!orderId || !totalAmount || !quantity) {
+    router.push('/main');
+    return;
+  }
 
   // Данные для контактов
   const telegramUrl = 'https://t.me/your_telegram_username';
