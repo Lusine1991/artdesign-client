@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
 const QrSection: React.FC = () => {
   return (
@@ -16,7 +16,7 @@ const QrSection: React.FC = () => {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`${
-              process.env.CLIENT_URL || 'http://localhost:3001'
+              process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
             }/qr/QRsber.jpg`}
             alt="QR-код для оплаты"
             width={400}

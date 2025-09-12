@@ -1,12 +1,12 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { ProductT } from '../../../../entities/product/model/types';
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import Portal from '@/components/ui/Portal';
-import { updateProduct } from '@/entities/product/model/thunks';
-import styles from './ProductCard.module.css';
+"use client";
+import React, { useEffect, useState } from "react";
+import { ProductT } from "../../../../entities/product/model/types";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import Portal from "@/components/ui/Portal";
+import { updateProduct } from "@/entities/product/model/thunks";
+import styles from "./ProductCard.module.css";
 
 type ProductCardProps = {
   product: ProductT;
@@ -30,13 +30,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   // Блокировка скролла при открытии модалки
   useEffect(() => {
     if (isOpen) {
-      document.body.style.width = '100%';
+      document.body.style.width = "100%";
     } else {
-      document.body.style.position = 'static';
+      document.body.style.position = "static";
     }
 
     return () => {
-      document.body.style.position = 'static';
+      document.body.style.position = "static";
     };
   }, [isOpen]);
 
@@ -58,9 +58,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <img
             width={400}
             height={600}
-            src={`${process.env.CLIENT_URL || 'http://localhost:3001'}${
-              product.image
-            }`}
+            src={`${
+              process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+            }${product.image}`}
             alt={product.type}
             className="w-full  object-contain"
           />
@@ -76,7 +76,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           <div className="space-y-1 mb-[10px] text-sm">
             <div>
-              <span className="text-gray-500">Цвет:</span>{' '}
+              <span className="text-gray-500">Цвет:</span>{" "}
               <span className="text-gray-900 ml-1">{product.color}</span>
             </div>
           </div>

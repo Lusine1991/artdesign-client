@@ -1,27 +1,27 @@
-'use client';
-import React, { useState, useEffect, useRef, Suspense } from 'react';
-import { ProtectedRoute } from '@/components/layout/protected-route';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getProducts } from '@/entities/product/model/thunks';
-import { Button } from '@/components/ui/button';
-import styles from './page.module.css';
-import { createOrder } from '@/entities/order/model/thunks';
-import { useRouter, useSearchParams } from 'next/navigation';
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
+"use client";
+import React, { useState, useEffect, useRef, Suspense } from "react";
+import { ProtectedRoute } from "@/components/layout/protected-route";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { getProducts } from "@/entities/product/model/thunks";
+import { Button } from "@/components/ui/button";
+import styles from "./page.module.css";
+import { createOrder } from "@/entities/order/model/thunks";
+import { useRouter, useSearchParams } from "next/navigation";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 const showToast = (
   message: string,
-  type: 'error' | 'success' | 'warning' = 'error'
+  type: "error" | "success" | "warning" = "error"
 ) => {
   const backgroundColor =
-    type === 'error' ? '#ff4444' : type === 'success' ? '#00c851' : '#ffbb33';
+    type === "error" ? "#ff4444" : type === "success" ? "#00c851" : "#ffbb33";
 
   Toastify({
     text: message,
     duration: 3000,
-    gravity: 'top',
-    position: 'right',
+    gravity: "top",
+    position: "right",
     backgroundColor: backgroundColor,
     stopOnFocus: true,
   }).showToast();
@@ -47,9 +47,9 @@ export default function AddOrderPage(): React.JSX.Element {
 
 function AddOrderContent() {
   const searchParams = useSearchParams();
-  const productId = searchParams.get('productId');
-  const redact = searchParams.get('redact');
-  const [isRedact, setIsRedact] = useState(redact === 'true');
+  const productId = searchParams.get("productId");
+  const redact = searchParams.get("redact");
+  const [isRedact, setIsRedact] = useState(redact === "true");
   const [apartment, setApartment] = useState(0);
   const router = useRouter();
 
@@ -108,15 +108,15 @@ function AddOrderContent() {
     printFile: null | File;
     imageFile: null | File;
   }>({
-    type: '',
-    color: '',
-    size: '',
-    print: '',
+    type: "",
+    color: "",
+    size: "",
+    print: "",
     price: 0,
-    description: '',
+    description: "",
     isPublic: false,
-    customPrint: '',
-    customImage: '',
+    customPrint: "",
+    customImage: "",
     printPosition: 50,
     printSize: 50,
     printRotation: 0,
@@ -132,7 +132,7 @@ function AddOrderContent() {
       const blob = await response.blob();
       return new File([blob], filename, { type: blob.type });
     } catch (fallbackError) {
-      console.error('Ошибка при fallback загрузке:', fallbackError);
+      console.error("Ошибка при fallback загрузке:", fallbackError);
       throw error;
     }
   }
@@ -146,15 +146,15 @@ function AddOrderContent() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         product = findProduct;
         setConstructorData({
-          type: product?.type || '',
-          color: product?.color || '',
-          size: '',
-          print: product?.print || '',
+          type: product?.type || "",
+          color: product?.color || "",
+          size: "",
+          print: product?.print || "",
           price: product?.price || 0,
-          description: product?.description || '',
+          description: product?.description || "",
           isPublic: false,
-          customPrint: product?.print || '',
-          customImage: product?.image || '',
+          customPrint: product?.print || "",
+          customImage: product?.image || "",
           printPosition: 50,
           printSize: 50,
           printRotation: 0,
@@ -165,10 +165,10 @@ function AddOrderContent() {
         });
 
         const productImageUrl = `${
-          process.env.CLIENT_URL || 'http://localhost:3001'
+          process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
         }${findProduct.image}`;
         const productPrintUrl = `${
-          process.env.CLIENT_URL || 'http://localhost:3001'
+          process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
         }${findProduct.print}`;
 
         setCustomPrint(productPrintUrl);
@@ -182,7 +182,7 @@ function AddOrderContent() {
               }));
             })
             .catch((error) => {
-              console.error('Ошибка загрузки изображения товара:', error);
+              console.error("Ошибка загрузки изображения товара:", error);
             });
 
           urlToFile(productPrintUrl, `print_${findProduct.id}.jpg`)
@@ -193,7 +193,7 @@ function AddOrderContent() {
               }));
             })
             .catch((error) => {
-              console.error('Ошибка загрузки принта:', error);
+              console.error("Ошибка загрузки принта:", error);
             });
         }
       }
@@ -202,8 +202,8 @@ function AddOrderContent() {
 
   const [formData, setFormData] = useState({
     quantity: 1,
-    adress: '',
-    phoneNumber: '',
+    adress: "",
+    phoneNumber: "",
     goodId: productId,
   });
 
@@ -212,156 +212,156 @@ function AddOrderContent() {
 
   // Опции для радио-кнопок
   const typeOptions = [
-    'Футболка',
-    'Кружка',
-    'Кепка',
-    'Сумка',
-    'Блокнот',
-    'Кружка Хамелеон',
-    'Банер',
-    'Визитка',
+    "Футболка",
+    "Кружка",
+    "Кепка",
+    "Сумка",
+    "Блокнот",
+    "Кружка Хамелеон",
+    "Банер",
+    "Визитка",
   ];
   const colorOptions = [
-    'Черный',
-    'Белый',
-    'Красный',
-    'Синий',
-    'Зеленый',
-    'Желтый',
-    'Розовый',
+    "Черный",
+    "Белый",
+    "Красный",
+    "Синий",
+    "Зеленый",
+    "Желтый",
+    "Розовый",
   ];
 
   // Размеры для разных типов товаров
   const getSizeOptions = (type: string) => {
     switch (type) {
-      case 'Футболка':
-        return ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-      case 'Кружка':
-        return ['200мл', '300мл', '400мл', '500мл'];
-      case 'Кепка':
-        return ['S (54-55см)', 'M (56-57см)', 'L (58-59см)', 'XL (60-61см)'];
-      case 'Сумка':
-        return ['Маленькая', 'Средняя', 'Большая'];
-      case 'Блокнот':
-        return ['A5', 'A4', 'A3'];
-      case 'Кружка Хамелеон':
-        return ['200мл', '300мл', '400мл', '500мл'];
-      case 'Банер':
-        return ['50x70см', '70x100см', '100x150см', '150x200см'];
-      case 'Визитка':
-        return ['85x55мм', '90x50мм', '100x60мм'];
+      case "Футболка":
+        return ["XS", "S", "M", "L", "XL", "XXL"];
+      case "Кружка":
+        return ["200мл", "300мл", "400мл", "500мл"];
+      case "Кепка":
+        return ["S (54-55см)", "M (56-57см)", "L (58-59см)", "XL (60-61см)"];
+      case "Сумка":
+        return ["Маленькая", "Средняя", "Большая"];
+      case "Блокнот":
+        return ["A5", "A4", "A3"];
+      case "Кружка Хамелеон":
+        return ["200мл", "300мл", "400мл", "500мл"];
+      case "Банер":
+        return ["50x70см", "70x100см", "100x150см", "150x200см"];
+      case "Визитка":
+        return ["85x55мм", "90x50мм", "100x60мм"];
       default:
-        return ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+        return ["XS", "S", "M", "L", "XL", "XXL"];
     }
   };
 
   // Таблицы размеров для разных товаров
   const getSizeTable = (type: string) => {
     switch (type) {
-      case 'Футболка':
+      case "Футболка":
         return {
           headers: [
-            'Размер',
-            'Обхват груди (см)',
-            'Длина (см)',
-            'Обхват талии (см)',
+            "Размер",
+            "Обхват груди (см)",
+            "Длина (см)",
+            "Обхват талии (см)",
           ],
           rows: [
-            ['XS', '86-90', '66-68', '70-74'],
-            ['S', '90-94', '68-70', '74-78'],
-            ['M', '94-98', '70-72', '78-82'],
-            ['L', '98-102', '72-74', '82-86'],
-            ['XL', '102-106', '74-76', '86-90'],
-            ['XXL', '106-110', '76-78', '90-94'],
+            ["XS", "86-90", "66-68", "70-74"],
+            ["S", "90-94", "68-70", "74-78"],
+            ["M", "94-98", "70-72", "78-82"],
+            ["L", "98-102", "72-74", "82-86"],
+            ["XL", "102-106", "74-76", "86-90"],
+            ["XXL", "106-110", "76-78", "90-94"],
           ],
         };
-      case 'Кружка':
+      case "Кружка":
         return {
-          headers: ['Объем', 'Высота (см)', 'Диаметр (см)', 'Вес (г)'],
+          headers: ["Объем", "Высота (см)", "Диаметр (см)", "Вес (г)"],
           rows: [
-            ['200мл', '8.5', '7.5', '280'],
-            ['300мл', '9.5', '8.0', '350'],
-            ['400мл', '10.5', '8.5', '420'],
-            ['500мл', '11.5', '9.0', '490'],
+            ["200мл", "8.5", "7.5", "280"],
+            ["300мл", "9.5", "8.0", "350"],
+            ["400мл", "10.5", "8.5", "420"],
+            ["500мл", "11.5", "9.0", "490"],
           ],
         };
-      case 'Кружка Хамелеон':
+      case "Кружка Хамелеон":
         return {
-          headers: ['Объем', 'Высота (см)', 'Диаметр (см)', 'Вес (г)'],
+          headers: ["Объем", "Высота (см)", "Диаметр (см)", "Вес (г)"],
           rows: [
-            ['200мл', '8.5', '7.5', '280'],
-            ['300мл', '9.5', '8.0', '350'],
-            ['400мл', '10.5', '8.5', '420'],
-            ['500мл', '11.5', '9.0', '490'],
+            ["200мл", "8.5", "7.5", "280"],
+            ["300мл", "9.5", "8.0", "350"],
+            ["400мл", "10.5", "8.5", "420"],
+            ["500мл", "11.5", "9.0", "490"],
           ],
         };
-      case 'Кепка':
+      case "Кепка":
         return {
-          headers: ['Размер', 'Обхват головы (см)', 'Глубина (см)', 'Описание'],
+          headers: ["Размер", "Обхват головы (см)", "Глубина (см)", "Описание"],
           rows: [
-            ['S', '54-55', '8-9', 'Детский/женский'],
-            ['M', '56-57', '8-9', 'Универсальный'],
-            ['L', '58-59', '8-9', 'Мужской'],
-            ['XL', '60-61', '8-9', 'Большой размер'],
+            ["S", "54-55", "8-9", "Детский/женский"],
+            ["M", "56-57", "8-9", "Универсальный"],
+            ["L", "58-59", "8-9", "Мужской"],
+            ["XL", "60-61", "8-9", "Большой размер"],
           ],
         };
-      case 'Сумка':
+      case "Сумка":
         return {
-          headers: ['Размер', 'Ширина (см)', 'Высота (см)', 'Глубина (см)'],
+          headers: ["Размер", "Ширина (см)", "Высота (см)", "Глубина (см)"],
           rows: [
-            ['Маленькая', '25', '20', '8'],
-            ['Средняя', '35', '30', '12'],
-            ['Большая', '45', '40', '15'],
+            ["Маленькая", "25", "20", "8"],
+            ["Средняя", "35", "30", "12"],
+            ["Большая", "45", "40", "15"],
           ],
         };
-      case 'Блокнот':
+      case "Блокнот":
         return {
           headers: [
-            'Формат',
-            'Ширина (см)',
-            'Высота (см)',
-            'Количество листов',
+            "Формат",
+            "Ширина (см)",
+            "Высота (см)",
+            "Количество листов",
           ],
           rows: [
-            ['A5', '14.8', '21', '80'],
-            ['A4', '21', '29.7', '80'],
-            ['A3', '29.7', '42', '80'],
-          ],
-        };
-      case 'Банер':
-        return {
-          headers: ['Размер', 'Ширина (см)', 'Высота (см)', 'Плотность (г/м²)'],
-          rows: [
-            ['50x70см', '50', '70', '200'],
-            ['70x100см', '70', '100', '200'],
-            ['100x150см', '100', '150', '200'],
-            ['150x200см', '150', '200', '200'],
+            ["A5", "14.8", "21", "80"],
+            ["A4", "21", "29.7", "80"],
+            ["A3", "29.7", "42", "80"],
           ],
         };
-      case 'Визитка':
+      case "Банер":
         return {
-          headers: ['Размер', 'Ширина (мм)', 'Высота (мм)', 'Толщина (мм)'],
+          headers: ["Размер", "Ширина (см)", "Высота (см)", "Плотность (г/м²)"],
           rows: [
-            ['85x55мм', '85', '55', '0.3'],
-            ['90x50мм', '90', '50', '0.3'],
-            ['100x60мм', '100', '60', '0.3'],
+            ["50x70см", "50", "70", "200"],
+            ["70x100см", "70", "100", "200"],
+            ["100x150см", "100", "150", "200"],
+            ["150x200см", "150", "200", "200"],
+          ],
+        };
+      case "Визитка":
+        return {
+          headers: ["Размер", "Ширина (мм)", "Высота (мм)", "Толщина (мм)"],
+          rows: [
+            ["85x55мм", "85", "55", "0.3"],
+            ["90x50мм", "90", "50", "0.3"],
+            ["100x60мм", "100", "60", "0.3"],
           ],
         };
       default:
         return {
           headers: [
-            'Размер',
-            'Обхват груди (см)',
-            'Длина (см)',
-            'Обхват талии (см)',
+            "Размер",
+            "Обхват груди (см)",
+            "Длина (см)",
+            "Обхват талии (см)",
           ],
           rows: [
-            ['XS', '86-90', '66-68', '70-74'],
-            ['S', '90-94', '68-70', '74-78'],
-            ['M', '94-98', '70-72', '78-82'],
-            ['L', '98-102', '72-74', '82-86'],
-            ['XL', '102-106', '74-76', '86-90'],
-            ['XXL', '106-110', '76-78', '90-94'],
+            ["XS", "86-90", "66-68", "70-74"],
+            ["S", "90-94", "68-70", "74-78"],
+            ["M", "94-98", "70-72", "78-82"],
+            ["L", "98-102", "72-74", "82-86"],
+            ["XL", "102-106", "74-76", "86-90"],
+            ["XXL", "106-110", "76-78", "90-94"],
           ],
         };
     }
@@ -383,7 +383,7 @@ function AddOrderContent() {
       const blob = await response.blob();
       return new File([blob], `image.${match[1]}`, { type: blob.type });
     } else {
-      console.log('Расширение не найдено');
+      console.log("Расширение не найдено");
     }
   }
 
@@ -393,15 +393,15 @@ function AddOrderContent() {
     try {
       // Загружаем оба изображения через proxy и конвертируем в файлы
       if (!baseProductImage || !customPrint) {
-        console.log('Недостаточно данных для превью:', {
+        console.log("Недостаточно данных для превью:", {
           baseProductImage,
           customPrint,
         });
         return;
       }
 
-      const productImageFile = await urlToFile(baseProductImage, 'product.jpg');
-      const printFile = await urlToFile(customPrint, 'print.jpg');
+      const productImageFile = await urlToFile(baseProductImage, "product.jpg");
+      const printFile = await urlToFile(customPrint, "print.jpg");
 
       setPreviewImage(baseProductImage);
       setConstructorData((prev) => ({
@@ -410,9 +410,9 @@ function AddOrderContent() {
         imageFile: productImageFile,
         printFile: printFile,
       }));
-      console.log('Использованы оригинальные изображения из-за CORS ошибки');
+      console.log("Использованы оригинальные изображения из-за CORS ошибки");
     } catch (error) {
-      console.error('Не удалось загрузить изображения:', error);
+      console.error("Не удалось загрузить изображения:", error);
     }
   };
 
@@ -420,7 +420,7 @@ function AddOrderContent() {
   useEffect(() => {
     if (constructorData.type && constructorData.color) {
       const imageUrl = `${
-        process.env.CLIENT_URL || 'http://localhost:3001'
+        process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
       }/items/${constructorData.type}_${constructorData.color}.webp`;
 
       // Сбрасываем флаг загрузки
@@ -428,14 +428,14 @@ function AddOrderContent() {
 
       // Проверяем доступность изображения
       const img = new Image();
-      img.crossOrigin = 'Anonymous'; // Важно для CORS
+      img.crossOrigin = "Anonymous"; // Важно для CORS
       img.onload = () => {
         setBaseProductImage(imageUrl);
         setBaseProductImageLoaded(true);
-        console.log('Изображение товара загружено:', imageUrl);
+        console.log("Изображение товара загружено:", imageUrl);
       };
       img.onerror = () => {
-        console.warn('Изображение товара не найдено:', imageUrl);
+        console.warn("Изображение товара не найдено:", imageUrl);
         setBaseProductImage(null);
         setBaseProductImageLoaded(false);
       };
@@ -450,7 +450,7 @@ function AddOrderContent() {
   const generatePreview = async () => {
     console.log(baseProductImage, customPrint, baseProductImageLoaded);
     if (!baseProductImage || !customPrint || !baseProductImageLoaded) {
-      console.log('Недостаточно данных для превью:', {
+      console.log("Недостаточно данных для превью:", {
         baseProductImage,
         customPrint,
         baseProductImageLoaded,
@@ -460,13 +460,13 @@ function AddOrderContent() {
 
     const canvas = canvasRef.current;
     if (!canvas) {
-      console.log('Canvas не найден');
+      console.log("Canvas не найден");
       return;
     }
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) {
-      console.log('Context не найден');
+      console.log("Context не найден");
       return;
     }
 
@@ -475,18 +475,18 @@ function AddOrderContent() {
 
     // Загружаем изображение товара с CORS
     const goodImage = new Image();
-    goodImage.crossOrigin = 'Anonymous'; // Важно для CORS
+    goodImage.crossOrigin = "Anonymous"; // Важно для CORS
     goodImage.onload = () => {
-      console.log('Изображение товара загружено в canvas');
+      console.log("Изображение товара загружено в canvas");
 
       // Рисуем товар
       ctx.drawImage(goodImage, 0, 0, canvas.width, canvas.height);
 
       // Загружаем принт с CORS
       const printImage = new Image();
-      printImage.crossOrigin = 'Anonymous'; // Важно для CORS
+      printImage.crossOrigin = "Anonymous"; // Важно для CORS
       printImage.onload = () => {
-        console.log('Принт загружен в canvas');
+        console.log("Принт загружен в canvas");
 
         // Вычисляем размеры принта
         const baseSize = Math.min(canvas.width, canvas.height) * 0.5;
@@ -541,11 +541,11 @@ function AddOrderContent() {
 
         try {
           // Сохраняем превью
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
 
           dataURLtoFile(dataUrl).then((file) => {
             if (!file) {
-              console.log('Файл не создан');
+              console.log("Файл не создан");
               return;
             }
             setPreviewImage(dataUrl);
@@ -554,21 +554,21 @@ function AddOrderContent() {
               customImage: dataUrl,
               imageFile: file,
             }));
-            console.log('Превью создано успешно, файл сохранен');
+            console.log("Превью создано успешно, файл сохранен");
           });
         } catch (error) {
-          console.error('Ошибка при экспорте canvas:', error);
+          console.error("Ошибка при экспорте canvas:", error);
           // Альтернативное решение: использовать proxy для изображений
           handleCanvasExportError();
         }
       };
       printImage.onerror = () => {
-        console.error('Ошибка загрузки принта');
+        console.error("Ошибка загрузки принта");
       };
       printImage.src = customPrint;
     };
     goodImage.onerror = () => {
-      console.error('Ошибка загрузки изображения товара в canvas');
+      console.error("Ошибка загрузки изображения товара в canvas");
     };
     goodImage.src = baseProductImage;
   };
@@ -587,7 +587,7 @@ function AddOrderContent() {
     baseProductImageLoaded, // Добавляем зависимость от флага загрузки
   ]);
 
-  if (status === 'loading' || status === 'admin') {
+  if (status === "loading" || status === "admin") {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
@@ -609,7 +609,7 @@ function AddOrderContent() {
           print: file.name,
           printFile: file,
         }));
-        console.log('Принт загружен');
+        console.log("Принт загружен");
       };
       reader.readAsDataURL(file);
     }
@@ -620,62 +620,62 @@ function AddOrderContent() {
       ...prev,
       [field]: value,
     }));
-    if (field === 'type') {
+    if (field === "type") {
       setConstructorData((prev) => {
         switch (value) {
-          case 'Футболка':
+          case "Футболка":
             return {
               ...prev,
               price: 4000,
-              size: '',
+              size: "",
             };
-          case 'Кружка':
+          case "Кружка":
             return {
               ...prev,
               price: 1500,
-              size: '',
+              size: "",
             };
-          case 'Кепка':
+          case "Кепка":
             return {
               ...prev,
               price: 3000,
-              size: '',
+              size: "",
             };
-          case 'Сумка':
+          case "Сумка":
             return {
               ...prev,
               price: 2000,
-              size: '',
+              size: "",
             };
-          case 'Кружка Хамелеон':
+          case "Кружка Хамелеон":
             return {
               ...prev,
               price: 2000,
-              size: '',
+              size: "",
             };
-          case 'Блокнот':
+          case "Блокнот":
             return {
               ...prev,
               price: 1000,
-              size: '',
+              size: "",
             };
-          case 'Банер':
+          case "Банер":
             return {
               ...prev,
               price: 500, // цена за кв.м или фиксированная
-              size: '',
+              size: "",
             };
-          case 'Визитка':
+          case "Визитка":
             return {
               ...prev,
               price: 50, // цена за штуку
-              size: '',
+              size: "",
             };
           default:
             return {
               ...prev,
               price: 0,
-              size: '',
+              size: "",
             };
         }
       });
@@ -686,7 +686,7 @@ function AddOrderContent() {
     e.preventDefault();
 
     if (!user) {
-      showToast('Необходимо войти в систему', 'error');
+      showToast("Необходимо войти в систему", "error");
       return;
     }
 
@@ -695,24 +695,24 @@ function AddOrderContent() {
       !constructorData.color ||
       !constructorData.size
     ) {
-      showToast('Заполните все обязательные поля конструктора', 'error');
+      showToast("Заполните все обязательные поля конструктора", "error");
       return;
     }
-    console.log(constructorData, 'constructorData');
+    console.log(constructorData, "constructorData");
 
     if (!constructorData.printFile) {
-      showToast('Загрузите принт', 'error');
+      showToast("Загрузите принт", "error");
       return;
     }
 
     if (!constructorData.imageFile) {
-      showToast('Загрузите изображение товара', 'error');
+      showToast("Загрузите изображение товара", "error");
       return;
     }
 
     function isValidPhone(phone: string) {
       // Удаляем все пробелы и дефисы для проверки
-      const cleanPhone = phone.replace(/[\s\-]/g, '');
+      const cleanPhone = phone.replace(/[\s\-]/g, "");
 
       // Проверяем разные форматы
       const regex = /^((\+[1-9]\d{0,3})|0)?\d{6,12}$/;
@@ -721,21 +721,21 @@ function AddOrderContent() {
 
     function normalizePhone(phone: string) {
       // Удаляем все не-цифры кроме плюса в начале
-      let normalized = phone.replace(/[^\d\+]/g, '');
+      let normalized = phone.replace(/[^\d\+]/g, "");
 
       // Обрабатываем армянские номера
-      if (normalized.startsWith('0')) {
+      if (normalized.startsWith("0")) {
         // Заменяем начальный 0 на +374
-        normalized = '+374' + normalized.substring(1);
-      } else if (normalized.startsWith('374')) {
+        normalized = "+374" + normalized.substring(1);
+      } else if (normalized.startsWith("374")) {
         // Добавляем + если его нет
-        normalized = '+' + normalized;
-      } else if (normalized.startsWith('8') && normalized.length === 11) {
+        normalized = "+" + normalized;
+      } else if (normalized.startsWith("8") && normalized.length === 11) {
         // Российские номера: 8 -> +7
-        normalized = '+7' + normalized.substring(1);
-      } else if (normalized.startsWith('7') && normalized.length === 11) {
+        normalized = "+7" + normalized.substring(1);
+      } else if (normalized.startsWith("7") && normalized.length === 11) {
         // Российские номера без +7
-        normalized = '+' + normalized;
+        normalized = "+" + normalized;
       }
 
       return normalized;
@@ -755,15 +755,15 @@ function AddOrderContent() {
       return;
     }
 
-    if (data[0].addresstype !== 'building') {
-      setZodError('Дом с таким адресом не найден');
+    if (data[0].addresstype !== "building") {
+      setZodError("Дом с таким адресом не найден");
       return;
     }
 
     setZodError(null);
 
     if (!isValidPhone(formData.phoneNumber)) {
-      setZodError('Некорректный номер телефона');
+      setZodError("Некорректный номер телефона");
       return;
     }
 
@@ -773,7 +773,7 @@ function AddOrderContent() {
     try {
       const orderData = {
         quantity: formData.quantity,
-        adress: `${formData.adress} ${apartment ? `кв. ${apartment}` : ''}`,
+        adress: `${formData.adress} ${apartment ? `кв. ${apartment}` : ""}`,
         phoneNumber: normalizedPhone,
         type: constructorData.type,
         color: constructorData.color,
@@ -786,25 +786,25 @@ function AddOrderContent() {
       };
       console.log(orderData);
       await dispatch(createOrder(orderData)).unwrap();
-      showToast('Заказ успешно создан!', 'success');
+      showToast("Заказ успешно создан!", "success");
 
       // Сброс формы
       setFormData({
         quantity: 1,
-        adress: '',
-        phoneNumber: '',
+        adress: "",
+        phoneNumber: "",
         goodId: null,
       });
       setConstructorData({
-        type: '',
-        color: '',
-        size: '',
-        print: '',
+        type: "",
+        color: "",
+        size: "",
+        print: "",
         price: 0,
-        description: '',
+        description: "",
         isPublic: false,
-        customPrint: '',
-        customImage: '',
+        customPrint: "",
+        customImage: "",
         printPosition: 50,
         printSize: 50,
         printRotation: 0,
@@ -821,9 +821,9 @@ function AddOrderContent() {
       setPrintSize(50);
       setPrintRotation(0);
       setPrintHorizontal(50);
-      router.push('/user-profile');
+      router.push("/user-profile");
     } catch (error) {
-      console.error('Ошибка при создании заказа:', error);
+      console.error("Ошибка при создании заказа:", error);
     }
   };
 
@@ -833,9 +833,9 @@ function AddOrderContent() {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === 'quantity' || name === 'goodId' ? Number(value) : value,
+      [name]: name === "quantity" || name === "goodId" ? Number(value) : value,
     }));
-    if (name === 'quantity') {
+    if (name === "quantity") {
       setFormData((prev) => ({
         ...prev,
         quantity: Number(value),
@@ -866,7 +866,8 @@ function AddOrderContent() {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={`${
-                            process.env.CLIENT_URL || 'http://localhost:3001'
+                            process.env.CLIENT_URL ||
+                            "https://ArtDesignGevorgyans.mooo.com"
                           }${constructorData.customImage}`}
                           alt={constructorData.type}
                           className="w-full h-48 object-cover"
@@ -892,7 +893,7 @@ function AddOrderContent() {
                               value={option}
                               checked={constructorData.size === option}
                               onChange={(e) =>
-                                handleConstructorChange('size', e.target.value)
+                                handleConstructorChange("size", e.target.value)
                               }
                               className={styles.radioInput}
                             />
@@ -932,7 +933,7 @@ function AddOrderContent() {
                               value={option}
                               checked={constructorData.type === option}
                               onChange={(e) =>
-                                handleConstructorChange('type', e.target.value)
+                                handleConstructorChange("type", e.target.value)
                               }
                               className={styles.radioInput}
                             />
@@ -954,7 +955,7 @@ function AddOrderContent() {
                               value={option}
                               checked={constructorData.color === option}
                               onChange={(e) =>
-                                handleConstructorChange('color', e.target.value)
+                                handleConstructorChange("color", e.target.value)
                               }
                               className={styles.radioInput}
                             />
@@ -986,7 +987,7 @@ function AddOrderContent() {
                               value={option}
                               checked={constructorData.size === option}
                               onChange={(e) =>
-                                handleConstructorChange('size', e.target.value)
+                                handleConstructorChange("size", e.target.value)
                               }
                               className={styles.radioInput}
                             />
@@ -1004,7 +1005,7 @@ function AddOrderContent() {
                       <textarea
                         value={constructorData.description}
                         onChange={(e) =>
-                          handleConstructorChange('description', e.target.value)
+                          handleConstructorChange("description", e.target.value)
                         }
                         className={styles.textarea}
                         placeholder="Вместо футболки хотелось бы поло"
@@ -1072,12 +1073,12 @@ function AddOrderContent() {
 
                         <div className={styles.field}>
                           <label className={styles.label}>
-                            Позиция по вертикали:{' '}
+                            Позиция по вертикали:{" "}
                             {printPosition < 50
-                              ? 'Сверху'
+                              ? "Сверху"
                               : printPosition > 50
-                              ? 'Снизу'
-                              : 'По центру'}{' '}
+                              ? "Снизу"
+                              : "По центру"}{" "}
                             ({printPosition}%)
                           </label>
                           <input
@@ -1094,12 +1095,12 @@ function AddOrderContent() {
 
                         <div className={styles.field}>
                           <label className={styles.label}>
-                            Позиция по горизонтали:{' '}
+                            Позиция по горизонтали:{" "}
                             {printHorizontal < 50
-                              ? 'Слева'
+                              ? "Слева"
                               : printHorizontal > 50
-                              ? 'Справа'
-                              : 'По центру'}{' '}
+                              ? "Справа"
+                              : "По центру"}{" "}
                             ({printHorizontal}%)
                           </label>
                           <input
@@ -1116,12 +1117,12 @@ function AddOrderContent() {
 
                         <div className={styles.field}>
                           <label className={styles.label}>
-                            Размер:{' '}
+                            Размер:{" "}
                             {printSize < 33
-                              ? 'Маленький'
+                              ? "Маленький"
                               : printSize < 66
-                              ? 'Средний'
-                              : 'Большой'}{' '}
+                              ? "Средний"
+                              : "Большой"}{" "}
                             ({printSize}%)
                           </label>
                           <input
@@ -1167,7 +1168,7 @@ function AddOrderContent() {
                           width={300}
                           height={300}
                           className={styles.canvas}
-                          style={{ border: '1px solid #ccc' }}
+                          style={{ border: "1px solid #ccc" }}
                         />
                         {!previewImage && (
                           <div className={styles.loadingText}>
@@ -1191,7 +1192,7 @@ function AddOrderContent() {
                 <input
                   type="number"
                   name="quantity"
-                  value={formData.quantity === 0 ? '' : formData.quantity}
+                  value={formData.quantity === 0 ? "" : formData.quantity}
                   onChange={handleChange}
                   min="1"
                   className={styles.input}
@@ -1219,7 +1220,7 @@ function AddOrderContent() {
                 <input
                   type="number"
                   name="apartment"
-                  value={apartment === 0 ? '' : apartment}
+                  value={apartment === 0 ? "" : apartment}
                   onChange={(e) => setApartment(Number(e.target.value))}
                   placeholder="42"
                   className={styles.input}
@@ -1243,7 +1244,7 @@ function AddOrderContent() {
                 constructorData.size && (
                   <div className={styles.field}>
                     <label className={styles.label}>
-                      Примерная стоимость без доставки:{' '}
+                      Примерная стоимость без доставки:{" "}
                       {constructorData.price * formData.quantity} руб.
                     </label>
                   </div>
@@ -1257,7 +1258,7 @@ function AddOrderContent() {
                 disabled={orderLoading || !previewImage}
                 className={styles.submitButton}
               >
-                {orderLoading ? 'Создание заказа...' : 'Создать заказ'}
+                {orderLoading ? "Создание заказа..." : "Создать заказ"}
               </Button>
             </form>
           </div>
@@ -1276,7 +1277,7 @@ function AddOrderContent() {
           >
             <div className={styles.modalHeader}>
               <h3 className={styles.modalTitle}>
-                Таблица размеров - {constructorData.type || 'Товар'}
+                Таблица размеров - {constructorData.type || "Товар"}
               </h3>
               <button
                 className={styles.closeButton}

@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ChangeProfileFormSchema } from '@/entities/user/model/schemas';
-import { changeProfile } from '@/entities/user/model/thunks';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ChangePasswordForm } from './change-password-form';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ChangeProfileFormSchema } from "@/entities/user/model/schemas";
+import { changeProfile } from "@/entities/user/model/thunks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ChangePasswordForm } from "./change-password-form";
 
 export function ProfileForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,8 +25,8 @@ export function ProfileForm() {
   } = useForm<{ username: string; name: string }>({
     resolver: zodResolver(ChangeProfileFormSchema),
     defaultValues: {
-      username: user?.username || '',
-      name: user?.name || '',
+      username: user?.username || "",
+      name: user?.name || "",
     },
   });
 
@@ -35,17 +35,17 @@ export function ProfileForm() {
       setIsLoading(true);
       // Создаем FormData для отправки файла
       const formData = new FormData();
-      formData.append('username', data.username);
-      formData.append('name', data.name);
+      formData.append("username", data.username);
+      formData.append("name", data.name);
       if (selectedFile) {
-        formData.append('photo', selectedFile);
+        formData.append("photo", selectedFile);
       }
 
       await dispatch(changeProfile(formData as FormData)).unwrap();
       setIsEditing(false);
       setSelectedFile(null);
     } catch (error) {
-      console.error('Profile update error:', error);
+      console.error("Profile update error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -73,9 +73,9 @@ export function ProfileForm() {
             <img
               width={96}
               height={96}
-              src={`${process.env.CLIENT_URL || 'http://localhost:3001'}${
-                user.photo
-              }`}
+              src={`${
+                process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+              }${user.photo}`}
               alt="Profile"
               className="rounded-full object-cover shadow-luxury"
             />
@@ -109,7 +109,7 @@ export function ProfileForm() {
               Логин
             </label>
             <Input
-              {...register('username')}
+              {...register("username")}
               disabled={isLoading}
               className="border-border focus:border-primary focus:ring-primary/20"
             />
@@ -125,7 +125,7 @@ export function ProfileForm() {
               Имя
             </label>
             <Input
-              {...register('name')}
+              {...register("name")}
               disabled={isLoading}
               className="border-border focus:border-primary focus:ring-primary/20"
             />
@@ -160,7 +160,7 @@ export function ProfileForm() {
               disabled={isLoading}
               className="gradient-primary text-primary-foreground border-0 rounded-full font-semibold transition-luxury transform hover:scale-105 shadow-luxury disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
-              {isLoading ? 'Сохранение...' : 'Сохранить'}
+              {isLoading ? "Сохранение..." : "Сохранить"}
             </Button>
             <Button
               type="button"

@@ -1,10 +1,10 @@
-import Portal from '@/components/ui/Portal';
-import { updateOrder } from '@/entities/order/model/thunks';
-import { OrderAdminT } from '@/entities/order/model/types';
-import axiosInstance from '@/shared/api/axiosInstance';
-import { useAppDispatch } from '@/store/hooks';
-import React, { useState, useEffect } from 'react';
-import styles from './AdminOrderCard.module.css';
+import Portal from "@/components/ui/Portal";
+import { updateOrder } from "@/entities/order/model/thunks";
+import { OrderAdminT } from "@/entities/order/model/types";
+import axiosInstance from "@/shared/api/axiosInstance";
+import { useAppDispatch } from "@/store/hooks";
+import React, { useState, useEffect } from "react";
+import styles from "./AdminOrderCard.module.css";
 
 type Props = {
   order: OrderAdminT;
@@ -27,16 +27,16 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
   // Блокировка скролла при открытии модалки
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.width = '100%';
+      document.body.style.overflow = "hidden";
+      document.body.style.width = "100%";
     } else {
-      document.body.style.overflow = 'unset';
-      document.body.style.position = 'static';
+      document.body.style.overflow = "unset";
+      document.body.style.position = "static";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
-      document.body.style.position = 'static';
+      document.body.style.overflow = "unset";
+      document.body.style.position = "static";
     };
   }, [isOpen]);
 
@@ -49,15 +49,15 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
     try {
       const fileName = order.Good.print.slice(7);
       const response = await axiosInstance.get(`/good/prints/${fileName}`, {
-        responseType: 'blob', // ← Это ключевой параметр!
+        responseType: "blob", // ← Это ключевой параметр!
       });
 
       // Создаем URL для blob
       const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
+      const link = document.createElement("a");
 
       link.href = url;
-      link.setAttribute('download', fileName);
+      link.setAttribute("download", fileName);
       document.body.appendChild(link);
       link.click();
 
@@ -65,7 +65,7 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Ошибка скачивания:', error);
+      console.error("Ошибка скачивания:", error);
     }
   };
 
@@ -78,9 +78,9 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
             <img
               width={400}
               height={400}
-              src={`${process.env.CLIENT_URL || 'http://localhost:3001'}${
-                order.Good.image
-              }`}
+              src={`${
+                process.env.CLIENT_URL || "https://ArtDesignGevorgyans.mooo.com"
+              }${order.Good.image}`}
               alt="Изображение товара"
               className="w-full h-full object-cover"
             />
@@ -88,39 +88,39 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
 
           <div className="space-y-2 my-[20px]">
             <div className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Пользователь:</span>{' '}
+              <span className="font-medium text-foreground">Пользователь:</span>{" "}
               {order.User.username}
             </div>
             <div className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Email:</span>{' '}
+              <span className="font-medium text-foreground">Email:</span>{" "}
               {order.User.email}
             </div>
             <div className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Статус:</span>{' '}
+              <span className="font-medium text-foreground">Статус:</span>{" "}
               {order.status}
             </div>
             <div className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Адрес:</span>{' '}
+              <span className="font-medium text-foreground">Адрес:</span>{" "}
               {order.adress}
             </div>
             <div className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Количество:</span>{' '}
+              <span className="font-medium text-foreground">Количество:</span>{" "}
               {order.quantity}
             </div>
             <div className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Размер:</span>{' '}
+              <span className="font-medium text-foreground">Размер:</span>{" "}
               {order.Good.size}
             </div>
             <div className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Стоимость:</span>{' '}
+              <span className="font-medium text-foreground">Стоимость:</span>{" "}
               {order.Good.price * order.quantity} ₽
             </div>
             <div className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Телефон:</span>{' '}
+              <span className="font-medium text-foreground">Телефон:</span>{" "}
               {order.phoneNumber}
             </div>
             <div className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Описание:</span>{' '}
+              <span className="font-medium text-foreground">Описание:</span>{" "}
               {order.Good.description}
             </div>
           </div>
@@ -172,20 +172,20 @@ export default function AdminOrderCard({ order }: Props): React.JSX.Element {
                   <div className={styles.statusOptions}>
                     {[
                       {
-                        value: 'Ожидает подтверждения',
-                        label: 'Ожидает подтверждения',
+                        value: "Ожидает подтверждения",
+                        label: "Ожидает подтверждения",
                       },
-                      { value: 'Ожидает оплату', label: 'Ожидает оплату' },
-                      { value: 'В работе', label: 'В работе' },
-                      { value: 'Завершён', label: 'Завершён' },
-                      { value: 'Отменён', label: 'Отменён' },
+                      { value: "Ожидает оплату", label: "Ожидает оплату" },
+                      { value: "В работе", label: "В работе" },
+                      { value: "Завершён", label: "Завершён" },
+                      { value: "Отменён", label: "Отменён" },
                     ].map((status) => (
                       <label
                         key={status.value}
                         className={`${styles.statusOption} ${
                           editData.status === status.value
                             ? styles.selected
-                            : ''
+                            : ""
                         }`}
                       >
                         <input
