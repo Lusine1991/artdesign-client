@@ -130,6 +130,7 @@ export default function MessageCard(): React.JSX.Element {
             userId: currentUser.id,
           })
         );
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
