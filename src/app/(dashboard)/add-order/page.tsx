@@ -712,7 +712,7 @@ function AddOrderContent() {
 
     function isValidPhone(phone: string) {
       // Удаляем все пробелы и дефисы для проверки
-      const cleanPhone = phone.replace(/[\s\-]/g, "");
+      const cleanPhone = phone.replace(/[\s\-\)\(]/g, "");
 
       // Проверяем разные форматы
       const regex = /^((\+[1-9]\d{0,3})|0)?\d{6,12}$/;
